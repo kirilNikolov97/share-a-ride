@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <h3 class="col-md-9">Your Cars:</h3>
+        <a (click)="navigation.open('profile/cars/create')" class="col-md-3">
+          <button type="button" class="btn btn-primary float-right">+ Add New Car</button>
+        </a>
+      </div>
+      <div class="row">
+        <div *ngFor="let car of cars; let i = index">
+          <div class="card m-4" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{car.manufacturer + ' ' + car.model}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{car.year}}</h6>
+              <p class="card-text">{{car.color + ", " + car.seats + " seats, " + car.year}}</p>
+              <a (click)="navigation.open('profile/cars/edit/' + car.id)">
+                <button type="button" class="btn btn-warning">Edit</button>
+              </a>
+              <a href="profile/cars">
+                <button (click)="deleteCar(car.id)" type="button" class="btn btn-danger float-right">Delete</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="container">
+
+
+  <form #routeForm="ngForm" (ngSubmit)="onSubmit()">
+    <h3 class="row">Save a Seat for:</h3>
+
+    <!-- Date -->
+    <div class="row">
+      <label for="date">Date:</label>
+      <div id="date">{{this.route.dateRoute}}</div>
+    </div>
+
+    <!-- Car -->
+    <div class="row">
+      <label for="car">Car:</label>
+      <div id="car">{{this.car.manufacturer + ' ' + this.car.model + ' ' + this.car.year}}</div>
+    </div>
+
+    <!-- From -->
+    <div class="row">
+      <label for="from">From:</label>
+      <div id="from">
+        {{
+          this.startAddressRoute.city.name + ' ' +
+          this.startAddressRoute.district + ' ' +
+          this.startAddressRoute.street + ' ' +
+          this.startAddressRoute.additionalInfo
+        }}
+      </div>
+    </div>
+
+    <!-- Seats -->
+    <div class="row">
+      <label for="seats">Seats:</label>
+      <div id="seats">
+        <span *ngIf="route.routeStops.length < car.seats">{{car.seats - route.routeStops.length}} free seat(s) left.</span>
+        <span *ngIf="route.routeStops.length >= car.seats">There are no free seats left.</span>
+      </div>
+    </div>
+
+    <!-- Addresses -->
+    <div class="form-group">
+      <label for="where">From where:</label>
+      <div>
+        <select id="where" [(ngModel)]="selectedAddress" name="address">
+          <option value="" >Choose your address</option>
+          <option *ngFor="let address of userAddresses" [ngValue]="address" >
+            {{address.city.name + ', ' + address.district + ', ' + address.street}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+
+    <button *ngIf="route.routeStops.length < car.seats" type="submit" class="btn btn-primary">Save a Seat</button>
+    <span class="btn btn-secondary" *ngIf="route.routeStops.length >= car.seats"> No free seats. :(</span>
+  </form>
+</div>

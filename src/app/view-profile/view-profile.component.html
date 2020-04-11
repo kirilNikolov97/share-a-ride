@@ -1,0 +1,212 @@
+<div class="container">
+
+  <!-- Username -->
+  <div class="form-group row">
+    <label for="username" class="col-sm-2 col-form-label">Username</label>
+    <div class="col-sm-10">
+
+      <span *ngIf="tokenStorageService.getUser().username === user.username">
+        <input type="text" readonly class="form-control-plaintext" value="{{user.username}} (you)">
+      </span>
+
+      <span *ngIf="tokenStorageService.getUser().username !== user.username">
+        <input type="text" readonly class="form-control-plaintext" value="{{user.username}}">
+      </span>
+    </div>
+  </div>
+
+  <!-- First Name -->
+  <div class="form-group row">
+    <label for="firstName" class="col-sm-2 col-form-label">First Name:</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="firstName" value="{{user.firstName}}">
+    </div>
+  </div>
+
+  <!-- Last Name -->
+  <div class="form-group row">
+    <label for="lastName" class="col-sm-2 col-form-label">Last Name:</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="lastName" value="{{user.lastName}}">
+    </div>
+  </div>
+
+  <!-- Phone -->
+  <div class="form-group row">
+    <label for="phone" class="col-sm-2 col-form-label">Phone:</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="phone" value="{{user.phone}}">
+    </div>
+  </div>
+
+  <!-- Rating -->
+  <div class="form-group row">
+    <label for="rating" class="col-sm-2 col-form-label">Rating:</label>
+    <div class="col-sm-10">
+      <input *ngIf="myRating" type="text" readonly class="form-control-plaintext" id="rating" value="{{myRating}}">
+      <input *ngIf="!myRating" type="text" readonly class="form-control-plaintext" id="rating" value="No ratings">
+    </div>
+  </div>
+
+  <!-- Is Driver? -->
+  <div class="form-group row">
+    <label for="driver" class="col-sm-2 col-form-label">Is driver?</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="driver" value="{{user.driver}}">
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage != ''" class="text-danger">{{errorMessage}}</div>
+
+  <button *ngIf="tokenStorageService.getUser().username !== user.username" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Rate {{user.username}}
+  </button>
+
+
+  <!-- Future Routes - Driver -->
+  <div class="row">
+    <h3>Future Routes as a Driver:</h3>
+  </div>
+  <div class="row">
+    <table class="table">
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">From</th>
+        <th scope="col">To</th>
+        <th scope="col">Car</th>
+        <th scope="col">Free Seats</th>
+      </tr>
+
+      <tr *ngFor="let route of this.futureRoutes">
+        <td>{{route.dateRoute.toString().split('T').join(' ')}}</td>
+
+        <!-- From -->
+        <td>
+          <span *ngIf="route.officeDirection">
+            <span *ngFor="let routeStop of this.route.routeStops">
+              <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                {{routeStop.address.district + ' ' + routeStop.address.street}}
+              </span>
+            </span>
+          </span>
+
+          <span *ngIf="!route.officeDirection">
+            Office
+          </span>
+        </td>
+
+        <!-- To -->
+        <td>
+          <span *ngIf="route.officeDirection">
+            Office
+          </span>
+
+          <span *ngIf="!route.officeDirection">
+            <span *ngFor="let routeStop of this.route.routeStops">
+              <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                {{routeStop.address.district + ' ' + routeStop.address.street}}
+              </span>
+            </span>
+          </span>
+        </td>
+
+
+        <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
+        <td>
+          {{route.car.seats - route.routeStops.length}}
+        </td>
+
+      </tr>
+
+    </table>
+  </div>
+
+
+
+
+  <!-- Past Routes - Driver -->
+  <div class="row">
+    <h3>Past Routes as a Driver:</h3>
+  </div>
+  <div class="row">
+    <table class="table">
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">From</th>
+        <th scope="col">To</th>
+        <th scope="col">Car</th>
+        <th scope="col">Free Seats</th>
+      </tr>
+
+      <tr *ngFor="let route of this.pastRoutes">
+        <td>{{route.dateRoute.toString().split('T').join(' ')}}</td>
+
+        <!-- From -->
+        <td>
+          <span *ngIf="route.officeDirection">
+            <span *ngFor="let routeStop of this.route.routeStops">
+              <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                {{routeStop.address.district + ' ' + routeStop.address.street}}
+              </span>
+            </span>
+          </span>
+
+          <span *ngIf="!route.officeDirection">
+            Office
+          </span>
+        </td>
+
+        <!-- To -->
+        <td>
+          <span *ngIf="route.officeDirection">
+            Office
+          </span>
+
+          <span *ngIf="!route.officeDirection">
+            <span *ngFor="let routeStop of this.route.routeStops">
+              <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                {{routeStop.address.district + ' ' + routeStop.address.street}}
+              </span>
+            </span>
+          </span>
+        </td>
+
+
+        <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
+        <td>
+          {{route.car.seats - route.routeStops.length}}
+        </td>
+
+      </tr>
+
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Rating</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Rate this user:
+          <select id="where" [(ngModel)]="currentRate" name="address">
+            <option *ngFor="let number of [1,2,3,4,5]" [ngValue]="number" >
+              {{number}}
+            </option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="rateUser()">Rate</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

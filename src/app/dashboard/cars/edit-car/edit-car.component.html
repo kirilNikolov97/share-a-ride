@@ -1,0 +1,104 @@
+<div class="container">
+  <form #ngForm="ngForm" (ngSubmit)="onSubmit(ngForm)">
+
+    <!-- Manufacturer -->
+    <div class="form-group">
+      <label for="manufacturer">Manufacturer</label>
+      <input class="form-control" id="manufacturer" name="manufacturer" [(ngModel)]="car.manufacturer" required minlength="2" maxlength="30" #manufacturer="ngModel">
+
+      <!-- Validation for Manufacturer -->
+      <div *ngIf="manufacturer.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+        <div *ngIf="manufacturer.errors.minlength" class="text-danger">
+          Manufacturer must be at least 2 characters long.
+        </div>
+        <div *ngIf="manufacturer.errors.maxlength" class="text-danger">
+          Manufacturer must be maximum 30 characters long.
+        </div>
+        <div *ngIf="manufacturer.errors.required" class="text-danger">
+          Manufacturer is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Model -->
+    <div class="form-group">
+      <label for="model">Model</label>
+      <input class="form-control" id="model" name="model" [(ngModel)]="car.model" required minlength="2" maxlength="30" #model="ngModel">
+
+      <!-- Validation for Model -->
+      <div *ngIf="model.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+        <div *ngIf="model.errors.minlength" class="text-danger">
+          Model must be at least 2 characters long.
+        </div>
+        <div *ngIf="model.errors.maxlength" class="text-danger">
+          Model must be maximum 30 characters long.
+        </div>
+        <div *ngIf="model.errors.required" class="text-danger">
+          Model is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Year -->
+    <div class="form-group">
+      <label for="year">Year</label>
+      <input class="form-control" id="year" name="year" [(ngModel)]="car.year" required minlength="4" maxlength="4" #year="ngModel">
+
+      <!-- Validation for Year -->
+      <div *ngIf="year.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+        <div *ngIf="year.errors.minlength" class="text-danger">
+          Year must be 4 digits long.
+        </div>
+        <div *ngIf="year.errors.maxlength" class="text-danger">
+          Year must be 4 digits long.
+        </div>
+        <div *ngIf="year.errors.required" class="text-danger">
+          Year is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Seats -->
+    <div class="form-group">
+      <label for="seats">Seats (With the driver seat!)</label>
+      <input class="form-control" id="seats" name="seats" [(ngModel)]="car.seats" required minlength="1" maxlength="2" #seats="ngModel">
+
+      <!-- Validation for Seats -->
+      <div *ngIf="seats.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+        <div *ngIf="seats.errors.minlength" class="text-danger">
+          Seats must be 1 digit long.
+        </div>
+        <div *ngIf="seats.errors.maxlength" class="text-danger">
+          Seats must be 2 digits long.
+        </div>
+        <div *ngIf="seats.errors.required" class="text-danger">
+          Seats are required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Color -->
+    <div class="form-group">
+      <label for="color">Color</label>
+      <input class="form-control" id="color" name="color" [(ngModel)]="car.color" required minlength="3" maxlength="30" #color="ngModel">
+
+      <!-- Validation for Color -->
+      <div *ngIf="color.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+        <div *ngIf="color.errors.minlength" class="text-danger">
+          Color must be at least 3 characters long.
+        </div>
+        <div *ngIf="color.errors.maxlength" class="text-danger">
+          Color must be maximum 30 digits long.
+        </div>
+        <div *ngIf="seats.errors.required" class="text-danger">
+          Color is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="text-danger">{{errorMessage}}</div>
+
+    <button type="submit" class="btn btn-primary">Update Car</button>
+  </form>
+</div>

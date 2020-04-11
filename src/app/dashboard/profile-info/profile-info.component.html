@@ -1,0 +1,152 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- Sidebar -->
+    <div class="col-md-2">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <!-- Profile Info -->
+    <div class="col-md-10">
+      <div class="row">
+        <h3 class="col-md-9">Your Personal Info:</h3>
+      </div>
+
+      <div class="row">
+        <div class="col col-md-8">
+
+          <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+
+            <!-- First Name -->
+            <div class="form-group">
+              <label for="firstName">First name</label>
+              <input class="form-control" id="firstName" [(ngModel)]="user.firstName" name="firstName" required minlength="2" maxlength="30" #firstName="ngModel">
+
+              <!-- Validation for First Name -->
+              <div *ngIf="firstName.errors && userForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+                <div *ngIf="firstName.errors.minlength" class="text-danger">
+                  First name must be at least 2 characters long.
+                </div>
+                <div *ngIf="firstName.errors.maxlength" class="text-danger">
+                  First name must be maximum 30 characters long.
+                </div>
+                <div *ngIf="firstName.errors.required" class="text-danger">
+                  First name is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="form-group">
+              <label for="lastName">Last name</label>
+              <input class="form-control" id="lastName" [(ngModel)]="user.lastName" name="lastName" required minlength="2" maxlength="30" #lastName="ngModel">
+
+              <!-- Validation for Last Name -->
+              <div *ngIf="lastName.errors && userForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+                <div *ngIf="lastName.errors.minlength" class="text-danger">
+                  Last name must be at least 2 characters long.
+                </div>
+                <div *ngIf="lastName.errors.maxlength" class="text-danger">
+                  Last name must be maximum 30 characters long.
+                </div>
+                <div *ngIf="lastName.errors.required" class="text-danger">
+                  Last name is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input class="form-control" id="phone" [(ngModel)]="user.phone" name="phone" required minlength="5" maxlength="10" #phone="ngModel">
+
+              <!-- Validation for Last Name -->
+              <div *ngIf="phone.errors && userForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+                <div *ngIf="phone.errors.minlength" class="text-danger">
+                  Phone must be at least 5 characters long.
+                </div>
+                <div *ngIf="phone.errors.maxlength" class="text-danger">
+                  Phone must be maximum 10 characters long.
+                </div>
+                <div *ngIf="phone.errors.required" class="text-danger">
+                  Phone is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input class="form-control" id="email" [(ngModel)]="user.email" name="email" required minlength="7" maxlength="60" #email="ngModel">
+
+              <!-- Validation for Email -->
+              <div *ngIf="email.errors && userForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+                <div *ngIf="email.errors.minlength" class="text-danger">
+                  Email must be at least 7 characters long.
+                </div>
+                <div *ngIf="email.errors.maxlength" class="text-danger">
+                  Email must be maximum 60 characters long.
+                </div>
+                <div *ngIf="email.errors.required" class="text-danger">
+                  Email is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="text-danger">{{errorUserMessage}}</div>
+            <div class="text-success">{{successUserMessage}}</div>
+
+            <button type="submit" class="btn btn-primary">Update Personal Info</button>
+
+          </form>
+        </div>
+
+        <!-- Change Password Form -->
+        <div class="col col-md-4">
+          <h4 class="row">Change Password</h4>
+
+          <form #passForm="ngForm" (ngSubmit)="changePass(passForm)">
+
+            <!-- Old Password -->
+            <div class="form-group">
+              <label for="oldPassword">Old Password</label>
+              <input id="oldPassword" type="password" class="form-control" name="password" [(ngModel)]="changePassword.oldPassword" required #oldPassword="ngModel"/>
+
+              <!-- Validation for Old Password -->
+              <div *ngIf="oldPassword.errors && passForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+                <div *ngIf="oldPassword.errors.required" class="text-danger">
+                  Old password is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- New Password -->
+            <div class="form-group">
+              <label for="newPassword">New Password</label>
+              <input id="newPassword" type="password" class="form-control" name="password" [(ngModel)]="changePassword.newPassword" required minlength="6" #newPassword="ngModel"/>
+
+              <!-- Validation for New Password -->
+              <div *ngIf="newPassword.errors && passForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+                <div *ngIf="newPassword.errors.minlength" class="text-danger">
+                  New password must be at least 6 characters.
+                </div>
+                <div *ngIf="newPassword.errors.required" class="text-danger">
+                  New password is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="text-success">{{successPasswordMessage}}</div>
+            <div *ngIf="errorPasswordMessage !== ''" class="text-danger">{{errorPasswordMessage}}</div>
+
+            <button type="submit" class="btn btn-primary">Change Password</button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

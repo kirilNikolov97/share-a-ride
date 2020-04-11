@@ -1,0 +1,21 @@
+<h3>Menu</h3>
+<ul class="list-group">
+  <li class="list-group-item">
+    <a class="wide btn" (click)="navigation.open('profile')">General</a>
+  </li>
+  <li class="list-group-item">
+    <a class="wide btn" (click)="navigation.open('profile/info')">Profile Information</a>
+  </li>
+  <li class="list-group-item">
+    <a class="wide btn" (click)="navigation.open('profile/address')">Address</a>
+  </li>
+  <li *ngIf="tokenStorageService.getUser().driver" class="list-group-item">
+    <a class="wide btn" (click)="navigation.open('profile/cars')">Cars</a>
+  </li>
+  <li class="list-group-item">
+    <a class="wide btn" (click)="navigation.open('/profile/routes')">Routes</a>
+  </li>
+  <li *ngIf="!tokenStorageService.getUser().driver" class="list-group-item">
+    <a class="wide btn" (click)="navigation.open('/profile/become-driver')">Become a Driver</a>
+  </li>
+</ul>

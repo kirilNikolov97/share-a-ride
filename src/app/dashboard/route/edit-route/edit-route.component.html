@@ -1,0 +1,88 @@
+<div class="container">
+  <form #routeForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <!-- Direction -->
+    <div class="form-group">Direction:</div>
+    <div *ngIf="!officeDirection">
+      <div class="btn btn-info" >Office</div>
+      <div class="btn btn-light" (click)="changeDirection()" >Home</div>
+    </div>
+    <div *ngIf="officeDirection">
+      <div class="btn btn-light" (click)="changeDirection()" >Office</div>
+      <div class="btn btn-info" >Home</div>
+    </div>
+
+    <!-- Addresses -->
+    <div class="form-group">
+      <label for="where">From where:</label>
+      <div>
+        <select id="where" [(ngModel)]="selectedAddress.id" name="selectedAddress">
+          <option *ngFor="let address of addresses" [ngValue]="address.id" [selected]="address?.id == selectedAddress?.id">
+            {{address.city.name + ', ' + address.district + ', ' + address.street}}
+          </option>
+        </select>
+      </div>
+
+      <!-- Validation for Addresses -->
+      <div *ngIf="!selectedAddress.id && routeForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+        <div class="text-danger">
+          Address is required.
+        </div>
+      </div>
+    </div>
+
+    <!-- Date -->
+    <div class="form-group">
+      <label>Date Time:</label>
+      <div>
+        <input [(ngModel)]="date" [min]="today" [owlDateTimeTrigger]="dtPicker1" [owlDateTime]="dtPicker1" name="date">
+        <owl-date-time #dtPicker1></owl-date-time>
+      </div>
+    </div>
+
+    <!-- Cars -->
+    <div class="form-group">
+      <label for="car">Which Car:</label>
+      <div>
+        <select id="car" [(ngModel)]="selectedCar.id" name="car">
+          <option name="car" value="">Choose your car</option>
+          <option *ngFor="let car of cars" [ngValue]="car.id" [selected]="car?.id == selectedCar?.id">
+            {{car.manufacturer + ', ' + car.model + ', ' + car.year}}
+          </option>
+        </select>
+      </div>
+
+      <!-- Validation for Cars -->
+      <div *ngIf="!selectedCar.id && routeForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+        <div class="text-danger">
+          Car is required.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Route</button>
+    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#cancelRoute">Cancel Route</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="cancelRoute" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to cancel the route?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Once you cancel the route you can not revert it.
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="cancelRoute()" class="btn btn-primary">The route will not happen!</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

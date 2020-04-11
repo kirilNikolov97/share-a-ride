@@ -1,0 +1,105 @@
+<div class="container">
+
+  <div class="row justify-content-center">
+    <h2 class="justify-content-center">All Future Routes</h2>
+  </div>
+
+  <div class="row justify-content-center">
+    <div>Top Users</div><br>
+    <div *ngFor="let user of this.topUsers">
+      <div>{{user.user.username}}</div><br>
+      <div>{{user.numberRides}}</div><br>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <span>Sort by:</span>
+      <a type="button" class="btn btn-light" (click)="sort('date_asc')" >Date Asc</a>
+      <a type="button" class="btn btn-light" (click)="sort('date_desc')" >Date Desc</a>
+    </div>
+
+    <div  class="col">
+      <div>From:</div>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [(ngModel)]="fromDate" [matDatepicker]="picker" (dateInput)="changeStartDate('input', $event)" [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div  class="col">
+      <div>To:</div>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [(ngModel)]="toDate" [matDatepicker]="picker2" (dateInput)="changeEndDate('input', $event)" [min]="minDate">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <button mat-button (click)="filterRoutesByDates()">Filter</button>
+
+    <div class="col btn btn-primary" (click)="filterByDirection(true)" >Going to office</div>
+    <div class="col btn btn-primary" (click)="filterByDirection(false)">Going to home</div>
+    <div class="col btn btn-primary" (click)="clearFilterAndSort()">Clear Filters and Sorting</div>
+  </div>
+
+  <div class="row">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Car</th>
+        <th scope="col">Driver</th>
+        <th scope="col">From Where</th>
+        <th scope="col">To Where</th>
+        <th scope="col">Save a Seat</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of this.rows">
+        <td>{{row.date + ' ' + row.time}}</td>
+        <td>{{row.carName}}</td>
+        <td><div class="btn btn-primary" (click)="openProfile(row.driverId)"> {{row.driverName}}</div></td>
+        <td>
+          <span *ngIf="row.officeDirection">
+            {{row.fromWhere}}
+          </span>
+
+          <span *ngIf="!row.officeDirection">
+            Office
+          </span>
+        </td>
+        <td>
+          <span *ngIf="row.officeDirection">
+            Office
+          </span>
+
+          <span *ngIf="!row.officeDirection">
+            {{row.fromWhere}}
+          </span>
+        </td>
+        <td>
+          <a *ngIf="row.driverName != tokenStorage.getUser().username" class="btn btn-info" href="/route/{{row.id}}">Reserve</a>
+          <a *ngIf="row.driverName == tokenStorage.getUser().username" class="btn btn-secondary" >Reserve</a>
+          <button type="button" class="btn btn-primary float-right" (click)="viewOnMap(row.id)" >View</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row justify-content-center">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        <a *ngIf="currentPage > 1" class="page-item"><a class="page-link" (click)="goToPage(currentPage - 1)">{{currentPage - 1}}</a></a>
+        <a *ngIf="currentPage == 1" class="page-item"><a class="page-link" (click)="goToPage(currentPage)">{{currentPage}}</a></a>
+        <a *ngIf="currentPage != 1" class="page-item"><a class="page-link">...</a></a>
+        <a class="page-item"><a class="page-link" (click)="goToPage(currentPage + 1)">{{currentPage + 1}}</a></a>
+      </ul>
+    </nav>
+  </div>
+
+
+</div>

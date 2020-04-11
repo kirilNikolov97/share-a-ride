@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <h3 class="col-md-9">Your Addresses:</h3>
+        <a (click)="this.navigation.open('profile/address/create')" class="col-md-3"><button type="button" class="btn btn-primary float-right">+ Add New Address</button></a>
+      </div>
+      <div class="row">
+        <div *ngFor="let address of this.addresses">
+          <div class="card m-4" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{address.district}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{address.city.name}}</h6>
+              <p class="card-text">{{address.district + ", " + address.city.name + ", " + address.street}}</p>
+              <a (click)="navigation.open('profile/address/edit/' + address.id)"><button type="button" class="btn btn-warning">Edit</button></a>
+              <a><button (click)="deleteAddress(address.id)" type="button" class="btn btn-danger float-right">Delete</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

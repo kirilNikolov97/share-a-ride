@@ -1,0 +1,103 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-md-10">
+
+      <!-- Unapproved route stops -->
+      <h3>Waiting for approval</h3>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let route of this.futureRoutesAsDriver" class="list-group-item">
+          <table class="table">
+            <tr>
+              <th scope="col">{{route.dateRoute.toString().split('T').join(' ')}}</th>
+
+              <th>
+                From:
+               <span *ngIf="route.officeDirection">
+                <span *ngFor="let routeStop of this.route.routeStops">
+                  <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                    {{routeStop.address.district + ' ' + routeStop.address.street}}
+                  </span>
+                </span>
+               </span>
+
+               <span *ngIf="!route.officeDirection">
+                 Office
+               </span>
+              </th>
+
+              <th scope="col">
+                To:
+                <span *ngIf="!route.officeDirection">
+                <span *ngFor="let routeStop of this.route.routeStops">
+                  <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                    {{routeStop.address.district + ' ' + routeStop.address.street}}
+                  </span>
+                </span>
+               </span>
+
+                <span *ngIf="route.officeDirection">
+                 Office
+               </span>
+              </th>
+
+              <th scope="col">{{route.car.manufacturer}}</th>
+              <th scope="col">{{route.car.seats - route.routeStops.length}} free seat(s)</th>
+            </tr>
+
+            <tr *ngFor="let routeStop of this.route.routeStops">
+              <ng-container *ngIf="!routeStop.approved">
+                <td> {{routeStop.address.district}} </td>
+                <td> {{routeStop.address.street}} </td>
+                <td> Username: {{routeStop.userId.username}} </td>
+                <td> Approved: {{routeStop.approved}} </td>
+                <td>
+                  <button type="button" class="btn btn-primary float-right" (click)="viewOnMap(route.id, routeStop.id)" >View</button>
+                  <button type="button" class="btn btn-primary float-right" (click)="approveRouteStop(routeStop.id)" >Approve</button>
+                </td>
+              </ng-container>
+            </tr>
+
+          </table>
+        </li>
+      </ul>
+
+      <!-- Addresses -->
+      <h3>Addresses:</h3>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let address of this.user.addresses" class="list-group-item">
+          {{ address.district }},{{ address.city.name }},{{ address.street }}
+          <span *ngIf="address.additionalInfo">
+            , {{ address.additionalInfo }}
+          </span>
+        </li>
+      </ul>
+
+      <!-- Email -->
+      <h3>Email:</h3>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          {{this.user.email}}
+        </li>
+      </ul>
+
+      <!-- Phone -->
+      <h3>Phone:</h3>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item ">
+          {{this.user.phone}}
+        </li>
+      </ul>
+
+      <!-- Cars -->
+      <h3>Cars:</h3>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let car of this.user.cars" class="list-group-item">
+          {{ car.color + ' ' + car.manufacturer + ' ' + car.model + ' ' + car.year }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

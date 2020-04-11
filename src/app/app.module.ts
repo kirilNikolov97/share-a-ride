@@ -92,7 +92,7 @@ import {AuthGuard} from './_services/auth.guard';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCXtPvQGtMNUhR0FA4BEo2y45fg3ZarYC4',
+      apiKey: '',
       libraries: ['places']
     })
   ],

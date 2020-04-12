@@ -24,7 +24,6 @@ export class ProfileComponent implements OnInit {
 
     this.apiServiceProfile.getUser().subscribe( res => {
       this.user = res;
-      console.log(res);
     });
 
     this.apiServiceProfile.getFutureUserRoutesAsDriver().subscribe( res => {

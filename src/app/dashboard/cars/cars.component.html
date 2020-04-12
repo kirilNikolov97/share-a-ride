@@ -4,12 +4,16 @@
       <app-sidebar></app-sidebar>
     </div>
     <div class="col-md-10">
+
       <div class="row">
         <h3 class="col-md-9">Your Cars:</h3>
         <a (click)="navigation.open('profile/cars/create')" class="col-md-3">
           <button type="button" class="btn btn-primary float-right">+ Add New Car</button>
         </a>
       </div>
+      <div class="text-danger">{{errorMessage}}</div>
+
+
       <div class="row">
         <div *ngFor="let car of cars; let i = index">
           <div class="card m-4" style="width: 18rem;">
@@ -20,7 +24,7 @@
               <a (click)="navigation.open('profile/cars/edit/' + car.id)">
                 <button type="button" class="btn btn-warning">Edit</button>
               </a>
-              <a href="profile/cars">
+              <a>
                 <button (click)="deleteCar(car.id)" type="button" class="btn btn-danger float-right">Delete</button>
               </a>
             </div>

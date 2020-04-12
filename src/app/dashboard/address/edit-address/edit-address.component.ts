@@ -21,7 +21,6 @@ export class EditAddressComponent implements OnInit {
   zoom: number;
   address: string;
   private geoCoder;
-  showGoogleMaps: boolean;
   cities: City[];
   addressId: string;
   selectedCity: City;
@@ -40,7 +39,6 @@ export class EditAddressComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.showGoogleMaps = false;
     this.selectedCity = new City();
     this.addressClass = new Address();
     this.apiServiceProfile.getAllCities().subscribe(res => {
@@ -151,10 +149,5 @@ export class EditAddressComponent implements OnInit {
     this.apiServiceProfile.updateAddress(this.addressClass).subscribe(res => {
       this.navigate.open('profile/address');
     });
-  }
-
-
-  change() {
-    this.showGoogleMaps = !this.showGoogleMaps;
   }
 }

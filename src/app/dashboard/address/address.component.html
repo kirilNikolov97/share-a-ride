@@ -3,11 +3,16 @@
     <div class="col-md-2">
       <app-sidebar></app-sidebar>
     </div>
+
     <div class="col-md-10">
+
       <div class="row">
         <h3 class="col-md-9">Your Addresses:</h3>
         <a (click)="this.navigation.open('profile/address/create')" class="col-md-3"><button type="button" class="btn btn-primary float-right">+ Add New Address</button></a>
       </div>
+      <div class="text-danger">{{errorMessage}}</div>
+
+
       <div class="row">
         <div *ngFor="let address of this.addresses">
           <div class="card m-4" style="width: 18rem;">

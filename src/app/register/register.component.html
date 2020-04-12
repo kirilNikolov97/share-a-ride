@@ -19,7 +19,7 @@
           [(ngModel)]="form.username"
           required
           minlength="3"
-          maxlength="20"
+          maxlength="22"
           #username="ngModel"
         />
         <div class="alert-danger" *ngIf="f.submitted && username.invalid">
@@ -36,17 +36,21 @@
       <!-- Names -->
       <div class="form-group form-row mb-4">
 
+        <!-- First name -->
         <div class="col">
-          <!-- First name -->
-          <input
-            type="text"
-            class="form-control"
-            name="firstName"
-            [(ngModel)]="form.firstName"
-            #firstName="ngModel"
-            placeholder="First name"
-            minlength="2"
-          >
+          <input type="text" class="form-control" name="firstName" [(ngModel)]="form.firstName" #firstName="ngModel" placeholder="First name" required minlength="2" maxlength="30">
+
+          <div class="alert-danger" *ngIf="f.submitted && firstName.invalid">
+            <div *ngIf="firstName.errors.required">
+              First name is required
+            </div>
+            <div *ngIf="firstName.errors.minlength">
+              First name must be at least 2 characters
+            </div>
+            <div *ngIf="firstName.errors.maxlength">
+              First name must be maximum 30 required
+            </div>
+          </div>
         </div>
 
         <div class="col">
@@ -56,14 +60,28 @@
             class="form-control"
             name="lastName"
             [(ngModel)]="form.lastName"
-            #firstName="ngModel"
+            #lastName="ngModel"
             placeholder="Last name"
+            required
             minlength="2"
+            maxlength="30"
           >
+
+          <div class="alert-danger" *ngIf="f.submitted && lastName.invalid">
+            <div *ngIf="lastName.errors.required">
+              Last name is required
+            </div>
+            <div *ngIf="lastName.errors.minlength">
+              Last name must be at least 2 characters
+            </div>
+            <div *ngIf="lastName.errors.maxlength">
+              Last name must be at most 30 characters
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Names -->
+      <!-- Phone -->
       <div class="form-group form-row mb-4">
         <input
           type="number"
@@ -72,10 +90,22 @@
           placeholder="Phone"
           [(ngModel)]="form.phone"
           required
-          minlength="10"
+          minlength="5"
           maxlength="10"
           #phone="ngModel"
         />
+
+        <div class="alert-danger" *ngIf="f.submitted && phone.invalid">
+          <div *ngIf="phone.errors.required">
+            Phone is required
+          </div>
+          <div *ngIf="phone.errors.minlength">
+            Phone must be minimum 5 numbers
+          </div>
+          <div *ngIf="phone.errors.maxlength">
+            Phone must be maximum 10 numbers
+          </div>
+        </div>
       </div>
 
       <!-- Email -->

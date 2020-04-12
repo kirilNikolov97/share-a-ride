@@ -1,4 +1,5 @@
 <div class="container">
+  <div class="content">
   <form #ngForm="ngForm" (ngSubmit)="onSubmit(ngForm)">
 
     <!-- Cities -->
@@ -19,6 +20,14 @@
         </div>
       </div>
     </div>
+
+    <!-- Google Maps -->
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+    <h6>Address: {{address}}</h6>
+    {{this.latitude}}
+    {{this.longitude}}
 
     <!-- District -->
     <div class="form-group">
@@ -70,27 +79,12 @@
       </div>
     </div>
 
-    <!-- Google Maps -->
-    <div [hidden]="!showGoogleMaps" >
-      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
-      </agm-map>
-
-      <h6>Address: {{address}}</h6>
-
-<!--      <div class="form-group">-->
-<!--        <label>Enter address</label>-->
-<!--        <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>-->
-<!--      </div>-->
-    </div>
-
-
     <div class="text-danger">{{errorMessage}}</div>
 
     <button type="submit" class="btn btn-primary">Add New Address</button>
-    <button (click)="chooseFromMaps()" type="button" class="btn btn-primary float-right">Choose from Maps</button>
 
   </form>
+  </div>
 </div>
 
 

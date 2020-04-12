@@ -26,7 +26,13 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = false;
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = 'Something went wrong. Try again later';
+        console.log(err.error.message);
+        if (err.error.message.toLowerCase().includes('username')) {
+          this.errorMessage = 'Username is already taken';
+        } else if (err.error.message.includes('Email')) {
+          this.errorMessage = 'Email is already taken';
+        }
         this.isSignUpFailed = true;
       }
     );

@@ -11,6 +11,7 @@ import {NavigationService} from '../../_services/navigation.service';
 export class AddressComponent implements OnInit {
 
   addresses: Address[];
+  errorMessage = '';
 
   constructor(private apiServiceProfile: ProfileApiService, private navigation: NavigationService) { }
 
@@ -22,10 +23,12 @@ export class AddressComponent implements OnInit {
   }
 
   deleteAddress(addressId) {
-    this.apiServiceProfile.deleteAddress(addressId).subscribe( res => {
-      console.log('Address ID: ' + addressId);
-    });
-    this.navigation.reload();
+    this.apiServiceProfile.deleteAddress(addressId).subscribe(
+      res => {
+        this.navigation.reload();
+      }, err => {
+        this.errorMessage = 'This address is assigned to future route and cannot be deleted.';
+      });
   }
 
 }

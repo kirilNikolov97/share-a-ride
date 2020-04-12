@@ -2,9 +2,11 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; position: relative;}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0 0 5% 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 footer {
-  position: absolute;
-  bottom: 0;
+  position: fixed;
   width: 100%;
+  left: 0;
+  bottom: 0;
+  overflow:hidden;
 }

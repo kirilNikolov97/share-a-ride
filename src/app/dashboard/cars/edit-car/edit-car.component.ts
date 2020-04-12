@@ -45,6 +45,9 @@ export class EditCarComponent implements OnInit {
         this.navigation.open('profile/cars');
       }, err => {
         this.errorMessage = err.error.message;
+        if (this.errorMessage === '') {
+          this.errorMessage = 'Please fill all necessary fields.';
+        }
       });
   }
 }

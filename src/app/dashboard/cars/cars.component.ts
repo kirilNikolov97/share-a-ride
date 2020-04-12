@@ -11,6 +11,7 @@ import {NavigationService} from '../../_services/navigation.service';
 export class CarsComponent implements OnInit {
 
   cars: Car[];
+  errorMessage = '';
 
   constructor(private apiServiceProfile: ProfileApiService, private navigation: NavigationService) { }
 
@@ -21,8 +22,11 @@ export class CarsComponent implements OnInit {
   }
 
   deleteCar(id) {
-    this.apiServiceProfile.deleteCar(id).subscribe(res => {
-      console.log(res);
-    });
+    this.apiServiceProfile.deleteCar(id).subscribe(
+      res => {
+        this.navigation.reload();
+      }, err => {
+        this.errorMessage = 'This car is assigned to future route and cannot be deleted.';
+      });
   }
 }

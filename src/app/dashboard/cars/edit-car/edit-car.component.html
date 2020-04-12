@@ -84,14 +84,14 @@
 
       <!-- Validation for Color -->
       <div *ngIf="color.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+        <div *ngIf="color.errors.required" class="text-danger">
+          Color is required.
+        </div>
         <div *ngIf="color.errors.minlength" class="text-danger">
           Color must be at least 3 characters long.
         </div>
         <div *ngIf="color.errors.maxlength" class="text-danger">
           Color must be maximum 30 digits long.
-        </div>
-        <div *ngIf="seats.errors.required" class="text-danger">
-          Color is required.
         </div>
       </div>
     </div>

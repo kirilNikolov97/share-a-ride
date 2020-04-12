@@ -18,6 +18,16 @@
       </div>
     </div>
 
+    <!-- Google maps -->
+    <div class="form-group">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+    <h5>Address: {{address}}</h5>
+    </div>
+
+
+    <!-- District -->
     <div class="form-group">
       <label for="districtId">District</label>
       <input class="form-control" id="districtId" [(ngModel)]="addressClass.district" name="district" required minlength="2" maxlength="64" #district="ngModel">
@@ -65,24 +75,10 @@
       </div>
     </div>
 
-    <div [hidden]="!showGoogleMaps" >
-      <div class="form-group">
-          <label>Enter address</label>
-          <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-        </div>
 
-        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-          <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
-                      (dragEnd)="markerDragEnd($event)"></agm-marker>
-        </agm-map>
 
-        <h5>Address: {{address}}</h5>
-        <div>Latitude: {{latitude}}</div>
-        <div>Longitude: {{longitude}}</div>
-    </div>
 
     <button type="submit" class="btn btn-primary">Update Address</button>
-    <button (click)="change()" type="button" class="btn btn-primary float-right">Choose from Maps</button>
 
   </form>
 </div>

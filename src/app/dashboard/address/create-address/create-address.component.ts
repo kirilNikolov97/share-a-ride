@@ -19,7 +19,6 @@ export class CreateAddressComponent implements OnInit {
   zoom: number;
   address: string;
   private geoCoder;
-  showGoogleMaps: boolean;
   cities: City[];
   errorMessage = '';
   isValidFormSubmitted = false;
@@ -36,12 +35,13 @@ export class CreateAddressComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.showGoogleMaps = false;
     this.addressClass = new Address();
 
     this.apiServiceProfile.getAllCities().subscribe(res => {
       this.cities = res;
     });
+
+    this.chooseFromMaps();
   }
 
   markerDragEnd($event: any) {
@@ -52,7 +52,6 @@ export class CreateAddressComponent implements OnInit {
   }
 
   chooseFromMaps() {
-    this.showGoogleMaps = !this.showGoogleMaps;
     this.address = 'Loading...';
 
     this.mapsAPILoader.load().then(() => {
@@ -88,6 +87,12 @@ export class CreateAddressComponent implements OnInit {
         this.longitude = position.coords.longitude;
         this.zoom = 15;
         this.getAddress(this.latitude, this.longitude);
+      }, (err) => {
+        console.log(err);
+        this.longitude = 23.3227;
+        this.latitude = 42.69774208138145;
+        this.zoom = 11;
+        this.getAddress(this.latitude, this.longitude);
       });
     }
   }
@@ -96,7 +101,6 @@ export class CreateAddressComponent implements OnInit {
     this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 15;
           this.address = results[0].formatted_address;
           let arr = this.address.split(',');
           this.addressClass.street = arr[0];

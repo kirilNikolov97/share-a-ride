@@ -3,6 +3,8 @@ import {User} from '../../model/user.model';
 import {ProfileApiService} from '../../_services/api/profile-api.service';
 import {Route} from '../../model/route.model';
 import {NavigationService} from '../../_services/navigation.service';
+import {Address} from '../../model/address.model';
+import {Car} from '../../model/car.model';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +14,10 @@ import {NavigationService} from '../../_services/navigation.service';
 export class ProfileComponent implements OnInit {
 
   user: User;
+  addresses: Address[];
   futureRoutesAsDriver: Route[];
+  futureRoutesAsDriverWaitingForApproval: Route[];
+  cars: Car[];
 
   constructor(
     private apiServiceProfile: ProfileApiService,
@@ -21,18 +26,25 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = new User();
+    this.futureRoutesAsDriverWaitingForApproval = [];
 
     this.apiServiceProfile.getUser().subscribe( res => {
       this.user = res;
+      this.addresses = this.user.addresses.filter(address => !address.deleted);
+      this.cars = this.user.cars.filter(car => !car.deleted);
     });
 
     this.apiServiceProfile.getFutureUserRoutesAsDriver().subscribe( res => {
       this.futureRoutesAsDriver = res;
-      console.log(res);
 
-      console.log("ROUTES");
-      console.log(this.futureRoutesAsDriver);
-
+      for (let r of this.futureRoutesAsDriver) {
+        for (let rs of r.routeStops) {
+          if (!rs.approved) {
+            this.futureRoutesAsDriverWaitingForApproval.push(r);
+            break;
+          }
+        }
+      }
     });
   }
 
@@ -42,6 +54,12 @@ export class ProfileComponent implements OnInit {
 
   approveRouteStop(routeStopId) {
     this.apiServiceProfile.approveRouteStop(routeStopId).subscribe(res => {
+      this.navigation.reload();
+    });
+  }
+
+  declineRouteStop(routeStopId) {
+    this.apiServiceProfile.declineRouteStop(routeStopId).subscribe(res => {
       this.navigation.reload();
     });
   }

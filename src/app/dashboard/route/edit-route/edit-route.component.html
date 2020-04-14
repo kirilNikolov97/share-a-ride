@@ -17,6 +17,7 @@
       <label for="where">From where:</label>
       <div>
         <select id="where" [(ngModel)]="selectedAddress.id" name="selectedAddress">
+          <option name="address" value="">Choose your address</option>
           <option *ngFor="let address of addresses" [ngValue]="address.id" [selected]="address?.id == selectedAddress?.id">
             {{address.city.name + ', ' + address.district + ', ' + address.street}}
           </option>
@@ -77,7 +78,7 @@
             Once you cancel the route you can not revert it.
           </div>
           <div class="modal-footer">
-            <button type="button" (click)="cancelRoute()" class="btn btn-primary">The route will not happen!</button>
+            <button type="button" (click)="cancelRoute()" class="btn btn-primary" data-dismiss="modal">The route will not happen!</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>

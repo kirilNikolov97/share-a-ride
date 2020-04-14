@@ -5,6 +5,7 @@ import {Route} from '../../../model/route.model';
 import {ProfileApiService} from '../../../_services/api/profile-api.service';
 import {NavigationService} from '../../../_services/navigation.service';
 import {NgForm} from '@angular/forms';
+import {TokenStorageService} from '../../../_services/token-storage.service';
 
 @Component({
   selector: 'app-create-route',
@@ -24,10 +25,19 @@ export class CreateRouteComponent implements OnInit {
   isValidFormSubmitted = false;
   errorMessage = '';
 
-  constructor(private apiServiceProfile: ProfileApiService, private navigation: NavigationService) { }
+  constructor(
+    private apiServiceProfile: ProfileApiService,
+    private navigation: NavigationService,
+    private tokenStorageService: TokenStorageService
+  ) { }
 
   ngOnInit() {
-    this.officeDirection = false;
+    if (!this.tokenStorageService.getUser().driver) {
+      this.navigation.open('profile');
+      return;
+    }
+
+    this.officeDirection = true;
     this.selectedCar = new Car();
     this.selectedAddress = new Address();
 

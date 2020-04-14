@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Car} from '../../model/car.model';
 import {ProfileApiService} from '../../_services/api/profile-api.service';
 import {NavigationService} from '../../_services/navigation.service';
+import {TokenStorageService} from '../../_services/token-storage.service';
 
 @Component({
   selector: 'app-cars',
@@ -13,9 +14,18 @@ export class CarsComponent implements OnInit {
   cars: Car[];
   errorMessage = '';
 
-  constructor(private apiServiceProfile: ProfileApiService, private navigation: NavigationService) { }
+  constructor(
+    private apiServiceProfile: ProfileApiService,
+    private navigation: NavigationService,
+    private tokenStorageService: TokenStorageService
+  ) { }
 
   ngOnInit() {
+    if (!this.tokenStorageService.getUser().driver) {
+      this.navigation.open('profile');
+      return;
+    }
+
     this.apiServiceProfile.getCars().subscribe(res => {
       this.cars = res;
     });

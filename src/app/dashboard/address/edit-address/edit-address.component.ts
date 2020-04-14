@@ -41,20 +41,21 @@ export class EditAddressComponent implements OnInit {
   ngOnInit() {
     this.selectedCity = new City();
     this.addressClass = new Address();
+    this.address = '';
     this.apiServiceProfile.getAllCities().subscribe(res => {
       this.cities = res;
     });
 
     this.addressId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.apiServiceProfile.getAddressById(this.addressId).subscribe( res => {
-      this.addressClass = res;
-      this.selectedCity = res.city;
-      this.longitude = res.longitude;
-      this.latitude = res.latitude;
-      console.log('RES ');
-      console.log(this.addressClass);
-      console.log('RES ');
-    });
+    this.apiServiceProfile.getAddressById(this.addressId).subscribe(
+      res => {
+        this.addressClass = res;
+        this.selectedCity = res.city;
+        this.longitude = res.longitude;
+        this.latitude = res.latitude;
+      }, err => {
+        this.navigate.open('/profile');
+      });
 
     this.loadLocationFromCoordinates();
     this.mapsAPILoader.load().then(() => {
@@ -82,33 +83,26 @@ export class EditAddressComponent implements OnInit {
         });
       });
     });
-
   }
 
   private loadLocationFromCoordinates() {
     if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = this.addressClass.latitude;
-        this.longitude = this.addressClass.longitude;
-        this.zoom = 15;
-        this.getAddress(this.latitude, this.longitude);
-      });
-    }
-  }
-
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
-        this.getAddress(this.latitude, this.longitude);
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          this.latitude = this.addressClass.latitude;
+          this.longitude = this.addressClass.longitude;
+          this.zoom = 15;
+          this.getAddress(this.latitude, this.longitude);
+        }, err => {
+          this.longitude = this.addressClass.longitude;
+          this.latitude = this.addressClass.latitude;
+          this.zoom = 15;
+          this.getAddress(this.latitude, this.longitude);
+        });
     }
   }
 
   markerDragEnd($event: any) {
-    console.log($event);
     this.latitude = parseFloat($event.coords.lat);
     this.longitude = parseFloat($event.coords.lng);
     this.getAddress(this.latitude, this.longitude);
@@ -120,7 +114,6 @@ export class EditAddressComponent implements OnInit {
       console.log(status);
       if (status === 'OK') {
         if (results[0]) {
-          this.zoom = 15;
           this.address = results[0].formatted_address;
           let arr = this.address.split(',');
           this.addressClass.street = arr[0];
@@ -135,7 +128,6 @@ export class EditAddressComponent implements OnInit {
       }
     });
   }
-
 
   onSubmit(form: NgForm) {
     this.isValidFormSubmitted = false;

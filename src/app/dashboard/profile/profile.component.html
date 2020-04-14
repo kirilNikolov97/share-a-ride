@@ -6,9 +6,11 @@
     <div class="col-md-10">
 
       <!-- Unapproved route stops -->
-      <h3>Waiting for approval</h3>
+      <span *ngIf="user.driver">
+      <h3>Waiting for approval:</h3>
       <ul class="list-group list-group-flush">
-        <li *ngFor="let route of this.futureRoutesAsDriver" class="list-group-item">
+        <li *ngIf="this.futureRoutesAsDriverWaitingForApproval.length == 0" class="list-group-item">Nothing to approve.</li>
+        <li *ngFor="let route of this.futureRoutesAsDriverWaitingForApproval" class="list-group-item">
           <table class="table">
             <tr>
               <th scope="col">{{route.dateRoute.toString().split('T').join(' ')}}</th>
@@ -54,8 +56,9 @@
                 <td> Username: {{routeStop.userId.username}} </td>
                 <td> Approved: {{routeStop.approved}} </td>
                 <td>
-                  <button type="button" class="btn btn-primary float-right" (click)="viewOnMap(route.id, routeStop.id)" >View</button>
-                  <button type="button" class="btn btn-primary float-right" (click)="approveRouteStop(routeStop.id)" >Approve</button>
+                  <button type="button" class="btn btn-primary" (click)="approveRouteStop(routeStop.id)" >✔</button>
+                  <button type="button" class="btn btn-danger" (click)="declineRouteStop(routeStop.id)" >X</button>
+                  <button type="button" class="btn btn-info" (click)="viewOnMap(route.id, routeStop.id)" >?</button>
                 </td>
               </ng-container>
             </tr>
@@ -63,11 +66,13 @@
           </table>
         </li>
       </ul>
+      </span>
 
       <!-- Addresses -->
       <h3>Addresses:</h3>
       <ul class="list-group list-group-flush">
-        <li *ngFor="let address of this.user.addresses" class="list-group-item">
+        <li *ngIf="this.addresses.length == 0" class="list-group-item">You still have no addresses.</li>
+        <li *ngFor="let address of this.addresses" class="list-group-item">
           {{ address.district }},{{ address.city.name }},{{ address.street }}
           <span *ngIf="address.additionalInfo">
             , {{ address.additionalInfo }}
@@ -91,13 +96,16 @@
         </li>
       </ul>
 
-      <!-- Cars -->
-      <h3>Cars:</h3>
-      <ul class="list-group list-group-flush">
-        <li *ngFor="let car of this.user.cars" class="list-group-item">
-          {{ car.color + ' ' + car.manufacturer + ' ' + car.model + ' ' + car.year }}
-        </li>
-      </ul>
+
+      <div *ngIf="user.driver">
+        <!-- Cars -->
+        <h3>Cars:</h3>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let car of this.cars" class="list-group-item">
+            {{ car.color + ' ' + car.manufacturer + ' ' + car.model + ' ' + car.year }}
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

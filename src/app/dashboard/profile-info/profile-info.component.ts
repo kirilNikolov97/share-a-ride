@@ -28,7 +28,7 @@ export class ProfileInfoComponent implements OnInit {
 
     this.apiServiceProfile.getUser().subscribe( res => {
       this.user = res;
-      console.log(res);
+      console.log(this.user);
     });
   }
 

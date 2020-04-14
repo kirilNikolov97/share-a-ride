@@ -21,6 +21,10 @@ export class BecomeDriverComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if (this.tokenStorage.getUser().driver) {
+      this.navigation.open('profile');
+      return;
+    }
   }
 
   onSubmit() {

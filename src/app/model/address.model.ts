@@ -9,6 +9,7 @@ export class Address {
   additionalInfo: string;
   latitude: number;
   longitude: number;
+  deleted: boolean;
 
   constructor() {
     this.id = null;
@@ -16,6 +17,7 @@ export class Address {
     this.district = null;
     this.street = null;
     this.additionalInfo = null;
+    this.deleted = null;
   }
 
 }

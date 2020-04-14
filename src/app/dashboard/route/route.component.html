@@ -93,34 +93,35 @@
             <th scope="col">To</th>
             <th scope="col">Car</th>
             <th scope="col">Driver Username</th>
+            <th scope="col">Is Approved?</th>
           </tr>
 
-          <tr *ngFor="let route of this.futureRoutesAsPassenger">
-            <th>{{route.dateRoute.toString().split('T').join(' ')}}</th>
+          <tr *ngFor="let combinedData of this.combinedFutureRoutesAsPassenger">
+            <th>{{combinedData.route.dateRoute.toString().split('T').join(' ')}}</th>
 
             <!-- From -->
             <td>
-                <span *ngIf="route.officeDirection">
-                  <span *ngFor="let routeStop of this.route.routeStops">
+                <span *ngIf="combinedData.route.officeDirection">
+                  <span *ngFor="let routeStop of combinedData.route.routeStops">
                     <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
                       {{routeStop.address.district + ' ' + routeStop.address.street}}
                     </span>
                   </span>
                 </span>
 
-              <span *ngIf="!route.officeDirection">
+              <span *ngIf="!combinedData.route.officeDirection">
                   Office
                 </span>
             </td>
 
             <!-- To -->
             <td>
-                <span *ngIf="route.officeDirection">
+                <span *ngIf="combinedData.route.officeDirection">
                   Office
                 </span>
 
-              <span *ngIf="!route.officeDirection">
-                  <span *ngFor="let routeStop of this.route.routeStops">
+              <span *ngIf="!combinedData.route.officeDirection">
+                  <span *ngFor="let routeStop of combinedData.route.routeStops">
                     <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
                       {{routeStop.address.district + ' ' + routeStop.address.street}}
                     </span>
@@ -128,14 +129,22 @@
                 </span>
             </td>
 
+            <!-- Manufacturer -->
+            <td>{{combinedData.route.car.manufacturer + ' ' + combinedData.route.car.model}}</td>
 
-            <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
+            <!-- Driver -->
             <td>
-              <span *ngFor="let routeStop of this.route.routeStops">
+              <span *ngFor="let routeStop of this.combinedData.route.routeStops">
                 <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
                   {{routeStop.userId.username}}
                 </span>
               </span>
+            </td>
+
+            <!-- Is Approved? -->
+            <td>
+              <span *ngIf="combinedData.userRouteStop.approved">Approved</span>
+              <span *ngIf="!combinedData.userRouteStop.approved">Not Approved</span>
             </td>
 
           </tr>

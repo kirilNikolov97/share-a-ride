@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TopUser} from '../model/dto/top-user';
 import {ProfileApiService} from '../_services/api/profile-api.service';
+import {NavigationService} from '../_services/navigation.service';
 
 @Component({
   selector: 'app-statistics',
@@ -13,17 +14,20 @@ export class StatisticsComponent implements OnInit {
   cnt: number;
 
   constructor(
-    private apiServiceProfile: ProfileApiService
+    private apiServiceProfile: ProfileApiService,
+    private navigation: NavigationService
   ) { }
 
   ngOnInit() {
     this.cnt = 0;
 
     this.apiServiceProfile.getTop15Users().subscribe(res => {
-      console.log(' TOP 15 USERS ');
       console.log(res);
       this.topUsers = res;
     });
   }
 
+  openProfile(id: string) {
+    this.navigation.open('/view-profile/' + id);
+  }
 }

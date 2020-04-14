@@ -9,6 +9,7 @@ export class Car {
   seats: number;
   year: number;
   color: string;
+  deleted: boolean;
 
   constructor() {
     this.id = null;
@@ -18,6 +19,7 @@ export class Car {
     this.seats = null;
     this.year = null;
     this.color = null;
+    this.deleted = null;
   }
 
 }

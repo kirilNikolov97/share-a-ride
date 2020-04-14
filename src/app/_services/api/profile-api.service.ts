@@ -102,8 +102,13 @@ export class ProfileApiService {
   }
 
   getRouteById(routeId) {
-    return this.http.get<Route>(API_URL + '/route/' + routeId);
+    return this.http.get<Route>(API_URL + '/route/' + routeId + '?validate=false');
   }
+
+  getRouteByIdValidate(routeId) {
+    return this.http.get<Route>(API_URL + '/route/' + routeId + '?validate=true');
+  }
+
 
   updateFutureRoute(carId, addressId, routeId, date: Date, officeDirection) {
     return this.http.patch<Route>(API_URL + '/route?carId=' + carId +
@@ -121,7 +126,7 @@ export class ProfileApiService {
   }
 
   saveSeat(addressId, routeId) {
-    return this.http.get<Route>(API_URL + '/saveSeat/' + routeId + '?addressId=' + addressId);
+    return this.http.get<RouteStop>(API_URL + '/saveSeat/' + routeId + '?addressId=' + addressId);
   }
 
   getLastRoutes(currentPage, sortBy, dummyFilter) {
@@ -150,7 +155,13 @@ export class ProfileApiService {
   }
 
   approveRouteStop(routeStopId) {
-    return this.http.patch<RouteStop>(API_URL + '/approveRouteStop?routeStopId=' + routeStopId, JSON.stringify(new RouteStop()), {headers});
+    return this.http.patch<RouteStop>(API_URL + '/approveOrDeclineRouteStop?routeStopId=' + routeStopId + '&approved=true',
+      JSON.stringify(new RouteStop()), {headers});
+  }
+
+  declineRouteStop(routeStopId) {
+    return this.http.patch<RouteStop>(API_URL + '/approveOrDeclineRouteStop?routeStopId=' + routeStopId + '&approved=false',
+      JSON.stringify(new RouteStop()), {headers});
   }
 
   getUserById(userId) {

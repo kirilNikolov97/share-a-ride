@@ -81,8 +81,7 @@ export class AllRoutesComponent implements OnInit {
   goToPage(page: number) {
     this.currentPage = page;
 
-    this.apiServiceProfile.getLastRoutes(page, this.sortBy, 'dummy_filter').subscribe( res => {
-      this.router.navigate(['all-routes'], {queryParams: {sortBy: this.sortBy, currPage: this.currentPage}});
+    this.apiServiceProfile.filterByDirection(page, this.sortBy, 'dummy_filter', this.dateRange, this.officeDirection).subscribe(res => {
       console.log(res);
       this.fetchRowsData(res);
     });

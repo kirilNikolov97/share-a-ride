@@ -37,9 +37,7 @@ export class ReviewRouteComponent implements OnInit {
     private navigation: NavigationService,
     private mapsAPILoader: MapsAPILoader,
     private tokenStorage: TokenStorageService,
-  ) {
-  }
-
+  ) {}
 
   ngOnInit() {
     this.officeLat = this.tokenStorage.getCompany().addresses[0].latitude;

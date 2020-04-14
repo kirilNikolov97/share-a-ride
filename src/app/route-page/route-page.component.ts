@@ -21,6 +21,7 @@ export class RoutePageComponent implements OnInit {
   startAddressRoute: Address;
   userAddresses: Address[];
   selectedAddress: Address;
+  errorMessage: '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -48,9 +49,11 @@ export class RoutePageComponent implements OnInit {
   }
 
   onSubmit() {
-    this.apiServiceProfile.saveSeat(this.selectedAddress.id, this.routeId).subscribe( res => {
-      console.log(res);
-      this.navigation.open('/');
-    });
+    this.apiServiceProfile.saveSeat(this.selectedAddress.id, this.routeId).subscribe(
+      res => {
+        this.navigation.open('/');
+      }, err => {
+        this.errorMessage = err.error.message;
+      });
   }
 }

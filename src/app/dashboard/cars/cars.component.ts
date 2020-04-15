@@ -26,6 +26,8 @@ export class CarsComponent implements OnInit {
       return;
     }
 
+    this.tokenStorageService.saveSelectedMenuSidebar('cars');
+
     this.apiServiceProfile.getCars().subscribe(res => {
       this.cars = res;
     });

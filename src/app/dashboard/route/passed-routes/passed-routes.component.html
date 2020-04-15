@@ -15,13 +15,14 @@
           <h3>Last Routes as a Driver:</h3>
         </div>
         <div class="row">
-          <table class="table">
+          <table class="table table-responsive-md">
             <tr>
               <th scope="col">Date</th>
               <th scope="col">From</th>
               <th scope="col">To</th>
               <th scope="col">Car</th>
               <th scope="col">Free Seats</th>
+              <th scope="col">Options</th>
             </tr>
 
             <tr *ngFor="let route of this.userRoutesAsDriver">
@@ -61,7 +62,9 @@
               <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
               <td>
                 {{route.car.seats - route.routeStops.length}}
-                <button type="button" class="btn btn-primary float-right" (click)="viewOnMap(route.id)" >View</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary" (click)="viewOnMap(route.id)" >View</button>
               </td>
 
             </tr>
@@ -76,7 +79,7 @@
         <h3>Last Routes as a Passenger:</h3>
       </div>
       <div class="row">
-        <table class="table">
+        <table class="table table-responsive-md">
           <tr>
             <th scope="col">Date</th>
             <th scope="col">From</th>

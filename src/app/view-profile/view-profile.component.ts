@@ -36,8 +36,6 @@ export class ViewProfileComponent implements OnInit {
     this.apiServiceProfile.getUserById(this.userId).subscribe(res => {
       this.user = res;
       this.myRating = this.calculateRating();
-      console.log(res);
-
 
       this.apiServiceProfile.getFutureUserRoutesAsDriverByUserId(this.user.username).subscribe(res3 => {
         this.futureRoutes = res3;
@@ -61,7 +59,6 @@ export class ViewProfileComponent implements OnInit {
     this.apiServiceProfile.rateUser(this.userId, this.currentRate).subscribe(
       res => {
         window.location.reload();
-        console.log(res);
       }, err => {
         this.errorMessage = err.error.message;
       });

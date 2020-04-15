@@ -3,18 +3,21 @@
 
     <!-- Direction -->
     <div class="form-group">Direction:</div>
-    <div *ngIf="!officeDirection">
+    <div *ngIf="officeDirection">
       <div class="btn btn-info" >Office</div>
       <div class="btn btn-light" (click)="changeDirection()" >Home</div>
     </div>
-    <div *ngIf="officeDirection">
+    <div *ngIf="!officeDirection">
       <div class="btn btn-light" (click)="changeDirection()" >Office</div>
       <div class="btn btn-info" >Home</div>
     </div>
 
     <!-- Addresses -->
     <div class="form-group">
-      <label for="where">From where:</label>
+      <label for="where">
+        <div *ngIf="officeDirection">From where:</div>
+        <div *ngIf="!officeDirection">To where:</div>
+      </label>
       <div>
         <select id="where" [(ngModel)]="selectedAddress.id" name="selectedAddress">
           <option name="address" value="">Choose your address</option>

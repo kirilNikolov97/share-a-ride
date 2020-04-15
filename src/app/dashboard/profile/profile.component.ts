@@ -5,6 +5,8 @@ import {Route} from '../../model/route.model';
 import {NavigationService} from '../../_services/navigation.service';
 import {Address} from '../../model/address.model';
 import {Car} from '../../model/car.model';
+import {ActivatedRoute} from '@angular/router';
+import {TokenStorageService} from '../../_services/token-storage.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,10 +23,13 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private apiServiceProfile: ProfileApiService,
-    private navigation: NavigationService
+    private navigation: NavigationService,
+    private activatedRoute: ActivatedRoute,
+    private tokenService: TokenStorageService
   ) { }
 
   ngOnInit() {
+    this.tokenService.saveSelectedMenuSidebar('profile');
     this.user = new User();
     this.futureRoutesAsDriverWaitingForApproval = [];
 

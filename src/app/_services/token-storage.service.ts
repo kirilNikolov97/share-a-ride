@@ -4,6 +4,7 @@ import {User} from '../model/user.model';
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const COMPANY_KEY = 'company';
+const MENU_KEY = 'menu';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,14 @@ export class TokenStorageService {
 
   public getCompany(): User {
     return JSON.parse(localStorage.getItem(COMPANY_KEY));
+  }
+
+  public saveSelectedMenuSidebar(selected) {
+    window.localStorage.removeItem(MENU_KEY);
+    window.localStorage.setItem(MENU_KEY, selected);
+  }
+
+  public getSelectedMenuSidebar(): string {
+    return localStorage.getItem(MENU_KEY);
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {ProfileApiService} from '../_services/api/profile-api.service';
+import {NavigationService} from '../_services/navigation.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
-    private apiServiceProfile: ProfileApiService
+    private apiServiceProfile: ProfileApiService,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
       this.apiServiceProfile.getCompany().subscribe( res => {
         this.tokenStorage.saveCompany(res);
       });
+      this.navigationService.open('/profile');
     }
   }
 

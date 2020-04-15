@@ -5,10 +5,10 @@
     <div class="form-group">Direction:</div>
     <div *ngIf="officeDirection">
       <div class="btn btn-info" >Office</div>
-      <div class="btn btn-light" (click)="changeDirection()" >Home</div>
+      <div class="btn btn-light" (click)="setOfficeDirection(false)" >Home</div>
     </div>
     <div *ngIf="!officeDirection">
-      <div class="btn btn-light" (click)="changeDirection()" >Office</div>
+      <div class="btn btn-light" (click)="setOfficeDirection(true)" >Office</div>
       <div class="btn btn-info" >Home</div>
     </div>
 

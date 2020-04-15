@@ -1,31 +1,7 @@
 <div class="container">
 
   <div class="row justify-content-center">
-    <h2 class="justify-content-center">Last Added Routes</h2>
+    <h2 class="justify-content-center">Home</h2>
   </div>
 
-  <div class="row">
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Car</th>
-        <th scope="col">Driver</th>
-        <th scope="col">From Where</th>
-        <th scope="col">To Where</th>
-        <th scope="col">Save a Seat</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let row of this.rows">
-        <td>{{row.date}}</td>
-        <td>{{row.carName}}</td>
-        <td>{{row.driverName}}</td>
-        <td>{{row.fromWhere}}</td>
-        <td>Work</td>
-        <td><a class="btn btn-info" (click)="navigation.open('/route/' + row.id)" >Reserve</a></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
 </div>

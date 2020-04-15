@@ -24,12 +24,10 @@ export class PassedRoutesComponent implements OnInit {
 
     this.apiServiceProfile.getUserRoutesAsDriver().subscribe( res => {
       this.userRoutesAsDriver = res;
-      console.log(res);
     });
 
     this.apiServiceProfile.getUserRoutesAsPassenger().subscribe( res => {
       this.userRoutesAsPassenger = res;
-      console.log(res);
     });
   }
 

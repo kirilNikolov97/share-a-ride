@@ -16,15 +16,17 @@ export class RouteComponent implements OnInit {
   futureRoutesAsPassenger: Route[];
   combinedFutureRoutesAsDriver: CombinedData[];
   combinedFutureRoutesAsPassenger: CombinedData[];
+  errorMessage = '';
 
   constructor(
     private tokenStorageService: TokenStorageService,
     private navigation: NavigationService,
-    private apiServiceProfile: ProfileApiService,
-    private tokenService: TokenStorageService
+    private apiServiceProfile: ProfileApiService
   ) { }
 
   ngOnInit() {
+    this.tokenStorageService.saveSelectedMenuSidebar('route');
+
     this.combinedFutureRoutesAsPassenger = [];
     this.combinedFutureRoutesAsDriver = [];
     this.apiServiceProfile.getFutureUserRoutesAsDriver().subscribe( res => {
@@ -43,7 +45,6 @@ export class RouteComponent implements OnInit {
           return x.userId.username === this.tokenStorageService.getUser().username;
         })));
       }
-      console.log(this.combinedFutureRoutesAsPassenger);
     });
   }
 
@@ -55,6 +56,15 @@ export class RouteComponent implements OnInit {
     this.navigation.open('/profile/routes/passed');
   }
 
+  deleteRouteStop(userRouteStop: RouteStop) {
+    this.apiServiceProfile.deleteRouteStopById(userRouteStop.id).subscribe(
+      res => {
+        this.navigation.reload();
+        this.errorMessage = '';
+      }, err => {
+        this.errorMessage = err.error.message;
+      });
+  }
 }
 
 // TODO: change name

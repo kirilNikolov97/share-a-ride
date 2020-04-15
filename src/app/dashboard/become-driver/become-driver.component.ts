@@ -21,6 +21,8 @@ export class BecomeDriverComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.tokenStorage.saveSelectedMenuSidebar('become-driver');
+
     if (this.tokenStorage.getUser().driver) {
       this.navigation.open('profile');
       return;

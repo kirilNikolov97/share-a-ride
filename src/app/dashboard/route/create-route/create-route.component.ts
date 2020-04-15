@@ -36,6 +36,8 @@ export class CreateRouteComponent implements OnInit {
       this.navigation.open('profile');
       return;
     }
+    this.date.setHours(this.date.getHours() + 1);
+    this.today.setHours(this.today.getHours() + 1);
 
     this.officeDirection = true;
     this.selectedCar = new Car();
@@ -50,8 +52,8 @@ export class CreateRouteComponent implements OnInit {
     });
   }
 
-  changeDirection() {
-    this.officeDirection = !this.officeDirection;
+  setOfficeDirection(direction) {
+    this.officeDirection = direction;
   }
 
   onSubmit(form: NgForm) {

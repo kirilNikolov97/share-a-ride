@@ -22,7 +22,6 @@ export class StatisticsComponent implements OnInit {
     this.cnt = 0;
 
     this.apiServiceProfile.getTop15Users().subscribe(res => {
-      console.log(res);
       this.topUsers = res;
     });
   }

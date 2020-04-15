@@ -40,7 +40,6 @@ export class RoutePageComponent implements OnInit {
       this.route = res;
       this.car = res.car;
       this.startAddressRoute = res.routeStops[0].address;
-      console.log(res);
     });
 
     this.apiServiceProfile.getAddresses().subscribe( res => {

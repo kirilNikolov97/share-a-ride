@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Address} from '../../model/address.model';
 import {ProfileApiService} from '../../_services/api/profile-api.service';
 import {NavigationService} from '../../_services/navigation.service';
+import {TokenStorageService} from '../../_services/token-storage.service';
 
 @Component({
   selector: 'app-address',
@@ -13,11 +14,16 @@ export class AddressComponent implements OnInit {
   addresses: Address[];
   errorMessage = '';
 
-  constructor(private apiServiceProfile: ProfileApiService, private navigation: NavigationService) { }
+  constructor(
+    private apiServiceProfile: ProfileApiService,
+    private navigation: NavigationService,
+    private tokenService: TokenStorageService
+    ) { }
 
   ngOnInit() {
+    this.tokenService.saveSelectedMenuSidebar('address');
+
     this.apiServiceProfile.getAddresses().subscribe(res => {
-      console.log(res);
       this.addresses = res;
     });
   }

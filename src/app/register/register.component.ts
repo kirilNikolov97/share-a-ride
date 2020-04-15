@@ -21,13 +21,11 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.authService.register(this.form).subscribe(
       data => {
-        console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
       },
       err => {
         this.errorMessage = 'Something went wrong. Try again later';
-        console.log(err.error.message);
         if (err.error.message.toLowerCase().includes('username')) {
           this.errorMessage = 'Username is already taken';
         } else if (err.error.message.includes('Email')) {

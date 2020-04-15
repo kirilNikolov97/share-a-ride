@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {HomePageRowData} from '../home/home.component';
 import {ProfileApiService} from '../_services/api/profile-api.service';
 import {Route} from '../model/route.model';
 import {RouteStop} from '../model/route-stops.model';
@@ -82,22 +81,23 @@ export class AllRoutesComponent implements OnInit {
     this.currentPage = page;
 
     this.apiServiceProfile.filterByDirection(page, this.sortBy, 'dummy_filter', this.dateRange, this.officeDirection).subscribe(res => {
-      console.log(res);
       this.fetchRowsData(res);
     });
+  }
+
+  goNextPage() {
+    this.goToPage(this.currentPage + 1);
   }
 
   sort(mySort: string) {
     this.sortBy = mySort;
 
     this.apiServiceProfile.filterByDirection(this.currentPage, this.sortBy, 'dummy_filter', this.dateRange, this.officeDirection).subscribe(res => {
-      console.log(res);
       this.fetchRowsData(res);
     });
   }
 
   changeStartDate(input: string, $event: MatDatepickerInputEvent<Date>) {
-    console.log($event.value.getDate());
     this.dateRange.startDate = $event.value;
   }
   changeEndDate(input: string, $event: MatDatepickerInputEvent<Date>) {
@@ -106,7 +106,6 @@ export class AllRoutesComponent implements OnInit {
 
   filterRoutesByDates() {
     this.apiServiceProfile.filterByDirection(this.currentPage, this.sortBy, 'dummy_filter', this.dateRange, this.officeDirection).subscribe(res => {
-      console.log(res);
       this.fetchRowsData(res);
     });
   }
@@ -114,14 +113,12 @@ export class AllRoutesComponent implements OnInit {
   filterByDirection(passedOfficeDirection) {
     this.officeDirection = passedOfficeDirection;
     this.apiServiceProfile.filterByDirection(this.currentPage, this.sortBy, 'dummy_filter', this.dateRange, passedOfficeDirection).subscribe(res => {
-      console.log(res);
       this.fetchRowsData(res);
     });
   }
 
   filterAndSort() {
     this.apiServiceProfile.filterByDirection(this.currentPage, this.sortBy, 'dummy_filter', this.dateRange, this.officeDirection).subscribe(res => {
-      console.log(res);
       this.fetchRowsData(res);
     });
   }
@@ -150,4 +147,17 @@ export class AllRoutesComponent implements OnInit {
 export class DateRange {
   startDate: Date;
   endDate: Date;
+}
+
+export class HomePageRowData {
+  id: number;
+  date: string;
+  time: string;
+  carName: string;
+  driverId: string;
+  driverName: string;
+  fromWhere: string;
+  officeDirection: boolean;
+  routeStop: RouteStop;
+  toWhere: string;
 }

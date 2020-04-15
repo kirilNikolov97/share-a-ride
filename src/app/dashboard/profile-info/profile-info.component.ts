@@ -4,6 +4,7 @@ import {ProfileApiService} from '../../_services/api/profile-api.service';
 import {PasswordChange} from '../../model/password.change.model';
 import {NavigationService} from '../../_services/navigation.service';
 import {NgForm} from '@angular/forms';
+import {TokenStorageService} from '../../_services/token-storage.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -20,15 +21,19 @@ export class ProfileInfoComponent implements OnInit {
   successPasswordMessage = '';
   isValidFormSubmitted = false;
 
-  constructor(private apiServiceProfile: ProfileApiService, private navigation: NavigationService) { }
+  constructor(
+    private apiServiceProfile: ProfileApiService,
+    private tokenService: TokenStorageService
+  ) { }
 
   ngOnInit() {
+    this.tokenService.saveSelectedMenuSidebar('profile-info');
+
     this.user = new User();
     this.changePassword = new PasswordChange();
 
     this.apiServiceProfile.getUser().subscribe( res => {
       this.user = res;
-      console.log(this.user);
     });
   }
 

@@ -4,8 +4,6 @@ import {User} from '../../model/user.model';
 import {Address} from '../../model/address.model';
 import {Car} from '../../model/car.model';
 import {Route} from '../../model/route.model';
-import {DateRange} from '../../all-routes/all-routes.component';
-import {map} from 'rxjs/operators';
 import {TopUser} from '../../model/dto/top-user';
 import {City} from '../../model/city.model';
 import {PasswordChange} from '../../model/password.change.model';
@@ -154,6 +152,10 @@ export class ProfileApiService {
     return this.http.get<RouteStop>(API_URL + '/routeStop/' + notApprovedRouteStopId);
   }
 
+  deleteRouteStopById(routeStopId: string) {
+    return this.http.delete<RouteStop>(API_URL + '/routeStop/' + routeStopId);
+  }
+
   approveRouteStop(routeStopId) {
     return this.http.patch<RouteStop>(API_URL + '/approveOrDeclineRouteStop?routeStopId=' + routeStopId + '&approved=true',
       JSON.stringify(new RouteStop()), {headers});
@@ -172,18 +174,17 @@ export class ProfileApiService {
     return this.http.post<Rating>(API_URL + '/rate?userId=' + userId + '&rating=' + currentRate, JSON.stringify(new Rating()), {headers});
   }
 
-  getRoutesInRange(currentPage, sortBy, dummyFilter, dateRange: DateRange) {
+  getRoutesInRange(currentPage, sortBy, dummyFilter, dateRange) {
     return this.http.get<Route[]>(API_URL + '/route/betweenDates' +
       '?currPage=' + currentPage + '&sortBy=' + sortBy + '&filter=' + dummyFilter +
       '&startDate=' + dateRange.startDate.getTime() + '&endDate=' + dateRange.endDate.getTime(),  {headers});
   }
 
-  filterByDirection(currentPage, sortBy, dummyFilter, dateRange: DateRange, officeDirection) {
+  filterByDirection(currentPage, sortBy, dummyFilter, dateRange, officeDirection) {
     if (sortBy == null) {
       sortBy = '';
     }
     if (dateRange.endDate == null) {
-      dateRange = new DateRange();
       dateRange.startDate = new Date(Date.now());
       dateRange.endDate = new Date();
       dateRange.endDate.setFullYear(2024);
@@ -197,6 +198,5 @@ export class ProfileApiService {
       '&startDate=' + dateRange.startDate.getTime() + '&endDate=' + dateRange.endDate.getTime() +
       '&officeDirection=' + officeDirection,  {headers});
   }
-
 
 }

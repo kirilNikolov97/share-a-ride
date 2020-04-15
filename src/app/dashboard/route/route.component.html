@@ -22,7 +22,7 @@
         <div class="row">
           <h3>Future Routes as a Driver:</h3>
         </div>
-        <div class="row">
+        <div class="row table-responsive-md">
           <table class="table">
             <tr>
               <th scope="col">Date</th>
@@ -30,6 +30,7 @@
               <th scope="col">To</th>
               <th scope="col">Car</th>
               <th scope="col">Free Seats</th>
+              <th scope="col">Options</th>
             </tr>
 
             <tr *ngFor="let route of this.futureRoutesAsDriver">
@@ -69,10 +70,10 @@
               <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
               <td>
                 {{route.car.seats - route.routeStops.length}}
-                <a (click)="navigation.open('profile/routes/edit/' + route.id)" class="col-md-3">
-                  <button type="button" class="btn btn-primary float-right">Edit</button>
-                </a>
-                <button type="button" class="btn btn-primary float-right" (click)="viewOnMap(route.id)" >View</button>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary" (click)="navigation.open('profile/routes/edit/' + route.id)" >Edit</button>
+                <button type="button" class="btn btn-primary" (click)="viewOnMap(route.id)" >View</button>
               </td>
 
             </tr>
@@ -86,7 +87,8 @@
         <h3>Future Routes as a Passenger:</h3>
       </div>
       <div class="row">
-        <table class="table">
+        <table class="table table-responsive-md">
+          <div>{{errorMessage}}</div>
           <tr>
             <th scope="col">Date</th>
             <th scope="col">From</th>
@@ -94,6 +96,7 @@
             <th scope="col">Car</th>
             <th scope="col">Driver Username</th>
             <th scope="col">Is Approved?</th>
+            <th scope="col"></th>
           </tr>
 
           <tr *ngFor="let combinedData of this.combinedFutureRoutesAsPassenger">
@@ -101,32 +104,24 @@
 
             <!-- From -->
             <td>
-                <span *ngIf="combinedData.route.officeDirection">
-                  <span *ngFor="let routeStop of combinedData.route.routeStops">
-                    <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                      {{routeStop.address.district + ' ' + routeStop.address.street}}
-                    </span>
-                  </span>
-                </span>
+              <span *ngIf="combinedData.route.officeDirection">
+                  {{combinedData.userRouteStop.address.district + ' ' + combinedData.userRouteStop.address.street}}
+              </span>
 
               <span *ngIf="!combinedData.route.officeDirection">
                   Office
-                </span>
+              </span>
             </td>
 
             <!-- To -->
             <td>
-                <span *ngIf="combinedData.route.officeDirection">
-                  Office
-                </span>
+              <span *ngIf="combinedData.route.officeDirection">
+                Office
+              </span>
 
               <span *ngIf="!combinedData.route.officeDirection">
-                  <span *ngFor="let routeStop of combinedData.route.routeStops">
-                    <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                      {{routeStop.address.district + ' ' + routeStop.address.street}}
-                    </span>
-                  </span>
-                </span>
+                  {{combinedData.userRouteStop.address.district + ' ' + combinedData.userRouteStop.address.street}}
+              </span>
             </td>
 
             <!-- Manufacturer -->
@@ -145,6 +140,10 @@
             <td>
               <span *ngIf="combinedData.userRouteStop.approved">Approved</span>
               <span *ngIf="!combinedData.userRouteStop.approved">Not Approved</span>
+            </td>
+
+            <td>
+              <button class="btn btn-danger" (click)="deleteRouteStop(combinedData.userRouteStop)">X</button>
             </td>
 
           </tr>

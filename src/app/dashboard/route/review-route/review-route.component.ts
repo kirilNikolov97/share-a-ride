@@ -48,7 +48,6 @@ export class ReviewRouteComponent implements OnInit {
       this.notApprovedRouteStop = new RouteStop();
       this.apiServiceProfile.getRouteStopById(this.notApprovedRouteStopId).subscribe( res => {
         this.notApprovedRouteStop = res;
-        console.log(res);
       });
     }
 
@@ -99,7 +98,7 @@ export class ReviewRouteComponent implements OnInit {
       });
     }
 
-    if (!this.route.officeDirection) {
+    if (this.route.officeDirection) {
       directionsService.route({
         origin: new google.maps.LatLng(originLatitude, originLongitude),
         destination: {lat: this.officeLat, lng:  this.officeLng},

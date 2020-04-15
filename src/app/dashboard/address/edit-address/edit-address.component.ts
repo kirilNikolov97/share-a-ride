@@ -110,8 +110,6 @@ export class EditAddressComponent implements OnInit {
 
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.address = results[0].formatted_address;

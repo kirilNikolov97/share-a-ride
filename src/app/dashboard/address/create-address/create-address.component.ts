@@ -45,7 +45,6 @@ export class CreateAddressComponent implements OnInit {
   }
 
   markerDragEnd($event: any) {
-    console.log($event);
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
     this.getAddress(this.latitude, this.longitude);
@@ -88,7 +87,6 @@ export class CreateAddressComponent implements OnInit {
         this.zoom = 15;
         this.getAddress(this.latitude, this.longitude);
       }, (err) => {
-        console.log(err);
         this.longitude = 23.3227;
         this.latitude = 42.69774208138145;
         this.zoom = 11;

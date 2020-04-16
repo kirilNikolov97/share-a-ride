@@ -28,7 +28,7 @@ export class ReviewRouteComponent implements OnInit {
   private notApprovedRouteStopId: string;
   private notApprovedRouteStop: RouteStop;
 
-  @ViewChild('map', {static: false})
+  @ViewChild('map')
   public map: ElementRef;
 
   constructor(

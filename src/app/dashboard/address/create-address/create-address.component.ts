@@ -24,7 +24,7 @@ export class CreateAddressComponent implements OnInit {
   isValidFormSubmitted = false;
 
 
-  @ViewChild('search', {static: false})
+  @ViewChild('search')
   public searchElementRef: ElementRef;
 
   constructor(

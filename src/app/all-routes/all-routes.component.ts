@@ -23,7 +23,6 @@ export class AllRoutesComponent implements OnInit {
   minDate: Date;
   dateRange: DateRange;
   topUsers: TopUser[];
-  sortByAsc: boolean;
   officeDirection: boolean;
   fromDate: Date;
   toDate: Date;

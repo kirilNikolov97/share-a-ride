@@ -28,7 +28,7 @@ import {ViewProfileComponent} from './view-profile/view-profile.component';
 import {AuthGuard} from './_services/auth.guard';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', canActivate: [AuthGuard], component: AllRoutesComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', canActivate: [AuthGuard], component: ProfileComponent },

@@ -45,6 +45,7 @@ import {ReviewRouteComponent} from './dashboard/route/review-route/review-route.
 import { PassedRoutesComponent } from './dashboard/route/passed-routes/passed-routes.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import {AuthGuard} from './_services/auth.guard';
+import {NgxChartsModule} from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import {AuthGuard} from './_services/auth.guard';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCXtPvQGtMNUhR0FA4BEo2y45fg3ZarYC4',
       libraries: ['places']
-    })
+    }),
+    NgxChartsModule
   ],
   providers: [authInterceptorProviders, MatDatepickerModule, AuthGuard],
   bootstrap: [AppComponent]

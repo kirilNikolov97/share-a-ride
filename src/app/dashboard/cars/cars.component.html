@@ -5,11 +5,11 @@
     </div>
     <div class="col-md-10">
 
-      <div class="row">
-        <h3 class="col-md-9">Your Cars:</h3>
-        <a (click)="navigation.open('profile/cars/create')" class="col-md-3">
-          <button type="button" class="btn btn-primary float-right">+ Add New Car</button>
-        </a>
+      <div class="row text-center">
+        <h1 class="col m-3">Your Cars</h1>
+<!--        <a (click)="navigation.open('profile/cars/create')" class="col-md-3">-->
+<!--          <button type="button" class="btn btn-primary float-right">+ Add New Car</button>-->
+<!--        </a>-->
       </div>
       <div class="text-danger">{{errorMessage}}</div>
 
@@ -28,6 +28,11 @@
                 <button (click)="deleteCar(car.id)" type="button" class="btn btn-danger float-right">Delete</button>
               </a>
             </div>
+          </div>
+        </div>
+        <div class="card m-4 align-self-center" style="width: 18rem;">
+          <div class="card-body text-center" (click)="this.navigation.open('profile/cars/create')">
+            <img src="../../../assets/add.png" class="btn p-0 img-fluid" style="height: 80px;" alt="Responsive image">
           </div>
         </div>
       </div>

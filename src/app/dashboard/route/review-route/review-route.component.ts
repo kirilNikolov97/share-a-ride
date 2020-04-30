@@ -10,7 +10,6 @@ import DirectionsRenderer = google.maps.DirectionsRenderer;
 import {TokenStorageService} from '../../../_services/token-storage.service';
 import {RouteStop} from '../../../model/route-stops.model';
 
-
 @Component({
   selector: 'app-review-route',
   templateUrl: './review-route.component.html',
@@ -40,9 +39,6 @@ export class ReviewRouteComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.officeLat = this.tokenStorage.getCompany().addresses[0].latitude;
-    this.officeLng = this.tokenStorage.getCompany().addresses[0].longitude;
-
     this.notApprovedRouteStopId = this.activatedRoute.snapshot.queryParamMap.get('routeStopId');
     if (this.notApprovedRouteStopId != null) {
       this.notApprovedRouteStop = new RouteStop();
@@ -55,15 +51,21 @@ export class ReviewRouteComponent implements OnInit {
     this.routeId = this.activatedRoute.snapshot.paramMap.get('id');
     this.apiServiceProfile.getRouteById(this.routeId).subscribe(res => {
       this.route = res;
-      this.mapsAPILoader.load().then(() => {
-        this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
-          center: {lat: this.mapLat, lng: this.mapLng}
+      this.apiServiceProfile.getAddressById(this.route.officeAddressId).subscribe(addrs => {
+        this.officeLat = addrs.latitude;
+        this.officeLng = addrs.longitude;
+        console.log(addrs);
+
+        this.mapsAPILoader.load().then(() => {
+          this.directionsService = new google.maps.DirectionsService;
+          this.directionsDisplay = new google.maps.DirectionsRenderer;
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: {lat: this.mapLat, lng: this.mapLng}
+          });
+          this.directionsDisplay.setMap(map);
+          this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
         });
-        this.directionsDisplay.setMap(map);
-        this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay);
       });
     });
 

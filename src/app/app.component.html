@@ -6,25 +6,28 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" (click)="open('')">Share a Ride</a>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item">
-          <a *ngIf="isLoggedIn" class="nav-link"  (click)="open('/all-routes')">All Routes</a>
+        <li class="nav-item" *ngIf="tokenStorageService.getCompany()">
+          <a *ngIf="isLoggedIn" class="nav-link btn p-0 m-2"  (click)="open('/all-routes')">All Routes</a>
         </li>
         <li class="nav-item">
-          <a *ngIf="isLoggedIn" class="nav-link" (click)="open('/statistics')">Statistics</a>
+          <a *ngIf="isLoggedIn" class="nav-link btn p-0 m-2" (click)="open('/statistics')">Statistics</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="isLoggedIn" class="nav-link btn p-0 m-2" (click)="open('/search-user')">Search User</a>
         </li>
       </ul>
       <ul class="navbar-nav  navbar-right">
         <li *ngIf="!isLoggedIn" class="nav-item">
-          <a class="nav-link" (click)="open('/login')" >Login</a>
+          <a class="nav-link btn p-0 m-2" (click)="open('/login')" >Login</a>
         </li>
         <li *ngIf="!isLoggedIn" class="nav-item">
-          <a class="nav-link" (click)="open('/register')">Register</a>
+          <a class="nav-link btn p-0 m-2" (click)="open('/register')">Register</a>
         </li>
         <li *ngIf="isLoggedIn" class="nav-item">
-          <a class="nav-link" (click)="open('/profile')">{{'Hello, ' + username}}</a>
+          <a class="nav-link btn p-0 m-2" (click)="open('/profile')">{{'Hello, ' + username}}</a>
         </li>
         <li *ngIf="isLoggedIn" class="nav-item">
-          <a class="nav-link" (click)="logout()">Logout</a>
+          <a class="nav-link btn p-0 m-2" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>

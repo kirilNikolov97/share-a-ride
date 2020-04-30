@@ -16,6 +16,7 @@ import {TokenStorageService} from '../../_services/token-storage.service';
 export class ProfileComponent implements OnInit {
 
   user: User;
+  userRating: number;
   addresses: Address[];
   futureRoutesAsDriver: Route[];
   futureRoutesAsDriverWaitingForApproval: Route[];
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private apiServiceProfile: ProfileApiService,
-    private navigation: NavigationService,
+    public navigation: NavigationService,
     private activatedRoute: ActivatedRoute,
     private tokenService: TokenStorageService
   ) { }
@@ -35,6 +36,7 @@ export class ProfileComponent implements OnInit {
 
     this.apiServiceProfile.getUser().subscribe( res => {
       this.user = res;
+      this.userRating = this.calculateRating(this.user);
       this.addresses = this.user.addresses.filter(address => !address.deleted);
       this.cars = this.user.cars.filter(car => !car.deleted);
     });
@@ -53,6 +55,18 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  private calculateRating(user: User) {
+    if (user.ratings.length === 0) {
+      return 0;
+    }
+
+    let cnt = 0;
+    for (let r of user.ratings) {
+      cnt += r.rate;
+    }
+    return cnt / user.ratings.length;
+  }
+
   viewOnMap(routeId, routeStopId) {
     this.navigation.openWithQueryParams('/profile/routes/review/' + routeId, {'routeStopId' : routeStopId});
   }
@@ -67,5 +81,9 @@ export class ProfileComponent implements OnInit {
     this.apiServiceProfile.declineRouteStop(routeStopId).subscribe(res => {
       this.navigation.reload();
     });
+  }
+
+  openProfile(driverId) {
+    this.navigation.open('/view-profile/' + driverId);
   }
 }

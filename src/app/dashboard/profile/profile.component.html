@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid text-center">
   <div class="row">
     <div class="col-md-2">
       <app-sidebar></app-sidebar>
@@ -6,106 +6,196 @@
     <div class="col-md-10">
 
       <!-- Unapproved route stops -->
-      <span *ngIf="user.driver">
-      <h3>Waiting for approval:</h3>
-      <ul class="list-group list-group-flush">
-        <li *ngIf="this.futureRoutesAsDriverWaitingForApproval.length == 0" class="list-group-item">Nothing to approve.</li>
-        <li *ngFor="let route of this.futureRoutesAsDriverWaitingForApproval" class="list-group-item">
-          <table class="table">
-            <tr>
-              <th scope="col">{{route.dateRoute.toString().split('T').join(' ')}}</th>
+      <div *ngIf="user.driver && this.futureRoutesAsDriverWaitingForApproval.length > 0">
 
-              <th>
-                From:
-               <span *ngIf="route.officeDirection">
-                <span *ngFor="let routeStop of this.route.routeStops">
-                  <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                    {{routeStop.address.district + ' ' + routeStop.address.street}}
-                  </span>
-                </span>
-               </span>
+        <div class="card m-3" >
+          <div class="card-body">
+            <h3 class="card-title">Waiting for approval:</h3>
 
-               <span *ngIf="!route.officeDirection">
-                 Office
-               </span>
-              </th>
+            <ul class="list-group list-group-flush">
+              <li *ngIf="this.futureRoutesAsDriverWaitingForApproval.length == 0" class="list-group-item">Nothing to approve.</li>
+              <li *ngFor="let route of this.futureRoutesAsDriverWaitingForApproval" class="list-group-item">
+                <div class="table-responsive">
+                  <table class="table table-hover">
+                    <thead>
+                    <tr>
+                      <th scope="col">{{route.dateRoute.toString().split('T').join(' ')}}</th>
 
-              <th scope="col">
-                To:
-                <span *ngIf="!route.officeDirection">
-                <span *ngFor="let routeStop of this.route.routeStops">
-                  <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                    {{routeStop.address.district + ' ' + routeStop.address.street}}
-                  </span>
-                </span>
-               </span>
+                      <th>
+                        From:
+                        <span *ngIf="route.officeDirection">
+                      <span *ngFor="let routeStop of this.route.routeStops">
+                        <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                          {{routeStop.address.district + ' ' + routeStop.address.street}}
+                        </span>
+                      </span>
+                     </span>
 
-                <span *ngIf="route.officeDirection">
-                 Office
-               </span>
-              </th>
+                        <span *ngIf="!route.officeDirection">
+                       Office
+                     </span>
+                      </th>
 
-              <th scope="col">{{route.car.manufacturer}}</th>
-              <th scope="col">{{route.car.seats - route.routeStops.length}} free seat(s)</th>
-            </tr>
+                      <th scope="col">
+                        To:
+                        <span *ngIf="!route.officeDirection">
+                      <span *ngFor="let routeStop of this.route.routeStops">
+                        <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                          {{routeStop.address.district + ' ' + routeStop.address.street}}
+                        </span>
+                      </span>
+                     </span>
 
-            <tr *ngFor="let routeStop of this.route.routeStops">
-              <ng-container *ngIf="!routeStop.approved">
-                <td> {{routeStop.address.district}} </td>
-                <td> {{routeStop.address.street}} </td>
-                <td> Username: {{routeStop.userId.username}} </td>
-                <td> Approved: {{routeStop.approved}} </td>
-                <td>
-                  <button type="button" class="btn btn-primary" (click)="approveRouteStop(routeStop.id)" >✔</button>
-                  <button type="button" class="btn btn-danger" (click)="declineRouteStop(routeStop.id)" >X</button>
-                  <button type="button" class="btn btn-info" (click)="viewOnMap(route.id, routeStop.id)" >?</button>
-                </td>
-              </ng-container>
-            </tr>
+                        <span *ngIf="route.officeDirection">
+                       Office
+                     </span>
+                      </th>
 
-          </table>
-        </li>
-      </ul>
-      </span>
+                      <th scope="col">{{route.car.manufacturer}}</th>
+                      <th scope="col">{{route.car.seats - route.routeStops.length}} free seat(s)</th>
+                    </tr>
+                    </thead>
 
-      <!-- Addresses -->
-      <h3>Addresses:</h3>
-      <ul class="list-group list-group-flush">
-        <li *ngIf="this.addresses.length == 0" class="list-group-item">You still have no addresses.</li>
-        <li *ngFor="let address of this.addresses" class="list-group-item">
-          {{ address.district }},{{ address.city.name }},{{ address.street }}
-          <span *ngIf="address.additionalInfo">
-            , {{ address.additionalInfo }}
-          </span>
-        </li>
-      </ul>
+                    <tbody>
+                    <tr *ngFor="let routeStop of this.route.routeStops">
+                      <ng-container *ngIf="!routeStop.approved">
+                        <td> {{routeStop.address.district}} </td>
+                        <td> {{routeStop.address.street}} </td>
+                        <td> <div (click)="openProfile(routeStop.userId.id)" class="btn btn-link">{{routeStop.userId.username}} </div></td>
+                        <td> Approved: {{routeStop.approved}} </td>
+                        <td>
+                        <span (click)="approveRouteStop(routeStop.id)" class="btn p-0 m-2">
+                          <img src="../../../assets/accept.png" alt="Map icon" style="height: 20px">
+                        </span>
+                          <span (click)="declineRouteStop(routeStop.id)" class="btn p-0 m-2">
+                          <img src="../../../assets/decline.png" alt="Map icon" style="height: 20px">
+                        </span>
+                          <span (click)="viewOnMap(route.id, routeStop.id)" class="btn p-0 m-2">
+                          <img src="../../../assets/map-icon.svg" alt="Map icon" style="height: 20px">
+                        </span>
+                        </td>
+                      </ng-container>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </li>
+            </ul>
 
-      <!-- Email -->
-      <h3>Email:</h3>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          {{this.user.email}}
-        </li>
-      </ul>
-
-      <!-- Phone -->
-      <h3>Phone:</h3>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item ">
-          {{this.user.phone}}
-        </li>
-      </ul>
+          </div>
+        </div>
 
 
-      <div *ngIf="user.driver">
-        <!-- Cars -->
-        <h3>Cars:</h3>
-        <ul class="list-group list-group-flush">
-          <li *ngFor="let car of this.cars" class="list-group-item">
-            {{ car.color + ' ' + car.manufacturer + ' ' + car.model + ' ' + car.year }}
-          </li>
-        </ul>
+
       </div>
+
+      <div class="card m-3">
+        <div class="card-body">
+          <h2 class="card-title m-3">
+            {{this.user.firstName + ' ' + this.user.lastName}}
+              <img class="btn p-0" src="../../../assets/edit.png" (click)="navigation.open('profile/info')" alt="Edit icon" style="height: 40px">
+          </h2>
+
+          <div class="row m-3">
+
+            <!-- Email -->
+            <div class="col-md-4">
+              <h5>Email:</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  {{this.user.email}}
+                </li>
+              </ul>
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-4">
+              <h5>Phone:</h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item ">
+                  {{this.user.phone}}
+                </li>
+              </ul>
+            </div>
+
+            <!-- Rating -->
+            <div class="col-md-4">
+              <h5>Rating:</h5>
+              <ul class="list-group list-group-flush">
+                <li *ngIf="userRating > 0" class="list-group-item ">
+                  {{this.userRating}}<small>/5</small>
+                </li>
+                <li *ngIf="userRating === 0" class="list-group-item ">
+                  No Rating
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+          <div class="row m-3">
+            <!-- Addresses -->
+            <div class="col-md-6 m-2">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">
+                      Addresses
+                      <span class="float-right">
+                        <img class="btn p-0" src="../../../assets/list.png" (click)="navigation.open('profile/address')" alt="Edit icon" style="height: 30px">
+                      </span>
+                    </th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngIf="this.addresses.length == 0">
+                    <td>You still have no addresses.</td>
+                  </tr>
+
+                  <tr *ngFor="let address of this.addresses">
+                    <td>
+                      {{ address.district }},{{ address.city.name }},{{ address.street }}
+                      <span *ngIf="address.additionalInfo">, {{ address.additionalInfo }} </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div *ngIf="user.driver" class="col m-2">
+              <!-- Cars -->
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                  <th scope="col">
+                    Cars
+                    <span class="float-right">
+                      <img class="btn p-0" src="../../../assets/list.png" (click)="navigation.open('profile/cars')" alt="Edit icon" style="height: 30px">
+                    </span>
+                  </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr *ngIf="this.cars.length == 0">
+                  <td>You still have no cars.</td>
+                </tr>
+
+                <tr  *ngFor="let car of this.cars">
+                  <td>
+                    {{ car.color + ' ' + car.manufacturer + ' ' + car.model + ' ' + car.year }}
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
     </div>
   </div>
 </div>

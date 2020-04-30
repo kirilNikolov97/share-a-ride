@@ -25,6 +25,7 @@ export class EditAddressComponent implements OnInit {
   addressId: string;
   selectedCity: City;
   isValidFormSubmitted = false;
+  errorMessage = '';
 
 
   @ViewChild('search')
@@ -136,8 +137,11 @@ export class EditAddressComponent implements OnInit {
 
     this.addressClass.latitude = this.latitude;
     this.addressClass.longitude = this.longitude;
-    this.apiServiceProfile.updateAddress(this.addressClass).subscribe(res => {
-      this.navigate.open('profile/address');
-    });
+    this.apiServiceProfile.updateAddress(this.addressClass).subscribe(
+      res => {
+        this.navigate.open('profile/address');
+      }, err => {
+        this.errorMessage = 'Something went wrong';
+      });
   }
 }

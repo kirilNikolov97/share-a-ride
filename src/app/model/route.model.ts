@@ -7,6 +7,7 @@ export class Route {
   dateRoute: Date;
   car: Car;
   officeDirection: boolean;
+  officeAddressId: string;
   routeStops: RouteStop[];
 
   constructor() {
@@ -14,6 +15,7 @@ export class Route {
     this.dateRoute = null;
     this.car = null;
     this.officeDirection = null;
+    this.officeAddressId = null;
     this.routeStops = [];
   }
 

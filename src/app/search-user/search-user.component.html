@@ -1,0 +1,40 @@
+<div class="container text-center">
+
+  <div class="card text-center mt-4" >
+    <div class="card-body" style=" text-align: -webkit-center">
+
+      <form (ngSubmit)="searchByUsername()" class="text-center" style="width: 50%;">
+        <div class="form-group">
+          <h4 for="searchBox">Search User</h4>
+          <input [(ngModel)]="this.username" type="text" class="form-control" id="searchBox" name="searchBox" placeholder="username">
+        </div>
+
+        <div class="form-group" >
+          <button class="btn btn-primary btn-block">Search</button>
+        </div>
+      </form>
+
+      <table class="table table-hover text-center">
+        <thead>
+        <tr>
+          <th scope="col">Username</th>
+          <th scope="col">Names</th>
+          <th scope="col">Email</th>
+          <th scope="col">Phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of foundUsersByUsername">
+          <th (click)="openProfile(user.id)" > <div class="btn btn-link">{{user.username}}</div></th>
+          <td>{{user.firstName + ' ' + user.lastName}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.phone}}</td>
+        </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>

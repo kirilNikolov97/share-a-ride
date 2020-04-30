@@ -46,6 +46,7 @@ import { PassedRoutesComponent } from './dashboard/route/passed-routes/passed-ro
 import { ViewProfileComponent } from './view-profile/view-profile.component';
 import {AuthGuard} from './_services/auth.guard';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import { SearchUserComponent } from './search-user/search-user.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
     StatisticsComponent,
     ReviewRouteComponent,
     PassedRoutesComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    SearchUserComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +96,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
     OwlNativeDateTimeModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCXtPvQGtMNUhR0FA4BEo2y45fg3ZarYC4',
-      libraries: ['places']
+      libraries: ['places', 'geometry']
     }),
     NgxChartsModule
   ],

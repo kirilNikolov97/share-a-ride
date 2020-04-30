@@ -10,11 +10,12 @@ import {NavigationService} from '../../_services/navigation.service';
 export class SidebarComponent implements OnInit {
 
   constructor(
-    private tokenStorageService: TokenStorageService,
-    private navigation: NavigationService
+    public tokenStorageService: TokenStorageService,
+    public navigation: NavigationService
   ) { }
 
   ngOnInit() {
+    console.log(this.tokenStorageService.getUser());
   }
 
 }

@@ -1,74 +1,113 @@
-<div class="container">
-  <form #routeForm="ngForm" (ngSubmit)="onSubmit(routeForm)">
+<div class="container" style="text-align: -webkit-center;">
 
-    <!-- Direction -->
-    <div class="form-group">Direction:</div>
-    <div *ngIf="officeDirection">
-      <div class="btn btn-info" >Office</div>
-      <div class="btn btn-light" (click)="setOfficeDirection(false)" >Home</div>
-    </div>
-    <div *ngIf="!officeDirection">
-      <div class="btn btn-light" (click)="setOfficeDirection(true)" >Office</div>
-      <div class="btn btn-info" >Home</div>
-    </div>
 
-    <!-- Addresses -->
-    <div class="form-group">
-      <label for="where">
-        <div *ngIf="officeDirection">From where:</div>
-        <div *ngIf="!officeDirection">To where:</div>
-      </label>
-      <!-- Dropdown -->
-      <div>
-        <select id="where" [(ngModel)]="selectedAddress" name="address" required >
-          <option value="" >Choose your address</option>
-          <option *ngFor="let address of addresses" [ngValue]="address" >
-            {{address.city.name + ', ' + address.district + ', ' + address.street}}
-          </option>
-        </select>
-      </div>
+  <div class="card text-center m-5" style="width:80%;">
+    <div class="card-body m-3">
+      <h3 class="card-title">Create Route</h3>
+      <form #routeForm="ngForm" (ngSubmit)="onSubmit(routeForm)">
 
-      <!-- Validation for Addresses -->
-      <div *ngIf="!selectedAddress.id && routeForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
-        <div class="text-danger">
-          Address is required.
+        <div class="row">
+          <!-- Direction -->
+          <div class="form-group col">Direction:
+            <div *ngIf="officeDirection">
+              <div class="btn btn-info" >Office</div>
+              <div class="btn btn-light" (click)="setOfficeDirection(false)" >Home</div>
+            </div>
+            <div *ngIf="!officeDirection">
+              <div class="btn btn-light" (click)="setOfficeDirection(true)" >Office</div>
+              <div class="btn btn-info" >Home</div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+        <div class="row m-3">
+          <!-- Company Addresses -->
+          <div class="form-group col-md-6">
+            <label for="where">
+              <div *ngIf="officeDirection">To where:</div>
+              <div *ngIf="!officeDirection">From where:</div>
+            </label>
+            <!-- Dropdown -->
+            <div>
+              <select id="where" [(ngModel)]="selectedCompanyAddress" name="address" required >
+                <option value="" >Choose your address</option>
+                <option *ngFor="let address of companyAddresses" [ngValue]="address" >
+                  {{address.city.name + ', ' + address.street}}
+                </option>
+              </select>
+            </div>
 
-    <!-- Date -->
-    <div class="form-group">
-      <label>Date and Time:</label>
-      <div>
-        <input [(ngModel)]="date" [min]="today" [owlDateTimeTrigger]="dtPicker1" [owlDateTime]="dtPicker1" name="date">
-        <owl-date-time #dtPicker1></owl-date-time>
-      </div>
-    </div>
+            <!-- Validation for Company Addresses -->
+            <div *ngIf="!selectedAddress.id && routeForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+              <div class="text-danger">
+                Company Address is required.
+              </div>
+            </div>
 
-    <!-- Cars -->
-    <div class="form-group">
-      <label for="car">Which Car:</label>
-      <!-- Dropdown -->
-      <div>
-        <select id="car" [(ngModel)]="selectedCar" name="car">
-          <option name="car" value="">Choose your car</option>
-          <option *ngFor="let car of cars" [ngValue]="car">
-            {{car.manufacturer + ', ' + car.model + ', ' + car.year}}
-          </option>
-        </select>
-      </div>
+          </div>
 
-      <!-- Validation for Cars -->
-      <div *ngIf="!selectedCar.id && routeForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
-        <div class="text-danger">
-          Car is required.
+          <!-- User Addresses -->
+          <div class="form-group col-md-6">
+            <label for="where">
+              <div *ngIf="officeDirection">From where:</div>
+              <div *ngIf="!officeDirection">To where:</div>
+            </label>
+            <!-- Dropdown -->
+            <div>
+              <select id="where" [(ngModel)]="selectedAddress" name="address" required >
+                <option value="" >Choose your address</option>
+                <option *ngFor="let address of addresses" [ngValue]="address" >
+                  {{address.city.name + ', ' + address.street}}
+                </option>
+              </select>
+            </div>
+
+            <!-- Validation for Addresses -->
+            <div *ngIf="!selectedAddress.id && routeForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+              <div class="text-danger">
+                Address is required.
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+
+        <!-- Date and Time -->
+        <div class="row m-3">
+          <!-- Date -->
+          <div class="form-group col">
+            <label>Date and Time:</label>
+            <div>
+              <input [(ngModel)]="date" [min]="today" [owlDateTimeTrigger]="dtPicker1" [owlDateTime]="dtPicker1" name="date">
+              <owl-date-time #dtPicker1></owl-date-time>
+            </div>
+          </div>
+
+          <!-- Cars -->
+          <div class="form-group col">
+            <label for="car">Which Car:</label>
+            <!-- Dropdown -->
+            <div>
+              <select id="car" [(ngModel)]="selectedCar" name="car">
+                <option name="car" value="">Choose your car</option>
+                <option *ngFor="let car of cars" [ngValue]="car">
+                  {{car.manufacturer + ', ' + car.model + ', ' + car.year}}
+                </option>
+              </select>
+            </div>
+
+            <!-- Validation for Cars -->
+            <div *ngIf="!selectedCar.id && routeForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+              <div class="text-danger">
+                Car is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="text-danger">{{errorMessage}}</div>
+
+        <button type="submit" class="btn btn-primary">Add New Route</button>
+      </form>
     </div>
-
-    <!-- Error Message -->
-    <div class="text-danger">{{errorMessage}}</div>
-
-    <button type="submit" class="btn btn-primary">Add New Route</button>
-  </form>
+  </div>
 </div>

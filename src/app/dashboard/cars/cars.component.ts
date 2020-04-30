@@ -16,7 +16,7 @@ export class CarsComponent implements OnInit {
 
   constructor(
     private apiServiceProfile: ProfileApiService,
-    private navigation: NavigationService,
+    public navigation: NavigationService,
     private tokenStorageService: TokenStorageService
   ) { }
 

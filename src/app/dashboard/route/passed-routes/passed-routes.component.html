@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid text-center">
   <div class="row">
 
     <!-- Sidebar -->
@@ -8,131 +8,166 @@
 
     <!-- Routes -->
     <div class="col-md-10">
-      <div *ngIf="tokenStorageService.getUser().driver">
+      <div *ngIf="tokenStorageService.getUser().driver" class="m-3">
+
+        <div class="card">
+          <div class="card-body">
+            <h3>Last Routes as a Driver:</h3>
+
+            <div style="justify-content: center">
+              <div class="row table-responsive-md">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col" (click)="sortByDateAsDriver()">Date<i class="fa fa-fw fa-sort"></i></th>
+                      <th scope="col">From</th>
+                      <th scope="col">To</th>
+                      <th scope="col">Car</th>
+                      <th scope="col">Free Seats</th>
+                      <th scope="col">Map</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                  <tr *ngIf="userRoutesAsDriver.length === 0">
+                    <td colspan=6 >Nothing to show</td>
+                  </tr>
+                  <tr *ngFor="let route of this.userRoutesAsDriver">
+                    <td>{{route.dateRoute.toString().split('T').join(' ')}}</td>
+
+                    <!-- From -->
+                    <td>
+                    <span *ngIf="route.officeDirection">
+                      <span *ngFor="let routeStop of this.route.routeStops">
+                        <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                          {{routeStop.address.district + ' ' + routeStop.address.street}}
+                        </span>
+                      </span>
+                    </span>
+
+                    <span *ngIf="!route.officeDirection">
+                      {{this.findAddressById(route.officeAddressId)}}
+                    </span>
+                    </td>
+
+                    <!-- To -->
+                    <td>
+                      <span *ngIf="route.officeDirection">
+                        {{this.findAddressById(route.officeAddressId)}}
+                      </span>
+
+                          <span *ngIf="!route.officeDirection">
+                        <span *ngFor="let routeStop of this.route.routeStops">
+                          <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                            {{routeStop.address.district + ' ' + routeStop.address.street}}
+                          </span>
+                        </span>
+                      </span>
+                    </td>
+
+
+                    <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
+                    <td>
+                      {{route.car.seats - route.routeStops.length}}
+                    </td>
+                    <td>
+                      <div (click)="viewOnMap(route.id)" >
+                        <img class="btn p-0" src="../../../../assets/map-icon.svg" alt="Map icon" style="height: 40px">
+                      </div>
+                    </td>
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="row justify-content-center">
+              <div *ngIf="this.limitDriver != -1 && userRoutesAsDriver.length > 10"  class="btn btn-primary" (click)="showAllPastRoutesAsDriver()">Show All</div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
 
         <!-- Last Routes - Driver -->
-        <div class="row">
-          <h3>Last Routes as a Driver:</h3>
+        <div class="row m-3" style="justify-content: center">
+
         </div>
-        <div class="row">
-          <table class="table table-responsive-md">
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">From</th>
-              <th scope="col">To</th>
-              <th scope="col">Car</th>
-              <th scope="col">Free Seats</th>
-              <th scope="col">Options</th>
-            </tr>
-
-            <tr *ngFor="let route of this.userRoutesAsDriver">
-              <td>{{route.dateRoute.toString().split('T').join(' ')}}</td>
-
-              <!-- From -->
-              <td>
-                <span *ngIf="route.officeDirection">
-                  <span *ngFor="let routeStop of this.route.routeStops">
-                    <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                      {{routeStop.address.district + ' ' + routeStop.address.street}}
-                    </span>
-                  </span>
-                </span>
-
-                <span *ngIf="!route.officeDirection">
-                  Office
-                </span>
-              </td>
-
-              <!-- To -->
-              <td>
-                <span *ngIf="route.officeDirection">
-                  Office
-                </span>
-
-                <span *ngIf="!route.officeDirection">
-                  <span *ngFor="let routeStop of this.route.routeStops">
-                    <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                      {{routeStop.address.district + ' ' + routeStop.address.street}}
-                    </span>
-                  </span>
-                </span>
-              </td>
 
 
-              <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
-              <td>
-                {{route.car.seats - route.routeStops.length}}
-              </td>
-              <td>
-                <button type="button" class="btn btn-primary" (click)="viewOnMap(route.id)" >View</button>
-              </td>
-
-            </tr>
-
-          </table>
-        </div>
       </div>
 
 
       <!-- Last Routes - Passenger -->
-      <div class="row">
-        <h3>Last Routes as a Passenger:</h3>
-      </div>
-      <div class="row">
-        <table class="table table-responsive-md">
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
-            <th scope="col">Car</th>
-            <th scope="col">Driver Username</th>
-          </tr>
+      <div class="card m-3">
+        <div class="card-body">
+          <h3>Last Routes as a Passenger:</h3>
+            <div class="table-responsive-md">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" (click)="sortByDateAsPassenger()" >Date<i class="fa fa-fw fa-sort"></i></th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Car</th>
+                    <th scope="col">Driver Username</th>
+                  </tr>
+                </thead>
 
-          <tr *ngFor="let route of this.userRoutesAsPassenger">
-            <th>{{route.dateRoute.toString().split('T').join(' ')}}</th>
+                <tbody>
+                  <tr *ngIf="userRoutesAsPassenger.length === 0">
+                    <td colspan="5">Nothing to show</td>
+                  </tr>
+                  <tr *ngFor="let route of this.userRoutesAsPassenger">
+                    <td>{{route.dateRoute.toString().split('T').join(' ')}}</td>
 
-            <!-- From -->
-            <td>
-                <span *ngIf="route.officeDirection">
-                  <span *ngFor="let routeStop of this.route.routeStops">
-                    <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                      {{routeStop.address.district + ' ' + routeStop.address.street}}
-                    </span>
-                  </span>
-                </span>
+                    <!-- From -->
+                    <td>
+                      <span *ngIf="route.officeDirection">
+                        <span *ngFor="let routeStop of this.route.routeStops">
+                          <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                            {{routeStop.address.district + ' ' + routeStop.address.street}}
+                          </span>
+                        </span>
+                      </span>
 
-              <span *ngIf="!route.officeDirection">
-                  Office
-                </span>
-            </td>
+                      <span *ngIf="!route.officeDirection">
+                          {{this.findAddressById(route.officeAddressId)}}
+                      </span>
+                    </td>
 
-            <!-- To -->
-            <td>
-                <span *ngIf="route.officeDirection">
-                  Office
-                </span>
+                    <!-- To -->
+                    <td>
+                        <span *ngIf="route.officeDirection">
+                          {{this.findAddressById(route.officeAddressId)}}
+                        </span>
 
-              <span *ngIf="!route.officeDirection">
-                  <span *ngFor="let routeStop of this.route.routeStops">
-                    <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                      {{routeStop.address.district + ' ' + routeStop.address.street}}
-                    </span>
-                  </span>
-                </span>
-            </td>
+                      <span *ngIf="!route.officeDirection">
+                          <span *ngFor="let routeStop of this.route.routeStops">
+                            <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                              {{routeStop.address.district + ' ' + routeStop.address.street}}
+                            </span>
+                          </span>
+                        </span>
+                    </td>
 
 
-            <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
-            <td>
-              <span *ngFor="let routeStop of this.route.routeStops">
-                <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                  {{routeStop.userId.username}}
-                </span>
-              </span>
-            </td>
-
-          </tr>
-        </table>
+                    <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
+                    <td>
+                      <span *ngFor="let routeStop of this.route.routeStops">
+                        <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                          <div (click)="openProfile(routeStop.userId.id)" class="btn btn-link">{{routeStop.userId.username}}</div>
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <div *ngIf="this.limitPassenger != -1 && userRoutesAsPassenger.length > 14" class="btn btn-primary" (click)="showAllPastRoutesAsPassenger()">Show All</div>
+        </div>
       </div>
 
     </div>

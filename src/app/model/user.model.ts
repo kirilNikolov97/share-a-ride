@@ -19,6 +19,7 @@ export class User {
   cars: Car[];
   ratings: Rating[];
   isCompany: boolean;
+  pictureUrl: string;
 
   constructor() {
     this.id = null;
@@ -37,6 +38,7 @@ export class User {
     this.cars = null;
     this.ratings = null;
     this.isCompany = null;
+    this.pictureUrl = null;
   }
 
 }

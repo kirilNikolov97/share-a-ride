@@ -22,6 +22,7 @@ export class RoutePageComponent implements OnInit {
   userAddresses: Address[];
   selectedAddress: Address;
   errorMessage: '';
+  isValidFormSubmitted = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -48,6 +49,12 @@ export class RoutePageComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isValidFormSubmitted = false;
+    if (this.selectedAddress == null) {
+      return;
+    }
+    this.isValidFormSubmitted = true;
+
     this.apiServiceProfile.saveSeat(this.selectedAddress.id, this.routeId).subscribe(
       res => {
         this.navigation.open('/');

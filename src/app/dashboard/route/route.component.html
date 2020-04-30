@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid text-center">
   <div class="row">
 
     <!-- Sidebar -->
@@ -8,147 +8,170 @@
 
     <!-- Routes -->
     <div class="col-md-10">
-      <div class="row">
-        <h2 class="col-md-8">Routes:</h2>
-        <a (click)="openPassedRoutes()" class="list-group-item col-md-2">Past Routes</a>
-        <a *ngIf="tokenStorageService.getUser().driver" (click)="navigation.open('profile/routes/create')" class="list-group-item col-md-2">
-          + Add New Route
-        </a>
+      <div class="row text-center m-3">
+        <h1 class="col">Routes</h1>
+        <img (click)="openPassedRoutes()" src="../../../assets/archive.png" class="btn p-0 img-fluid float-right" style="height: 40px;" alt="Responsive image">
       </div>
 
       <div *ngIf="tokenStorageService.getUser().driver">
 
         <!-- Future Routes - Driver -->
-        <div class="row">
-          <h3>Future Routes as a Driver:</h3>
-        </div>
-        <div class="row table-responsive-md">
-          <table class="table">
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">From</th>
-              <th scope="col">To</th>
-              <th scope="col">Car</th>
-              <th scope="col">Free Seats</th>
-              <th scope="col">Options</th>
-            </tr>
+        <div class="card m-3" >
+          <div class="card-body">
+            <h3 class="card-title">Future Routes as a Driver: <img (click)="navigation.open('profile/routes/create')" src="../../../assets/add.png" class="btn p-0 img-fluid float-right" style="height: 40px;" alt="Responsive image">
+            </h3>
 
-            <tr *ngFor="let route of this.futureRoutesAsDriver">
-              <td>{{route.dateRoute.toString().split('T').join(' ')}}</td>
+            <div class="row table-responsive-md m-3">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Car</th>
+                    <th scope="col">Free Seats</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Map</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="!futureRoutesAsDriver || this.futureRoutesAsDriver.length === 0">
+                    <td colspan="7">No Future Routes as a Driver</td>
+                  </tr>
+                  <tr *ngFor="let route of this.futureRoutesAsDriver">
+                    <td>{{route.dateRoute.toString().split('T').join(' ')}}</td>
 
-              <!-- From -->
-              <td>
-                <span *ngIf="route.officeDirection">
-                  <span *ngFor="let routeStop of this.route.routeStops">
-                    <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                      {{routeStop.address.district + ' ' + routeStop.address.street}}
-                    </span>
-                  </span>
-                </span>
+                    <!-- From -->
+                    <td>
+                      <span *ngIf="route.officeDirection">
+                        <span *ngFor="let routeStop of this.route.routeStops">
+                          <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                            {{routeStop.address.district + ' ' + routeStop.address.street}}
+                          </span>
+                        </span>
+                      </span>
 
-                <span *ngIf="!route.officeDirection">
-                  Office
-                </span>
-              </td>
+                      <span *ngIf="!route.officeDirection">
+                        {{this.findAddressById(route.officeAddressId)}}
+                      </span>
+                    </td>
 
-              <!-- To -->
-              <td>
-                <span *ngIf="route.officeDirection">
-                  Office
-                </span>
+                    <!-- To -->
+                    <td>
+                      <span *ngIf="route.officeDirection">
+                        {{this.findAddressById(route.officeAddressId)}}
+                      </span>
 
-                <span *ngIf="!route.officeDirection">
-                  <span *ngFor="let routeStop of this.route.routeStops">
-                    <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                      {{routeStop.address.district + ' ' + routeStop.address.street}}
-                    </span>
-                  </span>
-                </span>
-              </td>
+                      <span *ngIf="!route.officeDirection">
+                        <span *ngFor="let routeStop of this.route.routeStops">
+                          <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                            {{routeStop.address.district + ' ' + routeStop.address.street}}
+                          </span>
+                        </span>
+                      </span>
+                    </td>
 
 
-              <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
-              <td>
-                {{route.car.seats - route.routeStops.length}}
-              </td>
-              <td>
-                <button type="button" class="btn btn-primary" (click)="navigation.open('profile/routes/edit/' + route.id)" >Edit</button>
-                <button type="button" class="btn btn-primary" (click)="viewOnMap(route.id)" >View</button>
-              </td>
+                    <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
+                    <td>
+                      {{route.car.seats - route.routeStops.length}}
+                    </td>
+                    <td>
+                      <div (click)="navigation.open('profile/routes/edit/' + route.id)" >
+                        <img class="btn p-0" src="../../../assets/edit.png" alt="Edit icon" style="height: 40px">
+                      </div>
+                    </td>
+                    <td>
+                      <div (click)="viewOnMap(route.id)" >
+                        <img class="btn p-0" src="../../../assets/map-icon.svg" alt="Map icon" style="height: 40px">
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
 
-            </tr>
-
-          </table>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Future Routes - Passenger -->
-      <div class="row">
-        <h3>Future Routes as a Passenger:</h3>
-      </div>
-      <div class="row">
-        <table class="table table-responsive-md">
-          <div>{{errorMessage}}</div>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">From</th>
-            <th scope="col">To</th>
-            <th scope="col">Car</th>
-            <th scope="col">Driver Username</th>
-            <th scope="col">Is Approved?</th>
-            <th scope="col"></th>
-          </tr>
 
-          <tr *ngFor="let combinedData of this.combinedFutureRoutesAsPassenger">
-            <th>{{combinedData.route.dateRoute.toString().split('T').join(' ')}}</th>
 
-            <!-- From -->
-            <td>
-              <span *ngIf="combinedData.route.officeDirection">
-                  {{combinedData.userRouteStop.address.district + ' ' + combinedData.userRouteStop.address.street}}
-              </span>
+        <div class="card m-3" >
+          <div class="card-body">
 
-              <span *ngIf="!combinedData.route.officeDirection">
-                  Office
-              </span>
-            </td>
+            <h3 class="card-title">Future Routes as a Passenger:</h3>
+            <table class="table table-responsive-md table-hover">
+              <div>{{errorMessage}}</div>
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">From</th>
+                  <th scope="col">To</th>
+                  <th scope="col">Car</th>
+                  <th scope="col">Driver Username</th>
+                  <th scope="col">Is Approved?</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
 
-            <!-- To -->
-            <td>
-              <span *ngIf="combinedData.route.officeDirection">
-                Office
-              </span>
+              <tbody>
+                <tr *ngIf="!combinedFutureRoutesAsPassenger || combinedFutureRoutesAsPassenger.length === 0">
+                  <td colspan=7>No Future Routes as a Passenger</td>
+                </tr>
+                <tr *ngFor="let combinedData of this.combinedFutureRoutesAsPassenger">
+                  <td>{{combinedData.route.dateRoute.toString().split('T').join(' ')}}</td>
 
-              <span *ngIf="!combinedData.route.officeDirection">
-                  {{combinedData.userRouteStop.address.district + ' ' + combinedData.userRouteStop.address.street}}
-              </span>
-            </td>
+                  <!-- From -->
+                  <td>
+                    <span *ngIf="combinedData.route.officeDirection">
+                        {{combinedData.userRouteStop.address.district + ' ' + combinedData.userRouteStop.address.street}}
+                    </span>
 
-            <!-- Manufacturer -->
-            <td>{{combinedData.route.car.manufacturer + ' ' + combinedData.route.car.model}}</td>
+                    <span *ngIf="!combinedData.route.officeDirection">
+                        {{this.findAddressById(combinedData.route.officeAddressId)}}
+                    </span>
+                  </td>
 
-            <!-- Driver -->
-            <td>
-              <span *ngFor="let routeStop of this.combinedData.route.routeStops">
-                <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                  {{routeStop.userId.username}}
-                </span>
-              </span>
-            </td>
+                  <!-- To -->
+                  <td>
+                    <span *ngIf="combinedData.route.officeDirection">
+                      {{this.findAddressById(combinedData.route.officeAddressId)}}
+                    </span>
 
-            <!-- Is Approved? -->
-            <td>
-              <span *ngIf="combinedData.userRouteStop.approved">Approved</span>
-              <span *ngIf="!combinedData.userRouteStop.approved">Not Approved</span>
-            </td>
+                    <span *ngIf="!combinedData.route.officeDirection">
+                        {{combinedData.userRouteStop.address.district + ' ' + combinedData.userRouteStop.address.street}}
+                    </span>
+                  </td>
 
-            <td>
-              <button class="btn btn-danger" (click)="deleteRouteStop(combinedData.userRouteStop)">X</button>
-            </td>
+                  <!-- Manufacturer -->
+                  <td>{{combinedData.route.car.manufacturer + ' ' + combinedData.route.car.model}}</td>
 
-          </tr>
-        </table>
-      </div>
+                  <!-- Driver -->
+                  <td>
+                    <span *ngFor="let routeStop of this.combinedData.route.routeStops">
+                      <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                        {{routeStop.userId.username}}
+                      </span>
+                    </span>
+                  </td>
+
+                  <!-- Is Approved? -->
+                  <td>
+                    <span *ngIf="combinedData.userRouteStop.approved">Approved</span>
+                    <span *ngIf="!combinedData.userRouteStop.approved">Not Approved</span>
+                  </td>
+
+                  <td>
+                    <button class="btn btn-danger" (click)="deleteRouteStop(combinedData.userRouteStop)">X</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
 
 
 

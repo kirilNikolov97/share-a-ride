@@ -6,9 +6,9 @@
 
     <div class="col-md-10">
 
-      <div class="row">
-        <h3 class="col-md-9">Your Addresses:</h3>
-        <a (click)="this.navigation.open('profile/address/create')" class="col-md-3"><button type="button" class="btn btn-primary float-right">+ Add New Address</button></a>
+      <div class="row text-center">
+        <h1 class="col m-3">Your Addresses</h1>
+<!--        <a (click)="this.navigation.open('profile/address/create')" class="col-md-3"><button type="button" class="btn btn-primary float-right">+ Add New Address</button></a>-->
       </div>
       <div class="text-danger">{{errorMessage}}</div>
 
@@ -23,6 +23,11 @@
               <a (click)="navigation.open('profile/address/edit/' + address.id)"><button type="button" class="btn btn-warning">Edit</button></a>
               <a><button (click)="deleteAddress(address.id)" type="button" class="btn btn-danger float-right">Delete</button></a>
             </div>
+          </div>
+        </div>
+        <div class="card m-4 align-self-center" style="width: 18rem;">
+          <div class="card-body text-center" (click)="this.navigation.open('profile/address/create')">
+            <img src="../../../assets/add.png" class="btn p-0 img-fluid" style="height: 80px;" alt="Responsive image">
           </div>
         </div>
       </div>

@@ -9,10 +9,16 @@ import {City} from '../../model/city.model';
 import {PasswordChange} from '../../model/password.change.model';
 import {RouteStop} from '../../model/route-stops.model';
 import {Rating} from '../../model/rating.model';
+import {ChartDataModel} from '../../model/charts-data-models/chart-data.model';
+import {LinearDataModel} from '../../model/charts-data-models/liner-data.model';
 
 const API_URL = 'http://localhost:8080';
 const headers = {
   'Content-type': 'application/json'
+};
+
+const multipartHeaders = {
+  'Content-type': 'multipart/form-data'
 };
 
 @Injectable({
@@ -27,6 +33,7 @@ export class ProfileApiService {
   }
 
   updateUser(user: User) {
+
     return this.http.patch<User>('http://localhost:8080/user', JSON.stringify(user), {headers});
   }
 
@@ -70,8 +77,12 @@ export class ProfileApiService {
     return this.http.patch<Car>(API_URL + '/car', JSON.stringify(car), {headers});
   }
 
-  getUserRoutesAsDriver() {
-    return this.http.get<Route[]>(API_URL + '/routesAsDriver?username=');
+  getUserRoutesAsDriver(sortBy, limit) {
+    return this.http.get<Route[]>(API_URL + '/routesAsDriver?sortBy=' + sortBy + '&limit=' + limit + '&username=');
+  }
+
+  getUserRoutesAsDriverByUsername(username) {
+    return this.http.get<Route[]>(API_URL + '/routesAsDriver?sortBy=&limit=10&username=' + username);
   }
 
   getFutureUserRoutesAsDriver() {
@@ -82,21 +93,20 @@ export class ProfileApiService {
     return this.http.get<Route[]>(API_URL + '/futureRoutesAsDriver?username=' + username);
   }
 
-  getUserRoutesAsDriverByUsername(username) {
-    return this.http.get<Route[]>(API_URL + '/routesAsDriver?username=' + username);
-  }
 
-  getUserRoutesAsPassenger() {
-    return this.http.get<Route[]>(API_URL + '/routesAsPassenger');
+
+  getUserRoutesAsPassenger(sortBy, limit) {
+    return this.http.get<Route[]>(API_URL + '/routesAsPassenger?sortBy=' + sortBy + '&limit=' + limit);
   }
 
   getFutureUserRoutesAsPassenger() {
     return this.http.get<Route[]>(API_URL + '/futureRoutesAsPassenger');
   }
 
-  addRoute(date: Date, carId, addressId, officeDirection) {
+  addRoute(date: Date, carId, addressId, officeDirection, companyAddressId) {
     return this.http.post<Route>(API_URL + '/route?carId=' + carId +
-      '&addressId=' + addressId + '&officeDirection=' + officeDirection, JSON.stringify(date) , {headers});
+      '&addressId=' + addressId + '&officeDirection=' + officeDirection + '&companyAddressId=' + companyAddressId,
+      JSON.stringify(date) , {headers});
   }
 
   getRouteById(routeId) {
@@ -108,11 +118,12 @@ export class ProfileApiService {
   }
 
 
-  updateFutureRoute(carId, addressId, routeId, date: Date, officeDirection) {
+  updateFutureRoute(carId, addressId, routeId, date: Date, officeDirection, officeAddressId) {
     return this.http.patch<Route>(API_URL + '/route?carId=' + carId +
       '&addressId=' + addressId +
       '&routeId=' + routeId +
-      '&officeDirection=' + officeDirection, JSON.stringify(date) , {headers});
+      '&officeDirection=' + officeDirection +
+      '&officeAddressId=' + officeAddressId, JSON.stringify(date) , {headers});
   }
 
   cancelRoute(routeId) {
@@ -130,10 +141,6 @@ export class ProfileApiService {
   getLastRoutes(currentPage, sortBy, dummyFilter) {
     return this.http.get<Route[]>(API_URL + '/route/allRoutes'
       + '?currPage=' + currentPage + '&sortBy=' + sortBy + '&filter=' + dummyFilter);
-  }
-
-  getTop15Users() {
-    return this.http.get<TopUser[]>(API_URL + '/top15Users');
   }
 
   getAllCities() {
@@ -180,7 +187,7 @@ export class ProfileApiService {
       '&startDate=' + dateRange.startDate.getTime() + '&endDate=' + dateRange.endDate.getTime(),  {headers});
   }
 
-  filterByDirection(currentPage, sortBy, dummyFilter, dateRange, officeDirection) {
+  filterByDirection(currentPage, sortBy, dummyFilter, dateRange, officeDirection, officeAddress) {
     if (sortBy == null) {
       sortBy = '';
     }
@@ -192,11 +199,49 @@ export class ProfileApiService {
     if (officeDirection == null) {
       officeDirection = '';
     }
+    let officeAddressId = '';
+    if (officeAddress != null) {
+      officeAddressId = officeAddress.id;
+    }
 
     return this.http.get<Route[]>(API_URL + '/route/sortAndFilter' +
       '?currPage=' + currentPage + '&sortBy=' + sortBy + '&filter=' + dummyFilter +
       '&startDate=' + dateRange.startDate.getTime() + '&endDate=' + dateRange.endDate.getTime() +
-      '&officeDirection=' + officeDirection,  {headers});
+      '&officeDirection=' + officeDirection + '&officeAddressId=' + officeAddressId,  {headers});
   }
 
+  getPieChartDriversData() {
+    return this.http.get<ChartDataModel[]>(API_URL + '/pieChartDriversData');
+  }
+
+  getTop15Users() {
+    return this.http.get<TopUser[]>(API_URL + '/top15Users');
+  }
+
+  getTop15UsersByDrives() {
+    return this.http.get<TopUser[]>(API_URL + '/top15UsersByDrives');
+  }
+
+  getTop15UsersByRating() {
+    return this.http.get<TopUser[]>(API_URL + '/top15UsersByRating');
+  }
+
+  getCompanyAddresses() {
+    return this.http.get<Address[]>(API_URL + '/companyAddresses');
+  }
+
+  uploadPicture(file: File) {
+    const data: FormData = new FormData();
+    data.append('file', file);
+
+    return this.http.post<string>(API_URL + '/uploadPicture', data, {'headers' : {}});
+  }
+
+  searchByUsername(username) {
+    return this.http.get<User[]>(API_URL + '/searchUser?username=' + username);
+  }
+
+  getAllRoutes() {
+    return this.http.get<Route[]>(API_URL + '/allRoutes');
+  }
 }

@@ -24,6 +24,8 @@ export class CreateRouteComponent implements OnInit {
   officeDirection: boolean;
   isValidFormSubmitted = false;
   errorMessage = '';
+  selectedCompanyAddress: Address;
+  companyAddresses: Address[];
 
   constructor(
     private apiServiceProfile: ProfileApiService,
@@ -50,6 +52,10 @@ export class CreateRouteComponent implements OnInit {
     this.apiServiceProfile.getAddresses().subscribe( res => {
       this.addresses = res;
     });
+
+    this.apiServiceProfile.getCompanyAddresses().subscribe( res => {
+      this.companyAddresses = res;
+    });
   }
 
   setOfficeDirection(direction) {
@@ -63,7 +69,7 @@ export class CreateRouteComponent implements OnInit {
     }
     this.isValidFormSubmitted = true;
 
-    this.apiServiceProfile.addRoute(this.date, this.selectedCar.id, this.selectedAddress.id, this.officeDirection).subscribe(
+    this.apiServiceProfile.addRoute(this.date, this.selectedCar.id, this.selectedAddress.id, this.officeDirection, this.selectedCompanyAddress.id).subscribe(
       res => {
         this.errorMessage = '';
         this.navigation.open('/profile/routes');

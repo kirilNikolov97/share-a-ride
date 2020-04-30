@@ -20,10 +20,12 @@ export class ProfileInfoComponent implements OnInit {
   successUserMessage = '';
   successPasswordMessage = '';
   isValidFormSubmitted = false;
+  userPicture: File;
 
   constructor(
     private apiServiceProfile: ProfileApiService,
-    private tokenService: TokenStorageService
+    private tokenService: TokenStorageService,
+    private navigation: NavigationService
   ) { }
 
   ngOnInit() {
@@ -33,6 +35,9 @@ export class ProfileInfoComponent implements OnInit {
     this.changePassword = new PasswordChange();
 
     this.apiServiceProfile.getUser().subscribe( res => {
+
+      console.log(res);
+      console.log('USER');
       this.user = res;
     });
   }
@@ -51,6 +56,8 @@ export class ProfileInfoComponent implements OnInit {
         this.successPasswordMessage = '';
         this.errorUserMessage = '';
         this.successUserMessage = 'Successfully updated your personal info.';
+        this.navigation.reload();
+
       }, err => {
         this.successPasswordMessage = '';
         this.errorPasswordMessage = '';
@@ -76,6 +83,26 @@ export class ProfileInfoComponent implements OnInit {
         this.errorUserMessage = '';
         this.successPasswordMessage = '';
         this.errorPasswordMessage = err.error.message;
+      });
+  }
+
+  selectFile(event) {
+    if (event.target.files.item(0).size / 1024 / 1024 > 4) {
+      this.errorUserMessage = 'File is bigger then 5MB';
+      return;
+    }
+    this.userPicture = event.target.files.item(0);
+  }
+
+  changePhoto() {
+    this.apiServiceProfile.uploadPicture(this.userPicture).subscribe(
+      res => {},
+      error => {
+        if (error.status === 200) {
+          this.navigation.reload();
+        } else {
+          this.errorUserMessage = error.error.message;
+        }
       });
   }
 }

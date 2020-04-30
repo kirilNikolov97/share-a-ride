@@ -20,11 +20,13 @@ export class ViewProfileComponent implements OnInit {
   futureRoutes: Route[];
   pastRoutes: Route[];
   errorMessage = '';
+  isValidFormSubmitted = false;
+  routeFormSubmitted = false;
 
   constructor(
     private apiServiceProfile: ProfileApiService,
     private activatedRoute: ActivatedRoute,
-    private tokenStorageService: TokenStorageService
+    public tokenStorageService: TokenStorageService
   ) { }
 
   ngOnInit() {
@@ -56,6 +58,13 @@ export class ViewProfileComponent implements OnInit {
   }
 
   rateUser() {
+    this.isValidFormSubmitted = false;
+    this.routeFormSubmitted = true;
+    if (this.currentRate == null) {
+      return;
+    }
+    this.isValidFormSubmitted = true;
+
     this.apiServiceProfile.rateUser(this.userId, this.currentRate).subscribe(
       res => {
         window.location.reload();

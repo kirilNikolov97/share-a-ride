@@ -1,67 +1,63 @@
-<div class="container">
+<div class="container text-center">
 
-  <!-- Username -->
-  <div class="form-group row">
-    <label for="username" class="col-sm-2 col-form-label">Username</label>
-    <div class="col-sm-10">
+  <div class="card m-3">
+    <img *ngIf="user.pictureUrl" class="card-img-top " src="{{user.pictureUrl}}" style="width: 200px; align-self: center" alt="Profile picture">
+    <img *ngIf="!user.pictureUrl" class="card-img-top " src="../../../assets/profile.jpg" style="width: 200px; align-self: center" alt="Profile picture">
+    <div class="card-body">
 
-      <span *ngIf="tokenStorageService.getUser().username === user.username">
-        <input type="text" readonly class="form-control-plaintext" value="{{user.username}} (you)">
-      </span>
+      <div class="row m-3">
+        <!-- Username -->
+        <div class="col-md-6">
+          <h5>Username:</h5>
+          <div class="form-control-plaintext" >{{user.username}}</div>
+        </div>
 
-      <span *ngIf="tokenStorageService.getUser().username !== user.username">
-        <input type="text" readonly class="form-control-plaintext" value="{{user.username}}">
-      </span>
+        <!-- Email -->
+        <div class="col-md-6">
+          <h5>Email:</h5>
+          <div class="form-control-plaintext" >{{user.email}}</div>
+        </div>
+      </div>
+
+      <div class="row m-3">
+        <!-- First Name -->
+        <div class="col-md-6">
+          <h5>Names:</h5>
+          <div class="form-control-plaintext" >{{user.firstName + ' ' + user.lastName}} </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="col-md-6">
+          <h5>Phone:</h5>
+          <div class="form-control-plaintext">{{user.phone}}</div>
+        </div>
+      </div>
+
+
+      <div class="row m-3">
+        <!-- Rating -->
+        <div class="col-md-6">
+          <h5>Rating:</h5>
+          <div *ngIf="myRating">{{myRating | number:'1.2-2'}}<small>/5</small> </div>
+          <div *ngIf="!myRating">No ratings</div>
+        </div>
+
+        <!-- Is Driver? -->
+        <div class="col-md-6">
+          <h5>Is driver?</h5>
+          <div >{{user.driver}} </div>
+        </div>
+      </div>
+
+
+      <div *ngIf="errorMessage != ''" class="text-danger">{{errorMessage}}</div>
+
+      <button *ngIf="tokenStorageService.getUser().username !== user.username" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Rate {{user.username}}
+      </button>
+
     </div>
   </div>
-
-  <!-- First Name -->
-  <div class="form-group row">
-    <label for="firstName" class="col-sm-2 col-form-label">First Name:</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="firstName" value="{{user.firstName}}">
-    </div>
-  </div>
-
-  <!-- Last Name -->
-  <div class="form-group row">
-    <label for="lastName" class="col-sm-2 col-form-label">Last Name:</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="lastName" value="{{user.lastName}}">
-    </div>
-  </div>
-
-  <!-- Phone -->
-  <div class="form-group row">
-    <label for="phone" class="col-sm-2 col-form-label">Phone:</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="phone" value="{{user.phone}}">
-    </div>
-  </div>
-
-  <!-- Rating -->
-  <div class="form-group row">
-    <label for="rating" class="col-sm-2 col-form-label">Rating:</label>
-    <div class="col-sm-10">
-      <input *ngIf="myRating" type="number" readonly class="form-control-plaintext" id="rating" value="{{myRating | number:'1.2-2'}}">
-      <input *ngIf="!myRating" type="text" readonly class="form-control-plaintext" id="rating" value="No ratings">
-    </div>
-  </div>
-
-  <!-- Is Driver? -->
-  <div class="form-group row">
-    <label for="driver" class="col-sm-2 col-form-label">Is driver?</label>
-    <div class="col-sm-10">
-      <input type="text" readonly class="form-control-plaintext" id="driver" value="{{user.driver}}">
-    </div>
-  </div>
-
-  <div *ngIf="errorMessage != ''" class="text-danger">{{errorMessage}}</div>
-
-  <button *ngIf="tokenStorageService.getUser().username !== user.username" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Rate {{user.username}}
-  </button>
-
 
   <!-- Future Routes - Driver -->
   <div class="row">
@@ -139,6 +135,14 @@
             </option>
           </select>
         </div>
+
+        <!-- Validation for Rating -->
+        <div *ngIf="!currentRate && routeFormSubmitted && !isValidFormSubmitted" [ngClass] = "'error'">
+          <div class="text-danger">
+            Please choose rating from the dropdown.
+          </div>
+        </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="rateUser()">Rate</button>

@@ -16,7 +16,7 @@ export class AddressComponent implements OnInit {
 
   constructor(
     private apiServiceProfile: ProfileApiService,
-    private navigation: NavigationService,
+    public navigation: NavigationService,
     private tokenService: TokenStorageService
     ) { }
 

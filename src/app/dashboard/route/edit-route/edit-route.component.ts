@@ -24,6 +24,9 @@ export class EditRouteComponent implements OnInit {
   today: Date = new Date(Date.now());
   officeDirection: boolean;
   isValidFormSubmitted = false;
+  selectedCompanyAddress: Address;
+  companyAddresses: Address[];
+  errorMessage = '';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -58,6 +61,13 @@ export class EditRouteComponent implements OnInit {
         this.apiServiceProfile.getCars().subscribe( cars => {
           this.cars = cars;
         });
+
+        this.apiServiceProfile.getCompanyAddresses().subscribe(add2 => {
+          console.log(add2);
+          this.companyAddresses = add2;
+          this.selectedCompanyAddress = this.companyAddresses.find(x => x.id === res.officeAddressId);
+        });
+
       }, err => {
         this.navigation.open('profile');
       });
@@ -80,8 +90,12 @@ export class EditRouteComponent implements OnInit {
     }
     this.isValidFormSubmitted = true;
 
-    this.apiServiceProfile.updateFutureRoute(this.selectedCar.id, this.selectedAddress.id, this.routeId, this.date, this.officeDirection).subscribe( res => {
-      this.navigation.open('/profile/routes');
-    });
+    this.apiServiceProfile.updateFutureRoute(this.selectedCar.id, this.selectedAddress.id,
+      this.routeId, this.date, this.officeDirection, this.selectedCompanyAddress.id).subscribe(
+        res => {
+        this.navigation.open('/profile/routes');
+      }, err => {
+        this.errorMessage = 'Something went wrong.';
+      });
   }
 }

@@ -4,6 +4,7 @@ import {NavigationService} from '../../_services/navigation.service';
 import {Route} from '../../model/route.model';
 import {ProfileApiService} from '../../_services/api/profile-api.service';
 import {RouteStop} from '../../model/route-stops.model';
+import {Address} from '../../model/address.model';
 
 @Component({
   selector: 'app-route',
@@ -16,16 +17,21 @@ export class RouteComponent implements OnInit {
   futureRoutesAsPassenger: Route[];
   combinedFutureRoutesAsDriver: CombinedData[];
   combinedFutureRoutesAsPassenger: CombinedData[];
+  companyAddresses: Address[];
   errorMessage = '';
 
   constructor(
-    private tokenStorageService: TokenStorageService,
-    private navigation: NavigationService,
+    public tokenStorageService: TokenStorageService,
+    public navigation: NavigationService,
     private apiServiceProfile: ProfileApiService
   ) { }
 
   ngOnInit() {
     this.tokenStorageService.saveSelectedMenuSidebar('route');
+
+    this.apiServiceProfile.getCompanyAddresses().subscribe(res => {
+      this.companyAddresses = res;
+    });
 
     this.combinedFutureRoutesAsPassenger = [];
     this.combinedFutureRoutesAsDriver = [];
@@ -64,6 +70,14 @@ export class RouteComponent implements OnInit {
       }, err => {
         this.errorMessage = err.error.message;
       });
+  }
+
+  findAddressById(officeAddressId: string): string {
+    for (let i of this.companyAddresses) {
+      if (officeAddressId === i.id) {
+        return i.district + ' ' + i.street;
+      }
+    }
   }
 }
 

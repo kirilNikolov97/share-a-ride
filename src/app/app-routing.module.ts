@@ -26,6 +26,7 @@ import {ReviewRouteComponent} from './dashboard/route/review-route/review-route.
 import {PassedRoutesComponent} from './dashboard/route/passed-routes/passed-routes.component';
 import {ViewProfileComponent} from './view-profile/view-profile.component';
 import {AuthGuard} from './_services/auth.guard';
+import {SearchUserComponent} from './search-user/search-user.component';
 
 const routes: Routes = [
   { path: 'home', canActivate: [AuthGuard], component: AllRoutesComponent },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'all-routes', canActivate: [AuthGuard], component: AllRoutesComponent},
   { path: 'statistics', canActivate: [AuthGuard], component: StatisticsComponent},
   { path: 'view-profile/:id', canActivate: [AuthGuard], component: ViewProfileComponent},
+  { path: 'search-user', canActivate: [AuthGuard], component: SearchUserComponent},
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },

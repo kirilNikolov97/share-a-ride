@@ -54,7 +54,6 @@ export class ReviewRouteComponent implements OnInit {
       this.apiServiceProfile.getAddressById(this.route.officeAddressId).subscribe(addrs => {
         this.officeLat = addrs.latitude;
         this.officeLng = addrs.longitude;
-        console.log(addrs);
 
         this.mapsAPILoader.load().then(() => {
           this.directionsService = new google.maps.DirectionsService;

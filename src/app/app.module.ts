@@ -95,7 +95,7 @@ import { SearchUserComponent } from './search-user/search-user.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     AgmCoreModule.forRoot({
-      apiKey: '',
+      apiKey: 'AIzaSyCXtPvQGtMNUhR0FA4BEo2y45fg3ZarYC4',
       libraries: ['places', 'geometry']
     }),
     NgxChartsModule

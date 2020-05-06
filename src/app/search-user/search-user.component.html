@@ -2,6 +2,7 @@
 
   <div class="card text-center mt-4" >
     <div class="card-body" style=" text-align: -webkit-center">
+      <span>{{errorMessage}}</span>
 
       <form (ngSubmit)="searchByUsername()" class="text-center" style="width: 50%;">
         <div class="form-group">
@@ -21,6 +22,7 @@
           <th scope="col">Names</th>
           <th scope="col">Email</th>
           <th scope="col">Phone</th>
+          <th *ngIf="!tokenStorageService.getCompany()" scope="col">Block</th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +31,14 @@
           <td>{{user.firstName + ' ' + user.lastName}}</td>
           <td>{{user.email}}</td>
           <td>{{user.phone}}</td>
+          <th *ngIf="!tokenStorageService.getCompany()" scope="col">
+            <span *ngIf="!user.blocked && !user.company" (click)="blockUser(user.id)" class="btn p-0">
+              <img  src="../../assets/block.png" alt="Block icon" style="height: 20px">
+            </span>
+            <span *ngIf="user.blocked && !user.company" (click)="unblockUser(user.id)" class="btn btn-light">
+              Unblock
+            </span>
+          </th>
         </tr>
 
         </tbody>

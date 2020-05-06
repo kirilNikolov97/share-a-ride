@@ -17,7 +17,7 @@
     <div class="col btn disabled" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'route'"  (click)="navigation.open('/profile/routes')">Routes</div>
   </li>
   <li *ngIf="!tokenStorageService.getUser().driver && tokenStorageService.getCompany()" class="list-group-item">
-    <div class="col btn" *ngIf="tokenStorageService.getSelectedMenuSidebar() != 'become-driver'">Become a Driver</div>
-    <div class="col btn disabled" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'become-driver'">Become a Driver</div>
+    <div class="col btn" *ngIf="tokenStorageService.getSelectedMenuSidebar() != 'become-driver'"  (click)="navigation.open('/profile/become-driver')">Become a Driver</div>
+    <div class="col btn disabled" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'become-driver'" (click)="navigation.open('/profile/become-driver')">Become a Driver</div>
   </li>
 </ul>

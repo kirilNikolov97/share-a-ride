@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
       console.log(this.tokenStorage.getUser());
-      if (!this.tokenStorage.getUser().isCompany) {
+      if (!this.tokenStorage.getUser().company) {
         this.apiServiceProfile.getCompany().subscribe( res => {
           this.tokenStorage.saveCompany(res);
         });
@@ -41,6 +41,11 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.form).subscribe(
       data => {
+        if (data.blocked) {
+          this.errorMessage = 'You are blocked! For more information contact support.';
+          this.isLoginFailed = true;
+          return;
+        }
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
 

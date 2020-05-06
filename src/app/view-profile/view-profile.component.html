@@ -4,6 +4,7 @@
     <img *ngIf="user.pictureUrl" class="card-img-top " src="{{user.pictureUrl}}" style="width: 200px; align-self: center" alt="Profile picture">
     <img *ngIf="!user.pictureUrl" class="card-img-top " src="../../../assets/profile.jpg" style="width: 200px; align-self: center" alt="Profile picture">
     <div class="card-body">
+      <h4 *ngIf="user.blocked" class="text-danger">Blocked</h4>
 
       <div class="row m-3">
         <!-- Username -->

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../_services/auth.service';
+import {NavigationService} from '../_services/navigation.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private navigation: NavigationService) { }
 
   ngOnInit() {
   }
@@ -36,4 +37,7 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  openLogin() {
+    this.navigation.open('/login');
+  }
 }

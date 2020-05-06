@@ -33,7 +33,6 @@ export class ProfileApiService {
   }
 
   updateUser(user: User) {
-
     return this.http.patch<User>('http://localhost:8080/user', JSON.stringify(user), {headers});
   }
 
@@ -92,8 +91,6 @@ export class ProfileApiService {
   getFutureUserRoutesAsDriverByUserId(username) {
     return this.http.get<Route[]>(API_URL + '/futureRoutesAsDriver?username=' + username);
   }
-
-
 
   getUserRoutesAsPassenger(sortBy, limit) {
     return this.http.get<Route[]>(API_URL + '/routesAsPassenger?sortBy=' + sortBy + '&limit=' + limit);
@@ -243,5 +240,17 @@ export class ProfileApiService {
 
   getAllRoutes() {
     return this.http.get<Route[]>(API_URL + '/allRoutes');
+  }
+
+  searchNotBlockedByUsername(username) {
+    return this.http.get<User[]>(API_URL + '/searchNotBlockedUser?username=' + username);
+  }
+
+  blockUser(userId) {
+    return this.http.patch<User>(API_URL + '/blockUser?userId=' + userId, {headers});
+  }
+
+  unblockUser(userId) {
+    return this.http.patch<User>(API_URL + '/unblockUser?userId=' + userId, {headers});
   }
 }

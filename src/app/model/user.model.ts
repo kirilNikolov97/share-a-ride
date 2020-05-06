@@ -18,7 +18,8 @@ export class User {
   addresses: Address[];
   cars: Car[];
   ratings: Rating[];
-  isCompany: boolean;
+  company: boolean;
+  blocked: boolean;
   pictureUrl: string;
 
   constructor() {
@@ -37,7 +38,8 @@ export class User {
     this.addresses = null;
     this.cars = null;
     this.ratings = null;
-    this.isCompany = null;
+    this.company = null;
+    this.blocked = null;
     this.pictureUrl = null;
   }
 

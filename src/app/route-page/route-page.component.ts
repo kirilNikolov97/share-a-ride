@@ -57,7 +57,7 @@ export class RoutePageComponent implements OnInit {
 
     this.apiServiceProfile.saveSeat(this.selectedAddress.id, this.routeId).subscribe(
       res => {
-        this.navigation.open('/');
+        this.navigation.open('/home');
       }, err => {
         this.errorMessage = err.error.message;
       });

@@ -12,6 +12,7 @@
           <!-- Username -->
           <div class="form-group col-md-6">
             <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="form.username" required minlength="3" maxlength="22" #username="ngModel"/>
+
             <div class="text-danger" *ngIf="f.submitted && username.invalid">
               <div *ngIf="username.errors.required">Username is required</div>
               <div *ngIf="username.errors.minlength">
@@ -117,7 +118,7 @@
       </form>
 
       <div class="alert alert-success" *ngIf="isSuccessful">
-        Your registration is successful!
+        Your registration is successful! You can now <span (click)="openLogin()" class="btn btn-primary">Login</span>
       </div>
 
     </div>

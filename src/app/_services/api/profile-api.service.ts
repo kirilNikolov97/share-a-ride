@@ -12,7 +12,8 @@ import {Rating} from '../../model/rating.model';
 import {ChartDataModel} from '../../model/charts-data-models/chart-data.model';
 import {LinearDataModel} from '../../model/charts-data-models/liner-data.model';
 
-const API_URL = 'http://localhost:8080';
+const API_URL = 'https://share-a-ride-nbu.herokuapp.com';
+// const API_URL = 'http://localhost:8080';
 const headers = {
   'Content-type': 'application/json'
 };
@@ -29,11 +30,11 @@ export class ProfileApiService {
   constructor(private http: HttpClient) { }
 
   getUser() {
-    return this.http.get<User>('http://localhost:8080/user');
+    return this.http.get<User>(API_URL + '/user');
   }
 
   updateUser(user: User) {
-    return this.http.patch<User>('http://localhost:8080/user', JSON.stringify(user), {headers});
+    return this.http.patch<User>(API_URL + '/user', JSON.stringify(user), {headers});
   }
 
   getAddresses() {

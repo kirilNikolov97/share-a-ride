@@ -5,7 +5,8 @@ import {TokenStorageService} from './token-storage.service';
 import {NavigationService} from './navigation.service';
 
 
-const AUTH_API = 'http://localhost:8080/api/auth/';
+// const AUTH_API = 'http://localhost:8080/api/auth/';
+const AUTH_API = 'https://share-a-ride-nbu.herokuapp.com/api/auth/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

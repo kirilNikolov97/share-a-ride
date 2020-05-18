@@ -75,7 +75,7 @@
             <!-- Validation for Seats -->
             <div *ngIf="seats.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
               <div *ngIf="seats.errors.minlength" class="text-danger">
-                Seats must be 1 digit long.
+                Seats must be more than 1 and less than 10.
               </div>
               <div *ngIf="seats.errors.maxlength" class="text-danger">
                 Seats must be 2 digits long.

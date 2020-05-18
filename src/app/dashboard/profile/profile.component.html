@@ -155,7 +155,7 @@
 
                   <tr *ngFor="let address of this.addresses">
                     <td>
-                      {{ address.district }},{{ address.city.name }},{{ address.street }}
+                      {{ address.district + ', ' + address.city.name + ', ' + address.street }}
                       <span *ngIf="address.additionalInfo">, {{ address.additionalInfo }} </span>
                     </td>
                   </tr>

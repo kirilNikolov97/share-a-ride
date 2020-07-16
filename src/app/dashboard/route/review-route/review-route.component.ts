@@ -17,7 +17,7 @@ import {RouteStop} from '../../../model/route-stops.model';
 })
 export class ReviewRouteComponent implements OnInit {
   private route: Route;
-  private routeId: string;
+  public routeId: string;
   directionsService: DirectionsService;
   directionsDisplay: DirectionsRenderer;
   officeLat: number;
@@ -132,4 +132,7 @@ export class ReviewRouteComponent implements OnInit {
 
   }
 
+  open(link) {
+    this.navigation.open(link);
+  }
 }

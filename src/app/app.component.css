@@ -9,3 +9,8 @@
 .table td, .table th {
   vertical-align: middle;
 }
+
+
+.navbar .navbar-toggler .navbar-toggler-icon {
+  background: black !important;
+}

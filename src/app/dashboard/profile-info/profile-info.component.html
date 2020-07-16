@@ -1,35 +1,38 @@
 <div class="container-fluid">
+
+  <div class="row text-center" >
+    <h1 class="col m-3">
+      <u class="p-3 rounded-bottom" style="background: white;">
+        Personal Info
+      </u>
+    </h1>
+  </div>
+
   <div class="row">
 
-    <!-- Sidebar -->
-    <div class="col-md-2">
-      <app-sidebar></app-sidebar>
-    </div>
+    <div class="col-md-1"></div>
 
     <!-- Profile Info -->
     <div class="col-md-10">
-      <div class="row text-center m-4">
-        <h1 class="col-md-8">Edit Personal Info:</h1>
-      </div>
 
-      <div class="row">
-        <div class="col col-md-8">
+      <div class="row" style="justify-content: center;">
+        <div class="col col-md-8 m-2">
 
           <!-- Card -->
           <div class="card text-center">
             <img *ngIf="user.pictureUrl" class="card-img-top " src="{{user.pictureUrl}}" style="width: 200px; align-self: center" alt="Profile picture">
-            <img *ngIf="!user.pictureUrl" class="card-img-top " src="../../../assets/profile.jpg" style="width: 200px; align-self: center" alt="Profile picture">
+            <img *ngIf="!user.pictureUrl" class="card-img-top " src="../../../assets/profile.png" style="width: 200px; align-self: center" alt="Profile picture">
             <div class="card-body justify-content-center">
 
               <input type="file" class="file m-3" name="file" id="file" accept="image/*" (change)="selectFile($event)">
-              <div class="btn btn-primary" (click)="changePhoto()">Change Photo</div>
+              <div class="btn btn-primary" style="background-color: #3c94de; border-color: #3c94de" (click)="changePhoto()">Change Photo</div>
 
               <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
 
                 <!-- First Name -->
-                <div class="form-group">
+                <div class="form-group" style="text-align: -webkit-center;">
                   <label for="firstName">First name</label>
-                  <input class="form-control" id="firstName" [(ngModel)]="user.firstName" name="firstName" required minlength="2" maxlength="30" #firstName="ngModel">
+                  <input class="form-control" id="firstName" style="width: 70%;" [(ngModel)]="user.firstName" name="firstName" required minlength="2" maxlength="30" #firstName="ngModel">
 
                   <!-- Validation for First Name -->
                   <div *ngIf="firstName.errors && userForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
@@ -46,9 +49,9 @@
                 </div>
 
                 <!-- Last Name -->
-                <div class="form-group">
+                <div class="form-group" style="text-align: -webkit-center;">
                   <label for="lastName">Last name</label>
-                  <input class="form-control" id="lastName" [(ngModel)]="user.lastName" name="lastName" required minlength="2" maxlength="30" #lastName="ngModel">
+                  <input class="form-control" id="lastName" style="width: 70%;" [(ngModel)]="user.lastName" name="lastName" required minlength="2" maxlength="30" #lastName="ngModel">
 
                   <!-- Validation for Last Name -->
                   <div *ngIf="lastName.errors && userForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
@@ -65,9 +68,9 @@
                 </div>
 
                 <!-- Phone -->
-                <div class="form-group">
+                <div class="form-group" style="text-align: -webkit-center;">
                   <label for="phone">Phone</label>
-                  <input class="form-control" id="phone" [(ngModel)]="user.phone" name="phone" required minlength="5" maxlength="10" #phone="ngModel">
+                  <input class="form-control" id="phone" style="width: 70%;" [(ngModel)]="user.phone" name="phone" required minlength="5" maxlength="10" #phone="ngModel">
 
                   <!-- Validation for Last Name -->
                   <div *ngIf="phone.errors && userForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
@@ -84,9 +87,9 @@
                 </div>
 
                 <!-- Email -->
-                <div class="form-group">
+                <div class="form-group" style="text-align: -webkit-center;">
                   <label for="email">Email</label>
-                  <input class="form-control" id="email" [(ngModel)]="user.email" name="email" required minlength="7" maxlength="60" #email="ngModel">
+                  <input class="form-control" id="email" style="width: 70%;" [(ngModel)]="user.email" name="email" required minlength="7" maxlength="60" #email="ngModel">
 
                   <!-- Validation for Email -->
                   <div *ngIf="email.errors && userForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
@@ -106,7 +109,7 @@
                 <div class="text-danger">{{errorUserMessage}}</div>
                 <div class="text-success">{{successUserMessage}}</div>
 
-                <button type="submit" class="btn btn-primary center-block" >Update Personal Info</button>
+                <button type="submit" class="btn btn-primary center-block" style="background-color: #3c94de; border-color: #3c94de"  >Update Personal Info</button>
 
               </form>
 
@@ -115,7 +118,7 @@
         </div>
 
         <!-- Change Password Form -->
-        <div class="col col-md-4">
+        <div class="col col-md-3 m-2 ml-0" style="text-align: -webkit-center;">
 
           <div class="card text-center" style="width: 18rem;">
             <div class="card-body">
@@ -156,18 +159,17 @@
                 <div class="text-success">{{successPasswordMessage}}</div>
                 <div *ngIf="errorPasswordMessage !== ''" class="text-danger">{{errorPasswordMessage}}</div>
 
-                <button type="submit" class="btn btn-primary">Change Password</button>
+                <button type="submit" class="btn btn-primary" style="background-color: #3c94de; border-color: #3c94de" >Change Password</button>
               </form>
 
             </div>
           </div>
-
-
-
         </div>
-
       </div>
-
     </div>
+
+
+    <div class="col-md-1"></div>
+
   </div>
 </div>

@@ -1,10 +1,22 @@
 <div class="container-fluid text-center">
-  <div class="row">
-    <div class="col-md-2">
-      <app-sidebar></app-sidebar>
-    </div>
-    <div class="col-md-10">
 
+  <div class="row text-center" >
+    <h1 class="col m-3">
+      <u class="p-3 rounded-bottom" style="background: white;">
+        General info
+        <img class="m-1" src="../../../assets/general.png" alt="Statistics" style="height: 40px">
+      </u>
+    </h1>
+  </div>
+
+  <div class="row">
+<!--    <div class="col-md-2">-->
+<!--      <app-sidebar></app-sidebar>-->
+<!--    </div>-->
+
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10">
       <!-- Unapproved route stops -->
       <div *ngIf="user.driver && this.futureRoutesAsDriverWaitingForApproval.length > 0">
 
@@ -19,10 +31,10 @@
                   <table class="table table-hover">
                     <thead>
                     <tr>
-                      <th scope="col">{{route.dateRoute.toString().split('T').join(' ')}}</th>
+                      <th scope="col">{{route.dateRoute.toString().split('T').join(', ')}}</th>
 
                       <th>
-                        From:
+                        <strong>From: </strong>
                         <span *ngIf="route.officeDirection">
                       <span *ngFor="let routeStop of this.route.routeStops">
                         <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
@@ -30,7 +42,6 @@
                         </span>
                       </span>
                      </span>
-
                         <span *ngIf="!route.officeDirection">
                        Office
                      </span>
@@ -100,7 +111,9 @@
 
             <!-- Email -->
             <div class="col-md-4">
-              <h5>Email:</h5>
+              <h5>
+                <img class="p-0" src="../../../assets/email.png" alt="Email" style="height: 30px">
+              </h5>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   {{this.user.email}}
@@ -110,7 +123,9 @@
 
             <!-- Phone -->
             <div class="col-md-4">
-              <h5>Phone:</h5>
+              <h5>
+                <img class="p-0" src="../../../assets/phone.png" alt="Phone" style="height: 30px">
+              </h5>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item ">
                   {{this.user.phone}}
@@ -120,7 +135,9 @@
 
             <!-- Rating -->
             <div class="col-md-4">
-              <h5>Rating:</h5>
+              <h5>
+                <img class="p-0" src="../../../assets/rating.png" alt="Rating" style="height: 30px">
+              </h5>
               <ul class="list-group list-group-flush">
                 <li *ngIf="userRating > 0" class="list-group-item ">
                   {{this.userRating}}<small>/5</small>
@@ -155,7 +172,7 @@
 
                   <tr *ngFor="let address of this.addresses">
                     <td>
-                      {{ address.district + ', ' + address.city.name + ', ' + address.street }}
+                      {{ address.district + ', ' + address.street }}
                       <span *ngIf="address.additionalInfo">, {{ address.additionalInfo }} </span>
                     </td>
                   </tr>
@@ -163,6 +180,8 @@
               </table>
             </div>
 
+
+            <!-- Cars -->
             <div *ngIf="user.driver" class="col m-2">
               <!-- Cars -->
               <table class="table table-hover">
@@ -190,12 +209,16 @@
                 </tbody>
               </table>
             </div>
+
+            <div *ngIf="!user.driver" class="col m-2" style=" align-self: center;">
+              <button class="btn btn-primary" style="background-color: #3c94de; border-color: #3c94de;" (click)="navigation.open('profile/become-driver')">Become Driver</button>
+            </div>
           </div>
 
         </div>
       </div>
-
-
     </div>
+
+    <div class="col-md-1"></div>
   </div>
 </div>

@@ -1,10 +1,17 @@
 <div class="container-fluid text-center">
+
+  <div class="row text-center" >
+    <h1 class="col m-3">
+      <u class="p-3 rounded-bottom" style="background: white;">
+        Archive
+        <img class="m-1" src="../../../assets/orange-archive.png" alt="Archive" style="height: 40px">
+      </u>
+    </h1>
+  </div>
+
   <div class="row">
 
-    <!-- Sidebar -->
-    <div class="col-md-2">
-      <app-sidebar></app-sidebar>
-    </div>
+    <div class="col-md-1"></div>
 
     <!-- Routes -->
     <div class="col-md-10">
@@ -169,8 +176,9 @@
           <div *ngIf="this.limitPassenger != -1 && userRoutesAsPassenger.length > 14" class="btn btn-primary" (click)="showAllPastRoutesAsPassenger()">Show All</div>
         </div>
       </div>
-
     </div>
+
+    <div class="col-md-1"></div>
 
   </div>
 </div>

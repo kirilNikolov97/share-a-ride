@@ -1,8 +1,8 @@
-export class City {
-
-  name: string;
-
-  constructor() {
-    this.name = null;
-  }
-}
+// export class City {
+//
+//   name: string;
+//
+//   constructor() {
+//     this.name = null;
+//   }
+// }

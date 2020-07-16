@@ -5,3 +5,7 @@ mat-form-field {
 .table td, .table th {
   vertical-align: middle;
 }
+
+#customFilters {
+  border: 1px solid #e2e6e9;
+}

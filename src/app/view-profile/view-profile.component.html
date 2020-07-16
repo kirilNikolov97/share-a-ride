@@ -2,60 +2,58 @@
 
   <div class="card m-3">
     <img *ngIf="user.pictureUrl" class="card-img-top " src="{{user.pictureUrl}}" style="width: 200px; align-self: center" alt="Profile picture">
-    <img *ngIf="!user.pictureUrl" class="card-img-top " src="../../../assets/profile.jpg" style="width: 200px; align-self: center" alt="Profile picture">
+    <img *ngIf="!user.pictureUrl" class="card-img-top " src="../../../assets/profile.png" style="width: 200px; align-self: center" alt="Profile picture">
+    <div class="form-control-plaintext" >{{user.firstName + ' ' + user.lastName}} </div>
     <div class="card-body">
       <h4 *ngIf="user.blocked" class="text-danger">Blocked</h4>
 
       <div class="row m-3">
         <!-- Username -->
         <div class="col-md-6">
-          <h5>Username:</h5>
+          <h5>
+            <img class="p-0" src="../../../assets/username.png" alt="Username" style="height: 30px">
+          </h5>
           <div class="form-control-plaintext" >{{user.username}}</div>
         </div>
 
         <!-- Email -->
         <div class="col-md-6">
-          <h5>Email:</h5>
+          <h5>
+            <img class="p-0" src="../../../assets/email.png" alt="Email" style="height: 30px">
+          </h5>
           <div class="form-control-plaintext" >{{user.email}}</div>
         </div>
       </div>
 
       <div class="row m-3">
-        <!-- First Name -->
-        <div class="col-md-6">
-          <h5>Names:</h5>
-          <div class="form-control-plaintext" >{{user.firstName + ' ' + user.lastName}} </div>
-        </div>
-
-        <!-- Phone -->
-        <div class="col-md-6">
-          <h5>Phone:</h5>
-          <div class="form-control-plaintext">{{user.phone}}</div>
-        </div>
-      </div>
-
-
-      <div class="row m-3">
         <!-- Rating -->
         <div class="col-md-6">
-          <h5>Rating:</h5>
+          <h5>
+            <img class="p-0" src="../../../assets/rating.png" alt="Rating" style="height: 30px">
+          </h5>
           <div *ngIf="myRating">{{myRating | number:'1.2-2'}}<small>/5</small> </div>
           <div *ngIf="!myRating">No ratings</div>
         </div>
 
-        <!-- Is Driver? -->
+        <!-- Phone -->
         <div class="col-md-6">
-          <h5>Is driver?</h5>
-          <div >{{user.driver}} </div>
+          <h5>
+            <img class="p-0" src="../../../assets/phone.png" alt="Phone" style="height: 30px">
+          </h5>
+          <div class="form-control-plaintext">{{user.phone}}</div>
         </div>
       </div>
 
 
       <div *ngIf="errorMessage != ''" class="text-danger">{{errorMessage}}</div>
 
-      <button *ngIf="tokenStorageService.getUser().username !== user.username" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Rate {{user.username}}
-      </button>
+      <span *ngIf="tokenStorageService.getCompany().username !== user.username">
+
+        <button *ngIf="tokenStorageService.getUser().username !== user.username" type="button" class="btn btn-primary" style="background-color: #3c94de; border-color: #3c94de" data-toggle="modal" data-target="#exampleModal">
+          Rate {{user.username}}
+        </button>
+
+      </span>
 
     </div>
   </div>
@@ -65,56 +63,61 @@
     <div class="row" style="justify-content: center">
       <h3>Future Routes as a Driver:</h3>
     </div>
-    <div class="row">
-      <table class="table">
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">From</th>
-          <th scope="col">To</th>
-          <th scope="col">Car</th>
-          <th scope="col">Free Seats</th>
-        </tr>
 
-        <tr *ngFor="let route of this.futureRoutes">
-          <td>{{route.dateRoute.toString().split('T').join(' ')}}</td>
+    <div class="row table-responsive-md m-3">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Car</th>
+            <th scope="col">Free Seats</th>
+          </tr>
+        </thead>
 
-          <!-- From -->
-          <td>
-            <span *ngIf="route.officeDirection">
-              <span *ngFor="let routeStop of this.route.routeStops">
-                <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                  {{routeStop.address.district + ' ' + routeStop.address.street}}
+        <tbody>
+          <tr *ngFor="let route of this.futureRoutes">
+            <td>{{route.dateRoute.toString().split('T').join(' ')}}</td>
+
+            <!-- From -->
+            <td>
+              <span *ngIf="route.officeDirection">
+                <span *ngFor="let routeStop of this.route.routeStops">
+                  <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                    {{routeStop.address.district + ' ' + routeStop.address.street}}
+                  </span>
                 </span>
               </span>
-            </span>
 
-            <span *ngIf="!route.officeDirection">
-              Office
-            </span>
-          </td>
+              <span *ngIf="!route.officeDirection">
+                Office
+              </span>
+            </td>
 
-          <!-- To -->
-          <td>
-            <span *ngIf="route.officeDirection">
-              Office
-            </span>
+            <!-- To -->
+            <td>
+              <span *ngIf="route.officeDirection">
+                Office
+              </span>
 
-            <span *ngIf="!route.officeDirection">
-              <span *ngFor="let routeStop of this.route.routeStops">
-                <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
-                  {{routeStop.address.district + ' ' + routeStop.address.street}}
+              <span *ngIf="!route.officeDirection">
+                <span *ngFor="let routeStop of this.route.routeStops">
+                  <span *ngIf="routeStop.passengerEnum.toString() == 'DRIVER'">
+                    {{routeStop.address.district + ' ' + routeStop.address.street}}
+                  </span>
                 </span>
               </span>
-            </span>
-          </td>
+            </td>
 
 
-          <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
-          <td>
-            {{route.car.seats - route.routeStops.length}}
-          </td>
+            <td>{{route.car.manufacturer + ' ' + route.car.model}}</td>
+            <td>
+              {{route.car.seats - route.routeStops.length}}
+            </td>
 
-        </tr>
+          </tr>
+        </tbody>
 
       </table>
     </div>

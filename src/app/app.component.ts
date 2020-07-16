@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
   showAdminBoard = false;
   showModeratorBoard = false;
   username: string;
+  isDriver: boolean;
+  name: string;
 
   constructor(public tokenStorageService: TokenStorageService, private navigation: NavigationService) { }
 
@@ -28,6 +30,7 @@ export class AppComponent implements OnInit {
       this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
 
       this.username = user.username;
+      this.isDriver = user.driver;
     }
   }
 
@@ -39,5 +42,9 @@ export class AppComponent implements OnInit {
 
   open(link) {
     this.navigation.open(link);
+  }
+
+  becomeDriver() {
+    this.isDriver = true;
   }
 }

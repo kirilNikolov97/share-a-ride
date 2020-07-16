@@ -1,13 +1,23 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-2">
-      <app-sidebar></app-sidebar>
-    </div>
+
+<!--    <div class="col-md-2">-->
+<!--      <app-sidebar></app-sidebar>-->
+<!--    </div>-->
+
+
+    <div class="col-md-1"></div>
 
     <div class="col-md-10">
 
-      <div class="row text-center">
-        <h1 class="col m-3">Your Addresses</h1>
+      <div class="row text-center" >
+        <h1 class="col m-3">
+          <u class="p-3 rounded-bottom" style="background: white;">
+            Addresses
+            <img class="m-1" src="../../../assets/address.png" alt="Address" style="height: 40px">
+          </u>
+
+        </h1>
 <!--        <a (click)="this.navigation.open('profile/address/create')" class="col-md-3"><button type="button" class="btn btn-primary float-right">+ Add New Address</button></a>-->
       </div>
       <div class="text-danger">{{errorMessage}}</div>
@@ -18,8 +28,8 @@
           <div class="card m-4" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">{{address.district}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{address.city.name}}</h6>
-              <p class="card-text">{{address.district + ", " + address.city.name + ", " + address.street}}</p>
+              <h6 class="card-subtitle mb-2 text-muted">TEST</h6>
+              <p class="card-text">{{address.district + ", " + address.street}}</p>
               <a (click)="navigation.open('profile/address/edit/' + address.id)"><button type="button" class="btn btn-warning">Edit</button></a>
               <a><button (click)="deleteAddress(address.id)" type="button" class="btn btn-danger float-right">Delete</button></a>
             </div>
@@ -32,5 +42,8 @@
         </div>
       </div>
     </div>
+
+
+    <div class="col-md-1"></div>
   </div>
 </div>

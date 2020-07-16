@@ -35,9 +35,6 @@ export class ProfileInfoComponent implements OnInit {
     this.changePassword = new PasswordChange();
 
     this.apiServiceProfile.getUser().subscribe( res => {
-
-      console.log(res);
-      console.log('USER');
       this.user = res;
     });
   }

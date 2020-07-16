@@ -1,23 +1,23 @@
-<h3 class="d-flex justify-content-center">Menu</h3>
+<h3 class="d-flex justify-content-center"></h3>
 <ul class="list-group">
   <li class="list-group-item">
     <div class="col btn" *ngIf="tokenStorageService.getSelectedMenuSidebar() != 'profile'" (click)="navigation.open('profile')">General</div>
-    <div class="col btn disabled" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'profile'" (click)="navigation.open('profile')">General</div>
+    <div class="col btn disabled" style="color: #0069c0" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'profile'" (click)="navigation.open('profile')">General</div>
   </li>
   <li class="list-group-item">
     <div class="col btn" *ngIf="tokenStorageService.getSelectedMenuSidebar() != 'address'"  (click)="navigation.open('profile/address')">Address</div>
-    <div class="col btn disabled" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'address'"  (click)="navigation.open('profile/address')">Address</div>
+    <div class="col btn disabled" style="color: #0069c0" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'address'" (click)="navigation.open('profile/address')">Address</div>
   </li>
   <li *ngIf="tokenStorageService.getUser().driver" class="list-group-item">
     <div class="col btn" *ngIf="tokenStorageService.getSelectedMenuSidebar() != 'cars'" (click)="navigation.open('profile/cars')">Cars</div>
-    <div class="col btn disabled" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'cars'" (click)="navigation.open('profile/cars')">Cars</div>
+    <div class="col btn disabled" style="color: #0069c0" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'cars'" (click)="navigation.open('profile/cars')">Cars</div>
   </li>
   <li *ngIf="tokenStorageService.getCompany()" class="list-group-item">
     <div class="col btn" *ngIf="tokenStorageService.getSelectedMenuSidebar() != 'route'"  (click)="navigation.open('/profile/routes')">Routes</div>
-    <div class="col btn disabled" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'route'"  (click)="navigation.open('/profile/routes')">Routes</div>
+    <div class="col btn disabled" style="color: #0069c0" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'route'"  (click)="navigation.open('/profile/routes')">Routes</div>
   </li>
   <li *ngIf="!tokenStorageService.getUser().driver && tokenStorageService.getCompany()" class="list-group-item">
     <div class="col btn" *ngIf="tokenStorageService.getSelectedMenuSidebar() != 'become-driver'"  (click)="navigation.open('/profile/become-driver')">Become a Driver</div>
-    <div class="col btn disabled" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'become-driver'" (click)="navigation.open('/profile/become-driver')">Become a Driver</div>
+    <div class="col btn disabled" style="color: #0069c0" *ngIf="tokenStorageService.getSelectedMenuSidebar() === 'become-driver'" (click)="navigation.open('/profile/become-driver')">Become a Driver</div>
   </li>
 </ul>

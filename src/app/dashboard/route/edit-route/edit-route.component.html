@@ -1,9 +1,16 @@
 <div class="container" style="text-align: -webkit-center;">
 
+  <div class="row text-center" >
+    <h1 class="col m-3">
+      <u class="p-3 rounded-bottom" style="background: white;">
+        Edit Route
+      </u>
+    </h1>
+  </div>
 
-  <div class="card text-center m-5" style="width:80%;">
+  <div class="card text-center mt-4" style="width:80%;">
     <div class="card-body m-3">
-      <h3 class="card-title">Edit Route</h3>
+
       <form #routeForm="ngForm" (ngSubmit)="onSubmit()">
 
         <div class="row">
@@ -31,7 +38,7 @@
               <select  [(ngModel)]="selectedCompanyAddress.id" name="selectedCompanyAddress">
                 <option name="address" value="">Choose your address</option>
                 <option *ngFor="let address of companyAddresses" [ngValue]="address.id" [selected]="address?.id == selectedCompanyAddress?.id">
-                  {{address.city.name + ', ' + address.street}}
+                  {{ address.street}}
                 </option>
               </select>
             </div>
@@ -48,7 +55,7 @@
               <select id="where" [(ngModel)]="selectedAddress.id" name="selectedAddress">
                 <option name="address" value="">Choose your address</option>
                 <option *ngFor="let address of addresses" [ngValue]="address.id" [selected]="address?.id == selectedAddress?.id">
-                  {{address.city.name + ', ' + address.street}}
+                  {{ address.street}}
                 </option>
               </select>
             </div>
@@ -97,7 +104,7 @@
           {{errorMessage}}
         </div>
 
-        <button type="submit" class="btn btn-primary m-2">Update Route</button>
+        <button type="submit" class="btn btn-primary m-2" style="background-color: #3c94de; border-color: #3c94de">Update Route</button>
         <button type="button" class="btn btn-outline-secondary m-2" data-toggle="modal" data-target="#cancelRoute">Cancel Route</button>
 
         <!-- Modal -->
@@ -114,7 +121,7 @@
                 Once you cancel the route you can not revert it.
               </div>
               <div class="modal-footer">
-                <button type="button" (click)="cancelRoute()" class="btn btn-primary" data-dismiss="modal">The route will not happen!</button>
+                <button type="button" (click)="cancelRoute()" class="btn btn-warning" data-dismiss="modal">The route will not happen!</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>

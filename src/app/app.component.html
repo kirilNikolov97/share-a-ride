@@ -1,10 +1,14 @@
 <div class="main-container">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg " style="background-color: white">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <span>
+        <img class="btn p-0" src="../../assets/hamburger.png" alt="Menu" style="height: 40px">
+      </span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" (click)="open('')">Share a Ride</a>
+      <a class="navbar-brand" (click)="open('')">
+        <img class="btn p-0" src="../../assets/logo.png" alt="Logo" style="height: 50px">
+      </a>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item" *ngIf="tokenStorageService.getCompany()">
           <a *ngIf="isLoggedIn" class="nav-link btn p-0 m-2"  (click)="open('/all-routes')">All Routes</a>
@@ -16,18 +20,27 @@
           <a *ngIf="isLoggedIn" class="nav-link btn p-0 m-2" (click)="open('/search-user')">Search User</a>
         </li>
       </ul>
-      <ul class="navbar-nav  navbar-right">
-        <li *ngIf="!isLoggedIn" class="nav-item">
-          <a class="nav-link btn p-0 m-2" (click)="open('/login')" >Login</a>
+      <ul class="navbar-nav navbar-right">
+        <li class="nav-item">
+          <a *ngIf="isLoggedIn" class="nav-link btn p-0 m-2" (click)="open('/profile/address')">Addresses</a>
         </li>
-        <li *ngIf="!isLoggedIn" class="nav-item">
-          <a class="nav-link btn p-0 m-2" (click)="open('/register')">Register</a>
+        <li class="nav-item">
+          <a *ngIf="isLoggedIn && isDriver" class="nav-link btn p-0 m-2" (click)="open('/profile/cars')">Cars</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="isLoggedIn" class="nav-link btn p-0 m-2" (click)="open('/profile/routes')">Routes</a>
+        </li>
+        <li *ngIf="!isLoggedIn" (click)="open('/login')" class="btn btn-outline-success nav-item m-1">
+          <span>Login</span>
+        </li>
+        <li *ngIf="!isLoggedIn" (click)="open('/register')" class="btn btn-outline-info nav-item m-1">
+          <span>Register</span>
         </li>
         <li *ngIf="isLoggedIn" class="nav-item">
-          <a class="nav-link btn p-0 m-2" (click)="open('/profile')">{{'Hello, ' + username}}</a>
+          <a class="nav-link btn p-0 m-2" (click)="open('/profile')">{{'Hi, ' + username}}</a>
         </li>
-        <li *ngIf="isLoggedIn" class="nav-item">
-          <a class="nav-link btn p-0 m-2" (click)="logout()">Logout</a>
+        <li *ngIf="isLoggedIn" (click)="logout()" class="btn btn-outline-danger nav-item">
+          <span>Logout</span>
         </li>
       </ul>
     </div>

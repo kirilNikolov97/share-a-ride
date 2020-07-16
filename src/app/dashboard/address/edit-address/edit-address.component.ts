@@ -3,7 +3,6 @@ import {Address} from '../../../model/address.model';
 import {ActivatedRoute} from '@angular/router';
 import {ProfileApiService} from '../../../_services/api/profile-api.service';
 import {NavigationService} from '../../../_services/navigation.service';
-import {City} from '../../../model/city.model';
 import {MapsAPILoader} from '@agm/core';
 import {NgForm} from '@angular/forms';
 
@@ -21,9 +20,7 @@ export class EditAddressComponent implements OnInit {
   zoom: number;
   address: string;
   private geoCoder;
-  cities: City[];
   addressId: string;
-  selectedCity: City;
   isValidFormSubmitted = false;
   errorMessage = '';
 
@@ -40,18 +37,13 @@ export class EditAddressComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.selectedCity = new City();
     this.addressClass = new Address();
     this.address = '';
-    this.apiServiceProfile.getAllCities().subscribe(res => {
-      this.cities = res;
-    });
 
     this.addressId = this.activatedRoute.snapshot.paramMap.get('id');
     this.apiServiceProfile.getAddressById(this.addressId).subscribe(
       res => {
         this.addressClass = res;
-        this.selectedCity = res.city;
         this.longitude = res.longitude;
         this.latitude = res.latitude;
       }, err => {

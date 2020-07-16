@@ -1,8 +1,15 @@
 <div class="container" style="text-align: -webkit-center;">
 
-  <div class="card text-center mt-5" style="width:60%;">
+  <div class="row text-center" >
+    <h1 class="col m-3">
+      <u class="p-3 rounded-bottom" style="background: white;">
+        Create Car
+      </u>
+    </h1>
+  </div>
+
+  <div class="card text-center mt-4" style="width:60%;">
     <div class="card-body">
-      <h3 class="card-title">Create New Car</h3>
 
       <form #ngForm="ngForm" (ngSubmit)="onSubmit(ngForm)">
 
@@ -111,7 +118,7 @@
         <!-- Error Message -->
         <div class="text-danger">{{errorMessage}}</div>
 
-        <button type="submit" class="btn btn-primary">Add New Car</button>
+        <button type="submit" class="btn btn-primary mt-2" style="background-color: #3c94de; border-color: #3c94de" >Add New Car</button>
       </form>
 
     </div>

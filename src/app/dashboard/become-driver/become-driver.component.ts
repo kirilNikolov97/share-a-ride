@@ -3,6 +3,7 @@ import {ProfileApiService} from '../../_services/api/profile-api.service';
 import {NavigationService} from '../../_services/navigation.service';
 import {TokenStorageService} from '../../_services/token-storage.service';
 import {User} from '../../model/user.model';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-become-driver',
@@ -17,7 +18,8 @@ export class BecomeDriverComponent implements OnInit {
   constructor(
     private apiServiceProfile: ProfileApiService,
     private navigation: NavigationService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private appComponent: AppComponent
   ) { }
 
   ngOnInit() {
@@ -35,6 +37,7 @@ export class BecomeDriverComponent implements OnInit {
         this.user = this.tokenStorage.getUser();
         this.user.driver = true;
         this.tokenStorage.saveUser(this.user);
+        this.appComponent.becomeDriver();
         this.navigation.open('profile');
       });
     }

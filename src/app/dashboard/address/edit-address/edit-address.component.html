@@ -1,94 +1,106 @@
 <div class="container">
 
-  <div class="card text-center">
-    <h3 class="card-title m-3">Edit Address</h3>
-    <div class="card-body">
-        <form #ngForm="ngForm" (ngSubmit)="onSubmit(ngForm)">
+  <div class="row text-center" >
+    <h1 class="col m-3">
+      <u class="p-3 rounded-bottom" style="background: white;">
+        Edit Address
+      </u>
+    </h1>
+  </div>
 
-        <!-- Cities -->
-        <div class="form-group">
-          <label for="cityId">City</label>
-          <select id="cityId" [(ngModel)]="selectedCity.name" name="city" required>
-            <option *ngFor="let city of cities" [value]="city.name" [selected]="city?.name == selectedCity?.name">
-              {{city.name}}
-            </option>
-          </select>
+  <div class="content m-4">
+    <div class="card text-center">
 
-          <!-- Validation for Cities -->
-          <div *ngIf="!addressClass.city && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
-            <div class="text-danger">
-              City is required.
-            </div>
-          </div>
-        </div>
+      <div class="card-body">
+          <form #ngForm="ngForm" (ngSubmit)="onSubmit(ngForm)">
 
-        <!-- Google maps -->
-        <div class="form-group m-3">
-        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
-          <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
-        </agm-map>
-        <h6 *ngIf="address">Address: {{address}}</h6>
-        </div>
+<!--          &lt;!&ndash; Cities &ndash;&gt;-->
+<!--          <div class="form-group">-->
+<!--            <label for="cityId">City</label>-->
+<!--            <div>-->
+<!--              <select id="cityId" [(ngModel)]="selectedCity.name" name="city" required>-->
+<!--                <option *ngFor="let city of cities" [value]="city.name" [selected]="city?.name == selectedCity?.name">-->
+<!--                  {{city.name}}-->
+<!--                </option>-->
+<!--              </select>-->
+<!--            </div>-->
 
+<!--            &lt;!&ndash; Validation for Cities &ndash;&gt;-->
+<!--            <div *ngIf="!addressClass.city && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">-->
+<!--              <div class="text-danger">-->
+<!--                City is required.-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
 
-        <div class="row m-1">
-          <!-- District -->
-          <div class="form-group col-md-6">
-            <label for="districtId">District</label>
-            <input class="form-control" id="districtId" [(ngModel)]="addressClass.district" name="district" required minlength="2" maxlength="64" #district="ngModel">
-
-            <!-- Validation for District -->
-            <div *ngIf="district.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
-              <div *ngIf="district.errors.minlength" class="text-danger">
-                District must be at least 2 characters long.
-              </div>
-              <div *ngIf="district.errors.maxlength" class="text-danger">
-                District must be maximum 64 characters long.
-              </div>
-              <div *ngIf="district.errors.required" class="text-danger">
-                District is required.
-              </div>
-            </div>
+          <!-- Google maps -->
+          <div class="form-group m-3">
+          <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+            <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)"></agm-marker>
+          </agm-map>
+<!--          <h6 *ngIf="address">Address: {{address}}</h6>-->
           </div>
 
-          <div class="form-group col-md-6">
-            <label for="streetId">Street</label>
-            <input class="form-control" id="streetId" [(ngModel)]="addressClass.street" name="street" required minlength="2" maxlength="128" #street="ngModel">
 
-            <!-- Street for District -->
-            <div *ngIf="street.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
-              <div *ngIf="street.errors.minlength" class="text-danger">
-                Street must be at least 2 characters long.
+          <div class="row m-1">
+            <!-- District -->
+            <div class="form-group col-md-6">
+              <label for="districtId">District</label>
+              <input class="form-control" id="districtId" [(ngModel)]="addressClass.district" name="district" required minlength="2" maxlength="64" #district="ngModel">
+
+              <!-- Validation for District -->
+              <div *ngIf="district.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+                <div *ngIf="district.errors.minlength" class="text-danger">
+                  District must be at least 2 characters long.
+                </div>
+                <div *ngIf="district.errors.maxlength" class="text-danger">
+                  District must be maximum 64 characters long.
+                </div>
+                <div *ngIf="district.errors.required" class="text-danger">
+                  District is required.
+                </div>
               </div>
-              <div *ngIf="street.errors.maxlength" class="text-danger">
-                Street must be maximum 128 characters long.
-              </div>
-              <div *ngIf="street.errors.required" class="text-danger">
-                Street must is required.
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="streetId">Street</label>
+              <input class="form-control" id="streetId" [(ngModel)]="addressClass.street" name="street" required minlength="2" maxlength="128" #street="ngModel">
+
+              <!-- Street for District -->
+              <div *ngIf="street.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+                <div *ngIf="street.errors.minlength" class="text-danger">
+                  Street must be at least 2 characters long.
+                </div>
+                <div *ngIf="street.errors.maxlength" class="text-danger">
+                  Street must be maximum 128 characters long.
+                </div>
+                <div *ngIf="street.errors.required" class="text-danger">
+                  Street must is required.
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="form-group col-md-12">
-          <label for="additionalInfoId">Additional Info</label>
-          <input class="form-control" id="additionalInfoId" [(ngModel)]="addressClass.additionalInfo" name="additionalInfo"  maxlength="500" #additionalInfo="ngModel">
+          <div class="form-group col-md-12">
+            <label for="additionalInfoId">Additional Info</label>
+            <input class="form-control" id="additionalInfoId" [(ngModel)]="addressClass.additionalInfo" name="additionalInfo"  maxlength="500" #additionalInfo="ngModel">
 
-          <div *ngIf="additionalInfo.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
-            <div *ngIf="additionalInfo.errors.maxlength" class="text-danger">
-              Additional Info must be maximum 500 characters long.
+            <div *ngIf="additionalInfo.errors && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
+              <div *ngIf="additionalInfo.errors.maxlength" class="text-danger">
+                Additional Info must be maximum 500 characters long.
+              </div>
             </div>
           </div>
-        </div>
-        <div class="text-danger">
-          {{errorMessage}}
-        </div>
+          <div class="text-danger">
+            {{errorMessage}}
+          </div>
 
-        <button type="submit" class="btn btn-primary">Update Address</button>
+          <button type="submit" class="btn btn-primary" style="background-color: #3c94de; border-color: #3c94de">Update Address</button>
 
-      </form>
+        </form>
 
 
+      </div>
     </div>
   </div>
 

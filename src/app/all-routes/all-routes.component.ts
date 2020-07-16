@@ -47,7 +47,7 @@ export class AllRoutesComponent implements OnInit {
     this.dateRange = new DateRange();
 
     this.apiServiceProfile.getTop15Users().subscribe(res => {
-      this.topUsers = res;
+      this.topUsers = res.slice(0, 3);
     });
 
     this.apiServiceProfile.getCompanyAddresses().subscribe( res => {

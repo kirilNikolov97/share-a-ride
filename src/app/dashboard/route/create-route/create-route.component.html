@@ -1,9 +1,16 @@
 <div class="container" style="text-align: -webkit-center;">
 
+  <div class="row text-center" >
+    <h1 class="col m-3">
+      <u class="p-3 rounded-bottom" style="background: white;">
+        Create Route
+      </u>
+    </h1>
+  </div>
 
   <div class="card text-center m-5" style="width:80%;">
     <div class="card-body m-3">
-      <h3 class="card-title">Create Route</h3>
+
       <form #routeForm="ngForm" (ngSubmit)="onSubmit(routeForm)">
 
         <div class="row">
@@ -31,7 +38,7 @@
               <select id="where" [(ngModel)]="selectedCompanyAddress" name="address" required >
                 <option value="" >Choose your address</option>
                 <option *ngFor="let address of companyAddresses" [ngValue]="address" >
-                  {{address.city.name + ', ' + address.street}}
+                  {{ address.street}}
                 </option>
               </select>
             </div>
@@ -56,7 +63,7 @@
               <select id="where" [(ngModel)]="selectedAddress" name="address" required >
                 <option value="" >Choose your address</option>
                 <option *ngFor="let address of addresses" [ngValue]="address" >
-                  {{address.city.name + ', ' + address.street}}
+                  {{ + address.street}}
                 </option>
               </select>
             </div>
@@ -106,7 +113,7 @@
         <!-- Error Message -->
         <div class="text-danger">{{errorMessage}}</div>
 
-        <button type="submit" class="btn btn-primary">Add New Route</button>
+        <button type="submit" class="btn btn-primary" style="background-color: #3c94de; border-color: #3c94de">Add New Route</button>
       </form>
     </div>
   </div>

@@ -1,32 +1,39 @@
 <div class="container"  style="text-align: -webkit-center;">
 
-  <div class="content m-4">
+  <div class="row text-center" >
+    <h1 class="col m-3">
+      <u class="p-3 rounded-bottom" style="background: white;">
+        Create Address
+      </u>
+    </h1>
+  </div>
 
+  <div class="content m-4">
     <div class="card text-center">
-      <h3 class="card-title m-3">Add New Address</h3>
+
       <div class="card-body">
 <!--        <h5 class="card-title">Add New Address</h5>-->
 
         <form #ngForm="ngForm" (ngSubmit)="onSubmit(ngForm)">
 
-          <!-- Cities -->
-          <div class="form-group">
-            <label for="cities">City</label>
-            <div>
-              <select id="cities" [(ngModel)]="addressClass.city" name="cities" required >
-                <option *ngFor="let city of cities" [ngValue]="city" >
-                  {{city.name}}
-                </option>
-              </select>
-            </div>
+<!--          &lt;!&ndash; Cities &ndash;&gt;-->
+<!--          <div class="form-group">-->
+<!--            <label for="cities">City</label>-->
+<!--            <div>-->
+<!--              <select id="cities" [(ngModel)]="addressClass.city" name="cities" required >-->
+<!--                <option *ngFor="let city of cities" [ngValue]="city" >-->
+<!--                  {{city.name}}-->
+<!--                </option>-->
+<!--              </select>-->
+<!--            </div>-->
 
-            <!-- Validation for Cities -->
-            <div *ngIf="!addressClass.city && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">
-              <div class="text-danger">
-                City is required.
-              </div>
-            </div>
-          </div>
+<!--            &lt;!&ndash; Validation for Cities &ndash;&gt;-->
+<!--            <div *ngIf="!addressClass.city && ngForm.submitted && !isValidFormSubmitted" [ngClass] = "'error'">-->
+<!--              <div class="text-danger">-->
+<!--                City is required.-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
 
           <!-- Google Maps -->
           <div class="m-3">
@@ -89,7 +96,7 @@
 
           <div class="text-danger">{{errorMessage}}</div>
 
-          <button type="submit" class="btn btn-primary">Add New Address</button>
+          <button type="submit" class="btn btn-primary" style="background-color: #3c94de; border-color: #3c94de">Add New Address</button>
 
         </form>
 

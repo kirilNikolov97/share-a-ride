@@ -1,9 +1,6 @@
-import {City} from './city.model';
-
 export class Address {
 
   id: string;
-  city: City;
   district: string;
   street: string;
   additionalInfo: string;
@@ -13,7 +10,6 @@ export class Address {
 
   constructor() {
     this.id = null;
-    this.city = null;
     this.district = null;
     this.street = null;
     this.additionalInfo = null;

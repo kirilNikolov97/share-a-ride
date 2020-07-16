@@ -3,7 +3,6 @@ import {Address} from '../../../model/address.model';
 import {ProfileApiService} from '../../../_services/api/profile-api.service';
 import {NavigationService} from '../../../_services/navigation.service';
 import {MapsAPILoader} from '@agm/core';
-import {City} from '../../../model/city.model';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -19,7 +18,6 @@ export class CreateAddressComponent implements OnInit {
   zoom: number;
   address: string;
   private geoCoder;
-  cities: City[];
   errorMessage = '';
   isValidFormSubmitted = false;
 
@@ -36,10 +34,6 @@ export class CreateAddressComponent implements OnInit {
 
   ngOnInit() {
     this.addressClass = new Address();
-
-    this.apiServiceProfile.getAllCities().subscribe(res => {
-      this.cities = res;
-    });
 
     this.chooseFromMaps();
   }

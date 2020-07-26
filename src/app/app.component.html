@@ -28,7 +28,7 @@
           <a *ngIf="isLoggedIn && isDriver" class="nav-link btn p-0 m-2" (click)="open('/profile/cars')">Cars</a>
         </li>
         <li class="nav-item">
-          <a *ngIf="isLoggedIn" class="nav-link btn p-0 m-2" (click)="open('/profile/routes')">Routes</a>
+          <a *ngIf="isLoggedIn && tokenStorageService.getCompany()" class="nav-link btn p-0 m-2" (click)="open('/profile/routes')">Routes</a>
         </li>
         <li *ngIf="!isLoggedIn" (click)="open('/login')" class="btn btn-outline-success nav-item m-1">
           <span>Login</span>
@@ -50,7 +50,7 @@
     <router-outlet></router-outlet>
   </div>
 
-  <footer  class="footer bg-light">
+  <footer  class="footer">
     <!-- Copyright -->
     <div class="footer-copyright text-center text">
       © 2020 Kiril Nikolov

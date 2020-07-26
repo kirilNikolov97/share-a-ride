@@ -10,7 +10,6 @@
       <h1 >
         <u class="p-3 rounded-bottom" style="background: white;">
           Become Driver
-          <img class="m-1" src="../../../assets/address.png" alt="Become Driver" style="height: 40px">
         </u>
 
       </h1>
@@ -22,12 +21,12 @@
 
       <div class="card m-4" style="width: 60%;">
         <div class="card-body">
-          <img class="card-img-top" src="../../../assets/wheel.png" alt="Wheel" style="height: 250px; width: 250px">
+          <img class="card-img-top" src="../../../assets/wheel.png" alt="Wheel" style="height: 200px; width: 200px">
 
 
           <form #driverForm="ngForm" (ngSubmit)="onSubmit()">
 
-            <div class="form-group">
+            <div class="form-group m-4">
               <label for="isDriver">I have valid driving license </label>
               <input class="ml-2" type="checkbox" [(ngModel)]="isDriverCheckbox" name="isDriver" id="isDriver">
             </div>

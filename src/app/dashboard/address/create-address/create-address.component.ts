@@ -94,9 +94,11 @@ export class CreateAddressComponent implements OnInit {
       if (status === 'OK') {
         if (results[0]) {
           this.address = results[0].formatted_address;
+          console.log(this.address);
           let arr = this.address.split(',');
           this.addressClass.street = arr[0];
           this.addressClass.district = arr[1].trim();
+          this.addressClass.additionalInfo = arr.slice(2).join(', ');
         } else {
           window.alert('No results found');
         }

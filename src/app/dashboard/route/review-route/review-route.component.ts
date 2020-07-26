@@ -26,6 +26,8 @@ export class ReviewRouteComponent implements OnInit {
   private mapLng = 22.65;
   private notApprovedRouteStopId: string;
   private notApprovedRouteStop: RouteStop;
+  routeUserId: string;
+
 
   @ViewChild('map')
   public map: ElementRef;
@@ -35,7 +37,7 @@ export class ReviewRouteComponent implements OnInit {
     private apiServiceProfile: ProfileApiService,
     private navigation: NavigationService,
     private mapsAPILoader: MapsAPILoader,
-    private tokenStorage: TokenStorageService,
+    public tokenStorage: TokenStorageService
   ) {}
 
   ngOnInit() {
@@ -51,6 +53,7 @@ export class ReviewRouteComponent implements OnInit {
     this.routeId = this.activatedRoute.snapshot.paramMap.get('id');
     this.apiServiceProfile.getRouteById(this.routeId).subscribe(res => {
       this.route = res;
+      this.routeUserId = res.car.userId;
       this.apiServiceProfile.getAddressById(this.route.officeAddressId).subscribe(addrs => {
         this.officeLat = addrs.latitude;
         this.officeLng = addrs.longitude;

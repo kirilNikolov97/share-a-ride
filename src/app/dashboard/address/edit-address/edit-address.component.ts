@@ -109,6 +109,7 @@ export class EditAddressComponent implements OnInit {
           let arr = this.address.split(',');
           this.addressClass.street = arr[0];
           this.addressClass.district = arr[1].trim();
+          this.addressClass.additionalInfo = arr.slice(2).join(', ');
           // this.addressClass.city.name = arr[2];
           // console.log(this.addressClass.street + '  ' + this.addressClass.district + ' + ' + this.addressClass.city);
         } else {

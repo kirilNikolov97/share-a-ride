@@ -10,10 +10,12 @@ export class Car {
   year: number;
   color: string;
   deleted: boolean;
+  userId: string;
 
   constructor() {
     this.id = null;
     this.user = null;
+    this.userId = null;
     this.manufacturer = null;
     this.model = null;
     this.seats = null;

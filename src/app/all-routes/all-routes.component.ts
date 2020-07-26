@@ -167,7 +167,6 @@ export class AllRoutesComponent implements OnInit {
   }
 }
 
-
 export class DateRange {
   startDate: Date;
   endDate: Date;

@@ -28,7 +28,7 @@
           <div class="card m-4" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">{{address.district}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">TEST</h6>
+              <h6 class="card-subtitle mb-2 text-muted">{{address.additionalInfo}}</h6>
               <p class="card-text">{{address.district + ", " + address.street}}</p>
               <a (click)="navigation.open('profile/address/edit/' + address.id)"><button type="button" class="btn btn-warning">Edit</button></a>
               <a><button (click)="deleteAddress(address.id)" type="button" class="btn btn-danger float-right">Delete</button></a>

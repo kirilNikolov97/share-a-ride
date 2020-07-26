@@ -63,7 +63,7 @@
               <select id="where" [(ngModel)]="selectedAddress" name="address" required >
                 <option value="" >Choose your address</option>
                 <option *ngFor="let address of addresses" [ngValue]="address" >
-                  {{ + address.street}}
+                  {{address.street}}
                 </option>
               </select>
             </div>

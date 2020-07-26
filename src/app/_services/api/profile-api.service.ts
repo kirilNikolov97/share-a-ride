@@ -9,10 +9,9 @@ import {PasswordChange} from '../../model/password.change.model';
 import {RouteStop} from '../../model/route-stops.model';
 import {Rating} from '../../model/rating.model';
 import {ChartDataModel} from '../../model/charts-data-models/chart-data.model';
-import {LinearDataModel} from '../../model/charts-data-models/liner-data.model';
 
-// const API_URL = 'https://share-a-ride-nbu.herokuapp.com';
-const API_URL = 'http://localhost:8080';
+const API_URL = 'https://share-a-ride-nbu.herokuapp.com';
+// const API_URL = 'http://localhost:8080';
 const headers = {
   'Content-type': 'application/json'
 };

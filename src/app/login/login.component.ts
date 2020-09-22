@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {ProfileApiService} from '../_services/api/profile-api.service';
@@ -10,6 +10,7 @@ import {NavigationService} from '../_services/navigation.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  showPassword = false;
   form: any = {};
   isLoggedIn = false;
   isLoginFailed = false;
@@ -27,7 +28,6 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
-      console.log(this.tokenStorage.getUser());
       if (!this.tokenStorage.getUser().company) {
         this.apiServiceProfile.getCompany().subscribe( res => {
           this.tokenStorage.saveCompany(res);
@@ -63,5 +63,9 @@ export class LoginComponent implements OnInit {
 
   reloadPage() {
     window.location.reload();
+  }
+
+  showOrHidePassword() {
+    this.showPassword = !this.showPassword;
   }
 }

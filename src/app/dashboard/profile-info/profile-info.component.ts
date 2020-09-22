@@ -12,7 +12,8 @@ import {TokenStorageService} from '../../_services/token-storage.service';
   styleUrls: ['./profile-info.component.css']
 })
 export class ProfileInfoComponent implements OnInit {
-
+  showOldPassword = false;
+  showNewPassword = false;
   user: User;
   changePassword: PasswordChange;
   errorUserMessage = '';
@@ -21,6 +22,7 @@ export class ProfileInfoComponent implements OnInit {
   successPasswordMessage = '';
   isValidFormSubmitted = false;
   userPicture: File;
+  errorPhoneMessage = '';
 
   constructor(
     private apiServiceProfile: ProfileApiService,
@@ -42,6 +44,10 @@ export class ProfileInfoComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.isValidFormSubmitted = false;
     if (form.invalid) {
+      return;
+    }
+    if (/^\d+$/.test(this.user.phone) === false) {
+      this.errorPhoneMessage = 'Phone must contain only digits';
       return;
     }
     this.isValidFormSubmitted = true;
@@ -101,5 +107,13 @@ export class ProfileInfoComponent implements OnInit {
           this.errorUserMessage = error.error.message;
         }
       });
+  }
+
+  showOrHideOldPassword() {
+    this.showOldPassword = !this.showOldPassword;
+  }
+
+  showOrHideNewPassword() {
+    this.showNewPassword = !this.showNewPassword;
   }
 }

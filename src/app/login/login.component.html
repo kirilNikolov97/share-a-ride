@@ -18,14 +18,22 @@
         </div>
 
         <!-- Password -->
-        <div class="form-group ml-4 mr-4">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="form.password" required #password="ngModel"/>
-
+        <label for="password">Password</label>
+        <div class="ml-4 mr-4">
+          <div class="input-group">
+            <input type="password" class="form-control" id="password" name="password" [type]="showPassword === true ? 'text' : 'password'" [(ngModel)]="form.password" required #password="ngModel"/>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" (click)="showOrHidePassword()">
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
           <div class="text-danger" role="alert" *ngIf="f.submitted && password.invalid">
             <div *ngIf="password.errors.required">Password is required</div>
           </div>
         </div>
+
+        <br>
 
         <!-- Login Button -->
         <div class="form-group ml-4 mr-4">

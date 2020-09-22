@@ -26,7 +26,8 @@
 
           <!-- Phone -->
           <div class="form-group col-md-6">
-            <input type="number" class="form-control" name="phone" placeholder="Phone" [(ngModel)]="form.phone" required minlength="5" maxlength="10" #phone="ngModel"/>
+            <input type="text" class="form-control" name="phone" placeholder="Phone" [(ngModel)]="form.phone" required minlength="5" maxlength="10" #phone="ngModel"/>
+            <div class="text-danger">{{errorPhoneMessage}}</div>
 
             <div class="text-danger" *ngIf="f.submitted && phone.invalid">
               <div *ngIf="phone.errors.required">
@@ -95,8 +96,15 @@
           </div>
 
           <!-- Password -->
-          <div class="form-group col-md-6">
-            <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="form.password" required minlength="6" #password="ngModel"/>
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="password" class="form-control" name="password" placeholder="Password" [type]="showPassword === true ? 'text' : 'password'" [(ngModel)]="form.password" required minlength="6" #password="ngModel"/>
+              <div class="input-group-append mb-4">
+                <button class="btn btn-outline-secondary" type="button" (click)="showOrHidePassword()">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
             <div class="text-danger" *ngIf="f.submitted && password.invalid">
               <div *ngIf="password.errors.required">Password is required</div>
               <div *ngIf="password.errors.minlength">
@@ -104,6 +112,7 @@
               </div>
             </div>
           </div>
+
 
         </div>
 

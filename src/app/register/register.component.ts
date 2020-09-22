@@ -8,11 +8,12 @@ import {NavigationService} from '../_services/navigation.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+  showPassword = false;
   form: any = {};
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+  errorPhoneMessage = '';
 
   constructor(private authService: AuthService, private navigation: NavigationService) { }
 
@@ -20,6 +21,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    if (/^\d+$/.test(this.form.phone) === false) {
+      this.errorPhoneMessage = 'Phone must contain only digits';
+      return;
+    }
     this.authService.register(this.form).subscribe(
       data => {
         this.isSuccessful = true;
@@ -39,5 +44,9 @@ export class RegisterComponent implements OnInit {
 
   openLogin() {
     this.navigation.open('/login');
+  }
+
+  showOrHidePassword() {
+    this.showPassword = !this.showPassword;
   }
 }

@@ -20,9 +20,9 @@
       <!-- Unapproved route stops -->
       <div *ngIf="user.driver && this.futureRoutesAsDriverWaitingForApproval.length > 0">
 
-        <div class="card m-3" >
+        <div class="card m-3" style="border-color: #FFCE5B">
           <div class="card-body">
-            <h3 class="card-title">Waiting for approval:</h3>
+            <h3 class="card-title" style="color: #EBA708">Waiting for approval:</h3>
 
             <ul class="list-group list-group-flush">
               <li *ngIf="this.futureRoutesAsDriverWaitingForApproval.length == 0" class="list-group-item">Nothing to approve.</li>
@@ -73,7 +73,7 @@
                         <td> {{routeStop.address.district}} </td>
                         <td> {{routeStop.address.street}} </td>
                         <td> <div (click)="openProfile(routeStop.userId.id)" class="btn btn-link">{{routeStop.userId.username}} </div></td>
-                        <td> Approved: {{routeStop.approved}} </td>
+                        <td> Approved: <span *ngIf="routeStop.approved">yes</span><span *ngIf="!routeStop.approved">no</span></td>
                         <td>
                         <span (click)="approveRouteStop(routeStop.id)" class="btn p-0 m-2">
                           <img src="../../../assets/accept.png" alt="Map icon" style="height: 20px">

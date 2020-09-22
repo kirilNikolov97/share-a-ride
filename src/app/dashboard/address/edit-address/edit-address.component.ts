@@ -111,7 +111,6 @@ export class EditAddressComponent implements OnInit {
           this.addressClass.district = arr[1].trim();
           this.addressClass.additionalInfo = arr.slice(2).join(', ');
           // this.addressClass.city.name = arr[2];
-          // console.log(this.addressClass.street + '  ' + this.addressClass.district + ' + ' + this.addressClass.city);
         } else {
           window.alert('No results found');
         }

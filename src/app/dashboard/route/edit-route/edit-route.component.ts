@@ -63,7 +63,6 @@ export class EditRouteComponent implements OnInit {
         });
 
         this.apiServiceProfile.getCompanyAddresses().subscribe(add2 => {
-          console.log(add2);
           this.companyAddresses = add2;
           this.selectedCompanyAddress = this.companyAddresses.find(x => x.id === res.officeAddressId);
         });

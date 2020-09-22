@@ -98,7 +98,6 @@ export class StatisticsComponent implements OnInit {
     // this.apiServiceProfile.getAllRoutes().subscribe(res => {
     //   this.routes = res;
     //   this.calculateKm(this.routes);
-    //   console.log(this.sharedRidesInKm);
     // });
   }
 
@@ -157,7 +156,6 @@ export class StatisticsComponent implements OnInit {
   orderByRating() {
     this.apiServiceProfile.getTop15UsersByRating().subscribe(res => {
       this.topUsers = res;
-      console.log(this.topUsers);
     });
   }
 }

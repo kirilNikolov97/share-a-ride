@@ -1,5 +1,5 @@
 # FE-Share-A-Ride
-This is the front-end part of my diploma work. For more info about this project contact me at: kiril.nikolov.97@gmail.com
+This is the front-end part of my diploma work. For more info about this project please contact me.
 
 ## Register
 <img width="1224" alt="sign-up" src="https://user-images.githubusercontent.com/43845388/100137352-042d1400-2e95-11eb-914e-5f818e91b086.png">
